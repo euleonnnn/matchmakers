@@ -12,24 +12,29 @@ const ProfileItem = ({
 }) => {
 
   return (
-    <div className='profile bg-light'>
-      <img src={avatar} alt='' className='round-img' />
-      <div>
-        <h2>{name}</h2>
-        <p> <span className='text-primary'> Faculty: {""} </span> {faculty} {" "} | {" "} <span className='text-primary'> Year: {""} </span> {""} {year} </p>
-        <p> <strong> Interests: </strong></p>
-        <ul>
-            {interests.map(item => {
-              return <li>{item}</li>;
-            })}
-        </ul>
-        <Link to={`/profile/${_id}`} className='btn btn-primary'>
-          View Profile
-        </Link>
-      </div>
-
+    <div className="card mb-3">
+        <div className="row g-0">
+          <div className="col-md-4">
+            <img src={avatar} alt="" />
+          </div>
+          <div className="col-md-8">
+            <div className="card-body">
+              <h5 className="card-title">{name}</h5>
+              <p className="card-text"><span className='text-primary'> Faculty: {""} </span> {faculty} {" "} | {" "} <span className='text-primary'> Year: {""} </span> {""} {year}</p>
+              <p className="card-text"><strong>Interests:</strong></p>
+              <ul>
+                  {interests.map(item => {
+                    return <li>{item}</li>;
+                  })}
+              </ul>
+              <Link to={`/profile/${_id}`} className='btn btn-primary'>
+                View Profile
+              </Link>
+            </div>
+          </div>
+        </div>
     </div>
-  );
+  )
 };
 
 
