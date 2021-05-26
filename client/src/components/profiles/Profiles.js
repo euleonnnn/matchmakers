@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import Spinner from '../layout/Spinner'
@@ -8,7 +8,7 @@ import { getProfiles } from '../../actions/profile';
 const Profiles = ({getProfiles, profile: { profiles, loading }}) => {
     useEffect(()  => {
         getProfiles();
-    }, []);
+    }, [getProfiles]);
 
     const displayAll = profiles.length <= 0 ? <h4>No profiles found</h4> : 
     profiles.map(profile => (
@@ -18,7 +18,6 @@ const Profiles = ({getProfiles, profile: { profiles, loading }}) => {
     return <Fragment> 
         { loading ? <Spinner /> : <Fragment>
             <h1 className = "large text-primary"> Sports Enthusiasts of NUS </h1>
-            <p className = "lead"> Browse and connect with fellow sports enthusiasts</p>  
             <div className="profiles">
                 {displayAll}
             </div>

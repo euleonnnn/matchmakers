@@ -1,9 +1,6 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import profile from '../../reducers/profile';
-import { connect } from 'react-redux'
-import { getCurrentProfile } from '../../actions/profile';
 
 const ProfileItem = ({
   profile: {
@@ -19,7 +16,7 @@ const ProfileItem = ({
       <img src={avatar} alt='' className='round-img' />
       <div>
         <h2>{name}</h2>
-        <p> <span className='text-primary'> Faculty: {""} </span> {faculty}, <span className='text-primary'> Year: {""} </span> {""} {year} </p>
+        <p> <span className='text-primary'> Faculty: {""} </span> {faculty} {" "} | {" "} <span className='text-primary'> Year: {""} </span> {""} {year} </p>
         <p> <strong> Interests: </strong></p>
         <ul>
             {interests.map(item => {

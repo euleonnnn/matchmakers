@@ -34,28 +34,32 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
 
   return (
     <Fragment>
+      <div className ="card">
+        <div className ="card-body">
       <h1 className="large text-primary">Sign Up</h1>
-      <p className="lead">
-        <i className="fas fa-user" /> Create Your Account
+      <p className="lead badge badge-secondary">
+          Join Fellow Sports Enthusiasts in NUS and Have Some Fun Together 
       </p>
       <form className="form" onSubmit={onSubmit}>
         <div className="form-group">
           <input
             type="text"
-            placeholder="Full Name as in Matriculation Card"
+            placeholder="Name"
             name="name"
             value={name}
             onChange={onChange}
           />
+           <small className="form-text">Full Name as in Matriculation Card </small>
         </div>
         <div className="form-group">
           <input
             type="email"
-            placeholder="NUS Email Address"
+            placeholder="Email Address"
             name="email"
             value={email}
             onChange={onChange}
           />
+          <small className="form-text"> NUS Email Address only </small>
         </div>
         <div className="form-group">
           <input
@@ -65,6 +69,8 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
             value={password}
             onChange={onChange}
           />
+          <small className="form-text"> Minimum 6 characters </small>
+
         </div>
         <div className="form-group">
           <input
@@ -80,6 +86,8 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
       <p className="my-1">
         Already have an account? <Link to="/login">Sign In</Link>
       </p>
+      </div>
+      </div>
     </Fragment>
   );
 };

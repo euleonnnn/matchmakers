@@ -8,7 +8,7 @@ import { getCurrentProfile } from '../../actions/profile';
 import '../../css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 
-const Dashboard = ({ getFriends, getCurrentProfile, auth: { user, token }, profile : { profile, loading } }) => {
+const Dashboard = ({ getCurrentProfile, auth: { user}, profile : { profile, loading } }) => {
   // eslint-disable-next-line
   useEffect(() => {
     getCurrentProfile();
@@ -19,21 +19,21 @@ const Dashboard = ({ getFriends, getCurrentProfile, auth: { user, token }, profi
     return <Spinner />; 
   } else {
       return  <Fragment>
-      <h1 className="large text-primary"><i class="fas fa-dumbbell"/> {" "} {user && user.name}</h1>
+      <h1 className="large text-primary"><i class="fas fa-dumbbell"/> {" "} Hello There, {user && user.name}</h1>
       {profile !== null ? 
       <Fragment> 
 
       <div class="container">
         <div class="row">
           <div class="col-sm-9 col-md-9">
-            <h4>  My Interests </h4>
+            <h4 className="text-primary">  My Interests </h4>
               <ul>
                   {profile.interests.map(item => {
                     return <li>{item}</li>;
                   })}
               </ul>
 
-              <h4>  Here are the games we think you'd like : </h4>
+              <h4 className="text-primary">  Here are the games we think you'd like : </h4>
               <div className="card mb-3">
                     <div className="row g-0">
                       <div className="col-md-4">
@@ -49,7 +49,6 @@ const Dashboard = ({ getFriends, getCurrentProfile, auth: { user, token }, profi
                       </div>
                     </div>
                 </div>
-                
                 <div className="card mb-3">
                     <div className="row g-0">
                       <div className="col-md-4">

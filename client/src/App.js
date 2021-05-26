@@ -17,8 +17,6 @@ import { Provider } from 'react-redux';
 import store from './store';
 import { loadUser } from './actions/auth';
 import setAuthToken from './utils/setAuthToken';
-import $ from 'jquery';
-import Popper from 'popper.js';
 import './css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 

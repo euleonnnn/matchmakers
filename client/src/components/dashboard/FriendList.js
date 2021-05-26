@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -26,7 +26,7 @@ const FriendList = ({ auth: { user }}) => {
       
       <div className="card">
           <div className="card-header">
-              My Friends
+              <strong> My Friends </strong>
           </div>
         
           <ul className="list-group list-group-flush">
