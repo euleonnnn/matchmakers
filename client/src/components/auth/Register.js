@@ -69,7 +69,7 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
             value={password}
             onChange={onChange}
           />
-          <small className="form-text"> Minimum 6 characters </small>
+          <small className="form-text"> Minimum 7 characters </small>
 
         </div>
         <div className="form-group">

@@ -2,30 +2,26 @@ const express = require('express');
 const router = express.Router();
 const { check, validationResult } = require('express-validator');
 const gravatar = require('gravatar');
-//encrupt password
 const jwt = require('jsonwebtoken');
 const config = require('config');
-
 const bcrypt = require('bcryptjs');
-
 const { restart } = require('nodemon');
-
-//bringing in User model
 const User = require('../../models/User');
 
 
-//@route POST api/register
-//@desc Test route
-//@access Public
+/**
+ * @route POST api/users is a public @access route
+ * that allows any client to register a user account
+ * that fits requirements 
+ */
 router.post(
     '/', 
     [
-        //following are checks to make sure the blanks filled in properly
         check('name', 'Name is required')
             .not()
             .isEmpty(),
-            check('email','Please include a valid email').isEmail(),
-            check('password','Please enter a password with 6 or more characters').isLength({min: 6})
+            check('email','Please include a valid NUS email').isEmail(),
+            check('password','Please enter a password with 7 or more characters').isLength({min: 7})
     ],
     async (req, res) => {
     const errors = validationResult(req);
@@ -36,50 +32,41 @@ router.post(
     const { name, email, password } = req.body;
 
     try {
-        //see if user exists, check by email
         let user = await User.findOne({ email });
 
         if(user) {
-            return res.status(400).json({errors: [ {msg: "User already exists"} ] });
+            return res.status(400).json({errors: [ {msg: "The email is already registered"} ] });
         }
 
-        //get users gravatar, pass the users email to get gravatar url
-
         const avatar = gravatar.url(email, {
-            s: '200', //size
-            r: 'pg', //rating 
-            d: 'mm' //default - default icon
+            s: '200', 
+            r: 'pg', 
+            d: 'mm'
         })
         
-        //create new instance of user
         user = new User ({
             name,
             email,
             avatar,
             password
         });
-        //encrypt password through hashing
 
-        //10 is the rounds, the more you have the more secured, see documentation
-        //returns a promise, hence use await to return
-
-        const salt = await bcrypt.genSalt(10);
+        const salt = await bcrypt.genSalt(5);
 
         user.password = await bcrypt.hash(password, salt);
 
         const newUser = await user.save();
     
-        //return jsonwebtoken - allows users to get logged in
         const payload = {
             user: {
-                id: user.id //the main part of our payload will only contain user id which is like a long string of hashcode
+                id: user.id 
             }
         }
 
         jwt.sign(
             payload, 
             config.get('jwtSecret'),
-            {expiresIn: 360000},   //time taken for token to expire
+            {expiresIn: 3600000},   
             (err, token)=> {
                 if(err) throw err;
                 res.json({token, newUser});
@@ -93,10 +80,12 @@ router.post(
   
 });
 
-//@route PUT api/users/:user_id/follow
-//@desc Follow someone
-//@access Private
 
+/**
+ * @route PUT api/users/:user_id/follow is an @access 
+ * route that allows a user to add another user in the
+ * given html param as a friend
+ */
 router.put("/:user_id/follow", async (req, res) => {
     if (req.body.userId !== req.params.user_id) {
         try {
@@ -118,10 +107,12 @@ router.put("/:user_id/follow", async (req, res) => {
       }
 });
 
-//@route PUT api/users/:user_id/unfollow
-//@desc Unfollow someone
-//@access Private
 
+/**
+ * @route PUT api/users/:user_id/unfollow is an @access 
+ * route that allows a user to remove another user in the
+ * given html param as a friend
+ */
 router.put("/:user_id/unfollow", async (req, res) => {
     if (req.body.userId !== req.params.user_id) {
       try {
@@ -144,10 +135,11 @@ router.put("/:user_id/unfollow", async (req, res) => {
 });
 
 
-
-//@route GET api/users/friends/:user_id
-//@desc Get all friends of a particular user_id
-//@access Private
+/**
+ * @route GET api/users/friends/user_id is an @access 
+ * route that allows a user to get the friends of a 
+ * particular user_id as in the html param
+ */
 router.get("/friends/:user_id", async (req, res) => {   
     try {
         const currUser = await User.findById(req.params.user_id);

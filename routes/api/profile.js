@@ -9,31 +9,33 @@ const {check, validationResult} = require('express-validator');
 const Profile = require('../../models/Profile');
 const User = require('../../models/User');
 
-//@route GET api/profile/me
-//@desc Get current users profile
-//@access Private
-
+/**
+ * @route GET api/profile/me is a private @access route
+ * that returns the response profile of the logged-in user
+ * who will be uniquely identified by the @param auth token
+ * if valid
+ */
 router.get('/me', auth, async (req, res) => {
     try {
-        //bring in the array of name and avatar from the keyword user. Hence we specified we want to see the user object 
-        //with the name and avatar in the UI
-        const profile = await Profile.findOne({user: req.user.id}).populate('user',
-        ['name', 'avatar']);
+        const profile = await Profile.findOne({user: req.user.id}).populate('user',['name', 'avatar']);
         if (!profile) {
-            return res.status(400).json({ msg: 'There is no profile for this user'});
+            return res.status(400).json({ msg: 'This user does not have a profile yet'});
         }
         res.json(profile);  
 
     } catch (err) {
         console.error(err.message);
-        res.status(500).send('Server Error');
+        res.status(500).send('Error In Server');
     }
 });
 
 
-//@route POST api/profile
-//@desc Create or update user profile
-//@access Private
+
+/**
+ * @route POST api/profile is a private @access route
+ * that enables a logged in user uniquely identified by @param auth 
+ * to create profile (if haven't) or update existing profile
+ */
 router.post(
     '/',
     [auth,
@@ -48,17 +50,14 @@ router.post(
         return res.status(400).json({ errors: errors.array() });
       }
 
-
       const {
         faculty,
         year,
         interests,
         bio,
         facebook,
-        twitter,
-        instagram,
-        linkedin
-      } = req.body;
+        instagram      
+    } = req.body;
       
       const profileFields = {};
       profileFields.user = req.user.id;
@@ -71,43 +70,38 @@ router.post(
         profileFields.interests = interests.split(',').map(int => int.trim());
       }
       
-      //Build social object
       profileFields.social = {};
-      if (twitter) profileFields.social.twitter = twitter;
       if (facebook) profileFields.social.facebook = facebook;
-      if (linkedin) profileFields.social.linkedin = linkedin;
       if (instagram) profileFields.social.instagram = instagram;
 
       try {
         let profile = await Profile.findOne({user: req.user.id});
         
         if (profile) {
-            //update 
             profile = await Profile.findOneAndUpdate(
-                { user: req.user.id },  //find by user
-                { $set: profileFields }, //set the profile fields
+                { user: req.user.id },  
+                { $set: profileFields },
                 { new: true} 
             );
 
             return res.json(profile);
         }
 
-        //Create (if not found)
         profile = new Profile(profileFields);
-        await profile.save(); //save
-        res.json(profile); //send back the profile
-
+        await profile.save(); 
+        res.json(profile); 
       } catch(err) {
           console.error(err.message);
-          res.status(500).send('Server Error');
+          res.status(500).send('Error in Server');
       }
 }); 
 
   
-//@route GET api/profile
-//@desc Get all profiles
-//@access Public
 
+/**
+ * @route GET api/profile is a public @access route
+ * that returns all the user profiles on the database
+ */
 router.get('/', async (req,res) => {
     try {
         //include the user name and avatar in the profile we retrieve
@@ -116,21 +110,18 @@ router.get('/', async (req,res) => {
         res.json(profiles);  
     } catch (err) {
         console.error(err.message);
-        res.status(500).send('Server Error');
+        res.status(500).send('Error In Server');
     }
 })
 
-//@route GET api/profile/user/:user_id
-//@desc Get profile by user ID
-//@access Public
 
-//colon used for placeholder value
+/**
+ * @route GET api/profile is a public @access route
+ * that returns all the user profile of a specified 
+ * user_id in the html param
+ */
 router.get('/user/:user_id', async (req,res) => {
     try {
-        //include the user name and avatar in the profile we retrieve
-        //note that the profile will include other things like experience, company etc.
-        //notice we use req.params.user_id, param meaning the user id is typed tgt with url
-
         const profile = await Profile.findOne({user: req.params.user_id}).populate('user', ['name', 'avatar']);
         
         if (!profile) {
@@ -143,21 +134,21 @@ router.get('/user/:user_id', async (req,res) => {
         if(err.kind == 'ObjectId') {
             return res.status(400).json({msg: 'Profile not found'});
         }
-        res.status(500).send('Server Error');
+        res.status(500).send('Error in Server');
     }
 })
 
-//@route DELETE api/profile
-//@desc Delete profile, user & posts
-//@access Private
 
+
+/**
+ * @route DELETE api/profile is a private @access route
+ * that allows a logged in user uniquely identified by 
+ * @param auth token to be deleted off the database 
+ */
 router.delete('/', auth, async (req,res) => {
     try {
-        //remove profile
         await Profile.findOneAndRemove({ user: req.user.id });
-        //remove user
         await User.findOneAndRemove({ _id: req.user.id});
-
         res.json({msg: 'User deleted'});  
 
     } catch (err) {

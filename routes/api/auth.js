@@ -7,27 +7,33 @@ const jwt = require('jsonwebtoken');
 const config = require('config');
 const User = require('../../models/User');
 
-//@route GET api/auth
-//@desc Test route
-//@access Public
+
+/**
+ * @route GET api/auth is a Public @access route
+ * that returns the response user if @param auth 
+ * token is valid
+ */
+
 router.get('/', auth, async (req, res) => {
     try {
-        //leave out the password in the data, validate user by id
         const user = await User.findById(req.user.id).select('-password');
         res.json(user);
     } catch(err) {
         console.error(err.message);
-        res.status(500).send('Server error');
+        res.status(500).send('Error in Server');
     }
 });
 
-//@route GET api/auth
-//@desc Authenticate user & get token
-//@access Public
+
+/**
+ * @route POST api/auth is a Public @access route
+ * that respond with a unique token after validating the email
+ * and password in the req body.
+ */
 router.post(
     '/', 
     [
-        check('email','Invalid Email').exists(),
+        check('email','Invalid NUS Email').exists(),
         check('password','Password needs to have 6 or more characters').exists()
     ],
     async (req, res) => {
@@ -44,17 +50,17 @@ router.post(
             if(!user) {
                 return res
                     .status(400)
-                    .json({errors: [ {msg: "Invalid credentials"} ] });
+                    .json({errors: [ {msg: "Invalid credentials. Please make sure you used the correct NUS Email and Password"} ] });
+            } else {
+                const isMatch = await bcrypt.compare(password, user.password);
+
+                if(!isMatch) {
+                    return res
+                        .status(400)
+                        .json({errors: [ {msg: "Invalid credentials. Please make sure you used the correct NUS Email and Password"} ] });
+                }
             }
-
-            const isMatch = await bcrypt.compare(password, user.password);
-
-            if(!isMatch) {
-                return res
-                    .status(400)
-                    .json({errors: [ {msg: "Invalid credentials"} ] });
-            }
-
+            
             const payload = {
                 user: {
                     id: user.id 
@@ -64,7 +70,7 @@ router.post(
             jwt.sign(
                 payload, 
                 config.get('jwtSecret'),
-                {expiresIn: 360000},   
+                {expiresIn: 3600000},   
                 (err, token)=> {
                     if(err) throw err;
                     res.json({token});
@@ -72,7 +78,7 @@ router.post(
 
         } catch (err) {
             console.error(err.message);
-            res.status(500).send('Server error');
+            res.status(500).send('Error in Server');
         }
     });
 
