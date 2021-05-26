@@ -6,7 +6,19 @@ import { register } from '../../actions/auth';
 import PropTypes from 'prop-types';
 import '../../css/bootstrap.min.css';
 
+/**
+ * Functional component for register page, allows client to
+ * change the fields on the register page, as well as register 
+ * their account by following the requirements for their account 
+ * credentials. Parameters will be destructured props
+ * @param setAlert Our set alert action which will dispatch at alert
+ * @param register
+ * @param isAuthenticated A boolean state in auth, to ensure that 
+ * authenticated users who are logged in will be directed to dashboard
+ */
 const Register = ({ setAlert, register, isAuthenticated }) => {
+  
+  //Initial state of form data is blank
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -22,7 +34,7 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
   const onSubmit = async (e) => {
     e.preventDefault();
     if (password !== password2) {
-      setAlert('Passwords do not match', 'danger');
+      setAlert('Passwords do not match. Please retype.', 'danger');
     } else {
       register({ name, email, password });
     }

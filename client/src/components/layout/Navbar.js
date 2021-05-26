@@ -8,7 +8,11 @@ import '../../css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 import { getCurrentProfile} from '../../actions/profile';
 
-
+/**
+ * Functional component for the navigation bar. The links on the 
+ * nav bar will switch based on user's logged in and set up state.
+ * 
+ */
 const Navbar = ({getCurrentProfile, auth, profile: {profile}, logout}) => {
     // eslint-disable-next-line
     useEffect(() => {

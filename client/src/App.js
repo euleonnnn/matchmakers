@@ -25,9 +25,14 @@ if (localStorage.token) {
   setAuthToken(localStorage.token);
 }
 
+/**
+ * App is a function with no parameter and will be rendered
+ * by ReactDOM. It contains all the routes and necessary components
+ * that we have used so far
+ */
 const App = () => {
   useEffect(()=> {     
-    store.dispatch(loadUser());  //load user, allows us to have a user token in the local storage
+    store.dispatch(loadUser());  
   }, []);
 
   return (

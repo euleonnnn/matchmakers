@@ -7,6 +7,11 @@ const initialState = {};
 
 const middleware = [thunk];
 
+/**
+ * Create redux store
+ * @param allReducers all the reducers which we will be using
+ * @param initialState initial state empty object
+ */
 const store = createStore(
   allReducers,
   initialState,

@@ -2,6 +2,12 @@ import { SET_ALERT, REMOVE_ALERT } from '../actions/types';
 
 const initialState = [];
 
+/**
+ * Reducer function for alert, where we have cases of setting alert
+ * and removing alert. 
+ * @param state State will be empty at first
+ * @param action Will be the dispatched action setAlert
+ */
 function alertReducer(state = initialState, action) {
   const { type, payload } = action;
 
