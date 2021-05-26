@@ -3780,6 +3780,7 @@ input[type='submit'].btn-block {
     transition: none;
   }
 }
+
 .nav {
   display: -ms-flexbox;
   display: flex;
@@ -9048,6 +9049,7 @@ button.bg-dark:hover {
 }
 .text-primary {
   color: #f58f7c !important;
+  font-family: 'Franklin Gothic Medium';
 }
 a.text-primary:focus,
 a.text-primary:hover {

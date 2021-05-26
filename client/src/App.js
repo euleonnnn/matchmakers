@@ -12,10 +12,9 @@ import EditProfile from './components/user-profile/EditProfile';
 import UserProfile from './components/profiles/UserProfile';
 import PrivateRoute from './components/routing/PrivateRoute';
 import Profiles from './components/profiles/Profiles';
-//Redux
 import { Provider } from 'react-redux';
 import store from './store';
-import { loadUser } from './actions/auth';
+import { authUser } from './actions/auth';
 import setAuthToken from './utils/setAuthToken';
 import './css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
@@ -28,21 +27,23 @@ if (localStorage.token) {
 /**
  * App is a function with no parameter and will be rendered
  * by ReactDOM. It contains all the routes and necessary components
- * that we have used so far
+ * that we have used so far. useEffect is mounted, and will only run 
+ * once.
  */
 const App = () => {
   useEffect(()=> {     
-    store.dispatch(loadUser());  
+    store.dispatch(authUser());  
   }, []);
 
   return (
     <Provider store = {store}>
     <Router>
+      
     <Fragment>
       <Navbar />
-      <Route exact path ="/" component= { Landing } />
-      <section className="container">
-        <Alert />
+        <Route exact path ="/" component= { Landing } />
+      <section className="box">
+       <Alert />
         <Switch> 
           <Route exact path ="/register" component= {Register} />
           <Route exact path ="/login" component= {Login} />
@@ -52,8 +53,7 @@ const App = () => {
           <PrivateRoute exact path ="/profile/:id" component= {UserProfile} />
           <PrivateRoute exact path ="/create-profile" component= {CreateProfile} />
           <PrivateRoute exact path ="/edit-profile" component= {EditProfile} />
-          
-        </Switch>
+        </Switch> 
       </section>
     </Fragment>
     </Router>

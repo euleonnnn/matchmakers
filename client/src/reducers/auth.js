@@ -1,53 +1,48 @@
 import {
-    REGISTER_SUCCESS,
-    REGISTER_FAIL,
-    USER_LOADED,
+    REG_SUCCESS,
+    REG_FAIL,
+    AUTH_SUCCESS,
     AUTH_ERROR,
     LOGIN_SUCCESS,
     LOGIN_FAIL,
     LOGOUT,
-    FOLLOW_USER
 } from '../actions/types';
 
 const initialState = {
     token: localStorage.getItem('token'),
-    isAuthenticated: null, //will be set to true when successfully registered
     loading: true,
-    user: null
+    user: null,
+    isAuthenticated: null 
 }
 
 
+/**
+ * Reducer function for auth, to authenticate registration
+ * and logging in
+ * @param state initial state cotaining token, loading, user and isAuthenticated
+ * @param action Will be the dispatched action from auth.js in actions
+ */
 export default function(state = initialState, action) {
     const { type, payload } = action;
 
     switch(type) {
-        case USER_LOADED:
+        case AUTH_SUCCESS:
             return {
                 ...state,
-                isAuthenticated: true,
                 loading: false,
-                user: payload //payload includes the user name, email, avatar
+                user: payload,
+                isAuthenticated: true 
             }
-        case FOLLOW_USER:
-            return {
-                ...state,
-                isAuthenticated: true,
-                loading: false,
-                user: {
-                    ...state.user,
-                    followings: [...state.user.followings, action.payload]
-                }
-            }
-        case REGISTER_SUCCESS:
+        case REG_SUCCESS:
         case LOGIN_SUCCESS:
             localStorage.setItem('token', payload.token); //set token if successfully registered
             return {
                 ...state,
                 ...payload,
-                isAuthenticated: true,
-                loading: false
+                loading: false,
+                isAuthenticated: true
             }
-        case REGISTER_FAIL:
+        case REG_FAIL:
         case AUTH_ERROR:   
         case LOGIN_FAIL:
         case LOGOUT:
@@ -55,9 +50,9 @@ export default function(state = initialState, action) {
             return {
                 ...state,
                 token: null,
-                isAuthenticated: false,
                 loading: false,
-                user: null
+                user: null,
+                isAuthenticated: false
             }
         default: 
             return state;

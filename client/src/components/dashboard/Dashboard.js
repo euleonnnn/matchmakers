@@ -7,6 +7,8 @@ import FriendList from './FriendList';
 import { getCurrentProfile } from '../../actions/profile';
 import '../../css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
+import bball from '../layout/bball.jpg';
+import bball2 from '../layout/bball2.jpg';
 
 const Dashboard = ({ getCurrentProfile, auth: { user}, profile : { profile, loading } }) => {
   // eslint-disable-next-line
@@ -37,7 +39,7 @@ const Dashboard = ({ getCurrentProfile, auth: { user}, profile : { profile, load
               <div className="card mb-3">
                     <div className="row g-0">
                       <div className="col-md-4">
-                        <img src="../layout/bball.jpg" alt="Eusoff"/>
+                        <img src={bball} alt="Eusoff"/>
                       </div>
                       <div className="col-md-8">
                         <div className="card-body">
@@ -52,11 +54,11 @@ const Dashboard = ({ getCurrentProfile, auth: { user}, profile : { profile, load
                 <div className="card mb-3">
                     <div className="row g-0">
                       <div className="col-md-4">
-                        <img src="../layout/bball.jpg" alt="Eusoff"/>
+                        <img src={bball2} alt="MPSH"/>
                       </div>
                       <div className="col-md-8">
                         <div className="card-body">
-                          <h5 className="card-title">Soccer</h5>
+                          <h5 className="card-title">Basketball</h5>
                           <p className="card-text">Location: MPSH 5 Basketball Court </p>
                           <p className="card-text">Players: 5 out of 6</p>
                           <p className="card-text"><small className="text-muted">Created: 1 hour ago</small></p>
@@ -72,7 +74,6 @@ const Dashboard = ({ getCurrentProfile, auth: { user}, profile : { profile, load
           </div>
         </div>
       </div>
-
 
       
 

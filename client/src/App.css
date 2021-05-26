@@ -35,13 +35,19 @@ img {
 }
 
 /* Utilities */
-.container {
+.box {
   max-width: 1100px;
   margin: auto;
   overflow: hidden;
   padding: 0 2rem;
   margin-top: 6rem;
   margin-bottom: 3rem;
+}
+
+.box-body {
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 }
 
 /* Text Styles*/
@@ -227,7 +233,6 @@ img {
   left: 0;
   width: 100%;
   height: 100%;
-  overflow-y: scroll;
   background: url('./img/background.jpg') no-repeat center center/cover;
 }
 
@@ -242,12 +247,25 @@ img {
   color: #888;
 }
 
-.form input[type='text'],
+.form input[type='name'],
 .form input[type='email'],
 .form input[type='password'],
 .form input[type='date'],
-.form select,
-.form textarea {
+.form select {
+  width: 100%;
+  padding: 0.5rem;
+  font-size: 1.2rem;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid #020202;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  border-radius: 0;
+  color: #020202;
+}
+
+.form textarea,
+.form input[type='text'] {
   width: 100%;
   padding: 0.5rem;
   font-size: 1.2rem;
@@ -257,6 +275,7 @@ img {
   -webkit-box-shadow: none;
   box-shadow: none;
   border-radius: 0;
+  color: #000000;
 }
 
 .form input[type='submit'],
@@ -349,6 +368,7 @@ button {
   align-items: center;
   justify-content: center;
   text-align: center;
+  overflow: auto;
 }
 
 /* Profiles Page */
@@ -492,7 +512,7 @@ button {
 
 /* Mobile Styles */
 @media (max-width: 700px) {
-  .container {
+  .box {
     margin-top: 8rem;
   }
 

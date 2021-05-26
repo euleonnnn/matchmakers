@@ -18,9 +18,8 @@ const FriendList = ({ auth: { user }}) => {
           }
         };
         getFriends();
-      }, [user]);
+      });
 
-    
     
     return (
       

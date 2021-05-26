@@ -10,7 +10,11 @@ import {
 } from './types';
 
 
-//get profile of requested user 
+/**
+ * Function getCurrentProfile, which disptaches the action type
+ * GET_PROFILE to reducer profile.js, and retrieves the profile 
+ * document of the current logged in user 
+ */
 export const getCurrentProfile = () => async dispatch => {
     try {
         const res = await axios.get('/api/profile/me');

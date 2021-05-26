@@ -11,7 +11,11 @@ import { getCurrentProfile} from '../../actions/profile';
 /**
  * Functional component for the navigation bar. The links on the 
  * nav bar will switch based on user's logged in and set up state.
- * 
+ * Params are destructured prop.
+ * @param getCurrentProfile function which helps to get profile of current logged in user
+ * @param auth get the auth state and document of logged in user 
+ * @param profile the profile document of logged in user
+ * @param logout function which logs out user
  */
 const Navbar = ({getCurrentProfile, auth, profile: {profile}, logout}) => {
     // eslint-disable-next-line
@@ -19,7 +23,7 @@ const Navbar = ({getCurrentProfile, auth, profile: {profile}, logout}) => {
       getCurrentProfile();
     }, [getCurrentProfile]);
     
-    const authLinks = (
+    const loggedinLinks = (
         <ul className="navbar-nav me-auto mb-2 mb-lg-0">
           <li className="nav-item"><a onClick={logout} href="#!">
             <i className="fas fa-sign-out-alt"></i> {' '}
@@ -65,12 +69,13 @@ const Navbar = ({getCurrentProfile, auth, profile: {profile}, logout}) => {
       <nav className ="navbar navbar-expand-lg navbar-dark bg-dark">
       <div className ="container-fluid">
         <a className="navbar-brand"><Link to="/dashboard"> (Match) Maker </Link> </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" 
+        <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" 
           aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
           <span className="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-        { !auth.loading && (<Fragment>{auth.isAuthenticated ? (profile !== null &&  auth.user._id === profile.user._id ? profileLinks : authLinks) : guestLinks}</Fragment>)}
+        <div className="collapse navbar-collapse" id="navbarTogglerDemo02">
+        { !auth.loading && (<Fragment>{auth.isAuthenticated ? (profile !== null &&  
+            auth.user._id === profile.user._id ? profileLinks : loggedinLinks) : guestLinks}</Fragment>)}
         </div>
       </div>
     </nav>

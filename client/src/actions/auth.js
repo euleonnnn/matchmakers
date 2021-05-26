@@ -2,39 +2,24 @@ import axios from 'axios';
 import { setAlert } from './alert';
 
 import {
-    REGISTER_SUCCESS,
-    REGISTER_FAIL,
-    USER_LOADED,
+    REG_SUCCESS,
+    REG_FAIL,
+    AUTH_SUCCESS,
     AUTH_ERROR,
     LOGIN_SUCCESS,
     LOGIN_FAIL,
     LOGOUT,
     CLEAR_PROFILE,
-    FOLLOW_USER
 } from './types';
 
 import setAuthToken from '../utils/setAuthToken';
 
-// Load User
-export const loadUser = () => async dispatch => {
-    if(localStorage.token) {
-        setAuthToken(localStorage.token);
-    }
-    try {
-        const res = await axios.get('/api/auth');
-        dispatch({
-            type: USER_LOADED,
-            payload: res.data
-        })
-    } catch (err) {
-        dispatch({
-            type: AUTH_ERROR
-        })
-    }
-}
 
-
-// Register User
+/**
+ * Function register, which dispatches the actions REG_SUCCESS or 
+ * REG_FAILURE to the reducer auth.js. 
+ * @param destructured name, email and password that will be in the form
+ */
 export const register = ({name, email, password}) => async dispatch => {
     const config = {
         headers: {
@@ -42,50 +27,49 @@ export const register = ({name, email, password}) => async dispatch => {
         }
     }
 
-    const body = JSON.stringify({name, email, password});
-
     try {
-        const res = await axios.post('/api/users', body, config);
+        const res = await axios.post('/api/users', JSON.stringify({name, email, password}) , config);
         dispatch({
-            type: REGISTER_SUCCESS,
+            type: REG_SUCCESS,
             payload: res.data
         });
-
-        dispatch(loadUser());
+        dispatch(authUser());
 
     } catch (err) {
         const errors = err.response.data.errors;
-
         if (errors) {
-            errors.forEach(error=>dispatch(setAlert(error.msg,'danger')));
+            errors.map(error => dispatch(setAlert(error.msg,'danger')));
         }
-        
         dispatch({
-            type: REGISTER_FAIL
+            type: REG_FAIL
         });
     }
 }
 
+/**
+ * Function login, which dispatches the actions LOGIN_SUCCESS or 
+ * LOGIN_FAIL to the reducer auth.js, based on the email and password
+ * provided in the form on the frontend
+ * @param email form email keyed in by client
+ * @param password form password keyed in by client
+ */
 
-
-// Login User
 export const login = (email, password) => async dispatch => {
-  const body = { email, password };
 
   try {
-    const res = await axios.post('/api/auth', body);
+    const res = await axios.post('/api/auth', { email, password });
 
     dispatch({
       type: LOGIN_SUCCESS,
       payload: res.data
     });
 
-    dispatch(loadUser());
+    dispatch(authUser());
   } catch (err) {
     const errors = err.response.data.errors;
 
     if (errors) {
-      errors.forEach(error => dispatch(setAlert(error.msg, 'danger')));
+      errors.map(error => dispatch(setAlert(error.msg, 'danger')));
     }
 
     dispatch({
@@ -94,15 +78,36 @@ export const login = (email, password) => async dispatch => {
   }
 };
 
-//Logout / Clear Profile
+/**
+ * Function loadUser, which dispatches the action AUTH_SUCCESS
+ * to the reducer auth.js. No param, if local storage still has
+ * token then load it. Otherwise go to the Get User Auth route
+ */
+ export const authUser = () => async dispatch => {
+    if(localStorage.token) {
+        setAuthToken(localStorage.token);
+    }
+    try {
+        const res = await axios.get('/api/auth');
+        dispatch({
+            type: AUTH_SUCCESS,
+            payload: res.data
+        })
+    } catch (err) {
+        dispatch({
+            type: AUTH_ERROR
+        })
+    }
+}   
+
+
+
+/**
+ * Function logout which dispatches the action types CLEAR_PROFILE and LOGOUT,
+ * when user hits the button
+ */
 export const logout = () => dispatch => {
   dispatch({type: CLEAR_PROFILE});  
   dispatch({type: LOGOUT});  
 };
 
-
-//follow user
-export const Follow = (userId) => ({
-    type: FOLLOW_USER,
-    payload: userId,
-});
