@@ -38,9 +38,7 @@ const Login = ({ login, isAuthenticated }) => {
     <Fragment>
             <div className ="box-body">
               <h1 className="large text-primary">Sign In</h1>
-              <p className="lead badge badge-secondary">
-                Sign In and Get Ready for Endless Opportunities to Play Your Favourite Sports
-              </p>
+              
               <form className="form" onSubmit={onSubmit}>
                 <div className="form-group">
                       <input

@@ -87,13 +87,21 @@ h4,
 h5,
 h6 {
   margin-top: 0;
-  margin-bottom: 0.5rem;
+}
+
+h1 {
+  text-align: center;
+}
+
+.big-header {
+  margin-bottom: 5rem;
 }
 
 p {
   margin-top: 0;
   margin-bottom: 1rem;
 }
+
 abbr[data-original-title],
 abbr[title] {
   text-decoration: underline;
@@ -104,6 +112,7 @@ abbr[title] {
   -webkit-text-decoration-skip-ink: none;
   text-decoration-skip-ink: none;
 }
+
 address {
   margin-bottom: 1rem;
   font-style: normal;

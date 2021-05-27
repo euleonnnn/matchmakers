@@ -49,9 +49,7 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
     <Fragment>
             <div className ="box-body">
               <h1 className="large text-primary">Sign Up</h1>
-              <p className="lead badge badge-secondary">
-                  Join Fellow Sports Enthusiasts in NUS and Have Some Fun Together 
-              </p>
+              
               <form className="form" onSubmit={onSubmit}>
                 <div className="form-group">
                   <input

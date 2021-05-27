@@ -21,7 +21,7 @@ const Dashboard = ({ getCurrentProfile, auth: { user}, profile : { profile, load
     return <Spinner />; 
   } else {
       return  <Fragment>
-      <h1 className="large text-primary"><i class="fas fa-dumbbell"/> {" "} Hello There, {user && user.name}</h1>
+      <h1 className="large text-primary big-header"><i class="fas fa-dumbbell"/> {" "} Hello There, {user && user.name}</h1>
       {profile !== null ? 
       <Fragment> 
 
