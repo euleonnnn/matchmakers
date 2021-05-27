@@ -10,7 +10,7 @@ COVID-19 has made it especially difficult for us to make new friends in NUS, and
 
 The issue is even more amplified when we consider the difficulty of finding people of similar skill level — games often become less enjoyable when there is a significant skills mismatch.
 
-As such, we came up with a platform to facilitate enjoyable and casual sports acitivities, lowering the barriers to entry to sports and present users with the opportunities to rekindle their passion in sports. On top of that, you get to make new friends in NUS at a time where meeting new people is made particularly difficult.
+As such, we came up with a platform to facilitate enjoyable and casual sports acitivities, lowering the barriers to entry to sports and present student with the opportunities to rekindle their passion in sports. On top of that, students get to utilise this platform to forge meaningful friendships which can extend outside the realm of sports.
 
 ## Aim
 We hope to be a convenient and accessible intermediary platform where sports matches are set up for people based on sports interests and skill levels, ultimately motivating the pursuance of sports.
