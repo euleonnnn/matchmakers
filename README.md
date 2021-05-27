@@ -47,6 +47,7 @@ We hope to be a convenient and accessible intermediary platform where sports mat
 | Users can either invite their friends or book the facilities and allow other interested users they may not know of to join their game | Users have to find players through their own means, be it a friend or an acquaintance |
 | Users can interact and meet other players who they do not have prior any connections with by creating or joining games | Conventionally, users will usually find friends or acquaintances to play with them, meeting new people is a rare occasion |
 | Users can expect to be reminded of their upcoming matches as they subscribe to the Telegram bot | Users will have to remember their own bookings by themselves |
+| Essentially a one-stop platform for sports activities, from (logistics) arrangement to the actualisation | Barriers to entry for sports activities remain high for students who do not have friends with similar interests or experience levels |
 
 ## Demo
 | Sign In | Create Profile | Create Game |
