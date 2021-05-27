@@ -6,7 +6,7 @@ Apollo 11
 Done by: Hung Eu Leon & Lai Yuen Sheng
 
 ## Motivation
-COVID-19 has made it especially difficult for us to make new friends in NUS, and consequently, more difficult for us to find our “kakis” to engage in sports with. With social activities curtailed, many students don’t have many opportunities to build connections in university, much less meet people with similar interests.
+COVID-19 has made it especially difficult for students to make new friends in NUS, and consequently, more difficult for them to find their “kakis” to engage in sports with. With social activities curtailed, many students don’t have many opportunities to build connections in university, much less meet people with similar interests.
 
 The issue is even more amplified when we consider the difficulty of finding people of similar skill level — games often become less enjoyable when there is a significant skills mismatch.
 
