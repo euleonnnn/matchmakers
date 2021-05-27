@@ -28,11 +28,11 @@ We hope to be a convenient and accessible intermediary platform where sports mat
 
 ### Features to be completed by mid June
 1. Mobile App  
-  a. Allow users to sign up and create their own profile on the platform
-  b. Allow users to create games and await for slots to be filled 
-  c. Show list of available games over the next few days and allow users to join games and fill up slots
-  d. Allow the booking of NUS facilities should a game be set up 
-  e. Database for user profile, games and NUS facilities
+  - Allow users to sign up and create their own profile on the platform
+  - Allow users to create games and await for slots to be filled 
+  - Show list of available games over the next few days and allow users to join games and fill up slots
+  - Allow the booking of NUS facilities should a game be set up 
+  - Database for user profile, games and NUS facilities
       
 2. Telegram will remind users of upcoming matches
 
