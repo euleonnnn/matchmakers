@@ -24,10 +24,10 @@ We hope to be a convenient and accessible intermediary platform where sports mat
 ## Features and Timeline
 | <img height="300" src="https://github.com/euleonnnn/matchmakers/blob/master/readimg/Telegram.png"/>|<img height="300" src="https://github.com/euleonnnn/matchmakers/blob/master/readimg/logo.png" />| 
 |---|---|
-|Telegram Bot will remind users of upcoming matches, and provide updates on available slots for sports users have shown interests in.| A Mobile App where users have their own profile and credentials, and can set up or join a game. Mobile App will have a chat function for users participating in the same game to communicate with one another before and after the game. |
+|Telegram Bot will remind users of upcoming matches, and provide updates on available slots for sports users have shown interests in.| A Mobile Web App where users have their own profile and credentials, and can set up or join a game. Mobile Web App will have a chat function for users participating in the same game to communicate with one another before and after the game. |
 
 ### Features to be completed by mid June
-1. Mobile App  
+1. Mobile Web App  
   - Allow users to sign up and create their own profile on the platform
   - Allow users to create games and await for slots to be filled 
   - Show list of available games over the next few days and allow users to join games and fill up slots
@@ -37,9 +37,9 @@ We hope to be a convenient and accessible intermediary platform where sports mat
 2. Telegram will remind users of upcoming matches
 
 ### Features to be completed by mid July
-1. Machine learning to provide recommendations based on sports interests indicated in the user’s profile. Telegram Bot will update users on available slots for sports they have shown interests in. The homepage of the Mobile App will also push available sports games to the users. 
+1. Machine learning to provide recommendations based on sports interests indicated in the user’s profile. Telegram Bot will update users on available slots for sports they have shown interests in. The homepage of the Mobile Web App will also push available sports games to the users. 
 
-2. Machine learning to create a virtual assistant in the Mobile App that can answer questions users may have
+2. Machine learning to create a virtual assistant in the Mobile Web App that can answer questions users may have
 
 ## Differences from Existing Platforms
 | (Match) Maker | Resource Booking System (REBOKS) |
