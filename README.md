@@ -6,11 +6,11 @@ Apollo 11
 Done by: Hung Eu Leon & Lai Yuen Sheng
 
 ## Motivation
-Lost touch with your favorite sports due to the lack of fellow hobbyists — or “kakis”? Want to meet new people who share your sport interests?
-
-COVID-19 has made it especially difficult for us to make new friends in NUS, and even more difficult for us to find our “kakis” to engage in sports with. Your current friends may not share your hobby or may be busy with their own commitments. With social activities curtailed, many students don’t have many opportunities to build connections in university, much less meet people with similar interests.
+COVID-19 has made it especially difficult for us to make new friends in NUS, and consequently, more difficult for us to find our “kakis” to engage in sports with. With social activities curtailed, many students don’t have many opportunities to build connections in university, much less meet people with similar interests.
 
 The issue is even more amplified when we consider the difficulty of finding people of similar skill level — games often become less enjoyable when there is a significant skills mismatch.
+
+As such, we came up with a platform to facilitate enjoyable and casual sports acitivities, lowering the barriers to entry to sports and present users with the opportunities to rekindle their passion in sports. On top of that, you get to make new friends in NUS at a time where meeting new people is made particularly difficult.
 
 ## Aim
 We hope to be a convenient and accessible intermediary platform where sports matches are set up for people based on sports interests and skill levels, ultimately motivating the pursuance of sports.
