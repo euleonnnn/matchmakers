@@ -5,6 +5,8 @@ import PropTypes from 'prop-types';
 import { logout } from '../../actions/auth';
 
 import '../../css/bootstrap.css';
+import $ from 'jquery';
+import Popper from 'popper.js';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 import { getCurrentProfile} from '../../actions/profile';
 
