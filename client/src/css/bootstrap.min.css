@@ -3387,6 +3387,10 @@ input[type='submit'].btn-block {
   border-bottom-left-radius: 0;
 }
 
+.join {
+  margin-left: 170px;
+}
+
 .custom-control {
   position: relative;
   display: block;
