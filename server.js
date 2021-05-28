@@ -4,6 +4,7 @@ const { reset } = require("nodemon");
 const mongoose = require('mongoose');
 const config = require('config');
 const db = config.get('mongoURI');
+const path = require('path');
 
 const connectDB = async () => {
     try {
@@ -26,12 +27,18 @@ connectDB();
 
 app.use(express.json({extended: false}));
 
-app.get('/', (req,res) => res.send('API running'));
-
 //Routers
 app.use('/api/users', require("./routes/api/users"));
 app.use('/api/auth', require("./routes/api/auth"));
 app.use('/api/profile', require("./routes/api/profile"));
+
+
+if (process.env.NODE_ENV == 'production') {
+    app.use(express.static('client/build'));
+    app.get('*', (req, res) => {
+        res.sendFile(path.resolve(_dirname, 'client', 'build', 'index.html'));
+    });
+}
 
 const PORT = process.env.PORT || 5000;
 
