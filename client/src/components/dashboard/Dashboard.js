@@ -27,7 +27,7 @@ const Dashboard = ({ getCurrentProfile, auth: { user}, profile : { profile, load
 
       <div class="container">
         <div class="row">
-          <div class="col-sm-9 col-md-9">
+          <div class="col-sm-8 col-md-8">
             <h4 className="text-primary">  My Interests </h4>
               <ul>
                   {profile.interests.map(item => {
@@ -35,11 +35,11 @@ const Dashboard = ({ getCurrentProfile, auth: { user}, profile : { profile, load
                   })}
               </ul>
 
-              <h4 className="text-primary">  Here are the games we think you'd like : </h4>
+              <h4 className="text-primary my-top">  Here are the games we think you'd like : </h4>
               <div className="card mb-3">
                     <div className="row g-0">
                       <div className="col-md-4">
-                        <img src={bball} alt="Eusoff"/>
+                        <img height="180" src={bball} alt="Eusoff"/>
                       </div>
                       <div className="col-md-8">
                         <div className="card-body">
@@ -54,7 +54,7 @@ const Dashboard = ({ getCurrentProfile, auth: { user}, profile : { profile, load
                 <div className="card mb-3">
                     <div className="row g-0">
                       <div className="col-md-4">
-                        <img src={bball2} alt="MPSH"/>
+                        <img height="180" src={bball2} alt="MPSH"/>
                       </div>
                       <div className="col-md-8">
                         <div className="card-body">
@@ -69,7 +69,7 @@ const Dashboard = ({ getCurrentProfile, auth: { user}, profile : { profile, load
               
           </div>
           
-          <div class="col-sm-3 col-md-3">
+          <div class="col-sm-4 col-md-4">
             <FriendList />
           </div>
         </div>

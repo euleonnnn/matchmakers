@@ -26,10 +26,9 @@ const Navbar = ({getCurrentProfile, auth, profile: {profile}, logout}) => {
     const loggedinLinks = (
         <ul className="navbar-nav me-auto mb-2 mb-lg-0">
           <li className="nav-item"><a className = "nav-link" onClick={logout} href="#!">
-            <i className="fas fa-sign-out-alt"></i> {' '}
-            <span className = "hide-sm"> Logout </span> 
+              Logout  
             </a>
-            </li>
+          </li>
         </ul> 
     );
 
@@ -56,8 +55,7 @@ const Navbar = ({getCurrentProfile, auth, profile: {profile}, logout}) => {
                 <span className = "nav-link"><Link to="/profiles"> Find Friends </Link> </span>
               </li>
               <li className="nav-item"><a className = "nav-link" onClick={logout} href="#!">
-                <i className="fas fa-sign-out-alt"></i> {' '}
-                <span className = "hide-sm"> Logout </span> 
+                Logout  
                 </a>
               </li>
             </ul>

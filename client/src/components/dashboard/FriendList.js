@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from 'react-router-dom';
 import axios from "axios";
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -17,7 +18,7 @@ const FriendList = ({ auth: { user }}) => {
             console.log(err);
           }
         };
-        getFriends();
+        getFriends()
       });
 
     
@@ -30,7 +31,9 @@ const FriendList = ({ auth: { user }}) => {
         
           <ul className="list-group list-group-flush">
             {friends.map((friend) => (
-                <li className="list-group-item"> {friend.name}  <button className ="btn btn-dark msg" > <i className="far fa-comments"/>     </button></li> 
+                <li className="list-group-item"> 
+                <Link to={`/profile/${friend._id}`}> {friend.name}  </Link> 
+                <button className ="btn btn-dark msg" >  <i class="fas fa-comment-dots"/> </button></li> 
            ))}
           </ul>
         </div>

@@ -17,7 +17,7 @@ const MyProfile = ({ auth: { user }, profile : { profile, loading } }) => {
           {profile === null || loading ? (
             <Spinner /> ):
         <Fragment> 
-            <h1> {user.name}'s Profile  </h1>
+            <h1 className="large"> {user.name}'s Profile  </h1>
             <br></br>
             <p> <strong> School:  </strong>National University of Singapore</p>
             <p> <strong> Faculty: </strong> { profile.faculty }</p>

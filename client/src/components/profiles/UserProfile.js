@@ -3,18 +3,25 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Spinner from '../layout/Spinner';
 import { getProfilesById } from '../../actions/profile';
+import { authUser } from '../../actions/auth'
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
-const UserProfile = ({ getProfilesById, profile: { profile, loading }, auth, match }) => {
+const UserProfile = ({ authUser, getProfilesById, profile: { profile, loading }, auth, match }) => {
     useEffect(() => {
       getProfilesById(match.params.id);
     }, [getProfilesById]);
 
-    const [requestSent, toggleAdd] = useState(false);
+    useEffect(() => {
+      authUser();
+    });
 
-    const [followed, toggle] = useState(false);
     
+    const [followed, toggle] = useState(
+      auth.user.followings.includes(match.params.id)
+    );
+
+
     const followUnfollow = () => {
         try {
           if (!followed) {
@@ -67,11 +74,10 @@ const UserProfile = ({ getProfilesById, profile: { profile, loading }, auth, mat
             Find more Friends
             </Link>
             <>  </>
-            {!requestSent && auth.isAuthenticated &&
+            {!followed && auth.isAuthenticated &&
                 auth.loading === false &&
                 auth.user._id !== profile.user._id && (
                 <button onClick= {()=> {
-                  toggleAdd(!requestSent);
                   followUnfollow();
                 }} type="button" className="btn btn-dark">
                   <i class="fas fa-user-plus"/>   Follow
@@ -79,11 +85,10 @@ const UserProfile = ({ getProfilesById, profile: { profile, loading }, auth, mat
                 ) 
             }
 
-            {requestSent && auth.isAuthenticated &&
+            {followed && auth.isAuthenticated &&
                 auth.loading === false && 
                 auth.user._id !== profile.user._id && (
                 <button onClick= {()=> {
-                  toggleAdd(!requestSent);
                   followUnfollow();
                 }} type="button" className="btn btn-success">
                    <i class="fas fa-user-minus"/>   Unfollow
@@ -112,8 +117,9 @@ const UserProfile = ({ getProfilesById, profile: { profile, loading }, auth, mat
 
 UserProfile.propTypes = {
     getProfilesById: PropTypes.func.isRequired,
+    authUser: PropTypes.func.isRequired,
     profile: PropTypes.object.isRequired,
-    auth: PropTypes.object.isRequired,
+    auth: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
@@ -121,4 +127,4 @@ const mapStateToProps = state => ({
     auth: state.auth
 })
 
-export default connect(mapStateToProps, { getProfilesById })(UserProfile);
+export default connect(mapStateToProps, { authUser, getProfilesById })(UserProfile);

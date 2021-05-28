@@ -95,7 +95,7 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
                     required
                   />
                 </div>
-                <input type="submit" className="btn btn-primary" value="Register" />
+                <input type="submit" className="btn btn-primary my-1" value="Register" />
               </form>
             </div>
     </Fragment>

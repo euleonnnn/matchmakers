@@ -79,7 +79,7 @@ export const login = (email, password) => async dispatch => {
 };
 
 /**
- * Function loadUser, which dispatches the action AUTH_SUCCESS
+ * Function authUser, which dispatches the action AUTH_SUCCESS
  * to the reducer auth.js. No param, if local storage still has
  * token then load it. Otherwise go to the Get User Auth route
  */
@@ -110,4 +110,5 @@ export const logout = () => dispatch => {
   dispatch({type: CLEAR_PROFILE});  
   dispatch({type: LOGOUT});  
 };
+
 
