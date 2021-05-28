@@ -48,7 +48,7 @@ const Dashboard = ({ getCurrentProfile, auth: { user}, profile : { profile, load
                           <p className="card-text">Players: 2 out of 6</p>
                           <p className="card-text">
                             <small className="text-muted">Created: 3 mins ago</small>
-                            <Link to="." className="btn btn-primary join"> Join Now</Link>
+                            <Link to="#!" className="btn btn-primary join"> Join Now</Link>
                           </p>
                         </div>
                       </div>
@@ -66,7 +66,7 @@ const Dashboard = ({ getCurrentProfile, auth: { user}, profile : { profile, load
                           <p className="card-text">Players: 5 out of 6</p>
                           <p className="card-text">
                             <small className="text-muted">Created: 1 hour ago</small>
-                            <Link to="." className="btn btn-primary join"> Join Now</Link>
+                            <Link to="#!" className="btn btn-primary join"> Join Now</Link>
                           </p>
                         </div>
                       </div>

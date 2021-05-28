@@ -100,7 +100,7 @@ const UserProfile = ({ authUser, getProfilesById, profile: { profile, loading },
             {auth.isAuthenticated &&
                 auth.loading === false &&
                 auth.user._id !== profile.user._id && (
-                <Link to="/message" className="btn btn-primary my-1"> <i class="fas fa-comment-dots"/>
+                <Link to="#!" className="btn btn-primary my-1"> <i class="fas fa-comment-dots"/>
                     {" "} Message
                 </Link>
                 ) 
