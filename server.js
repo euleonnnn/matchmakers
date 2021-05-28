@@ -1,6 +1,5 @@
 const express = require("express");
 const { reset } = require("nodemon");
-
 const mongoose = require('mongoose');
 const config = require('config');
 const db = config.get('mongoURI');
@@ -35,9 +34,9 @@ app.use('/api/profile', require("./routes/api/profile"));
 
 if (process.env.NODE_ENV == 'production') {
     app.use(express.static('client/build'));
-    app.get('*', (req, res) => {
-        res.sendFile(path.resolve(_dirname, 'client', 'build', 'index.html'));
-    });
+    app.get('*', (req, res) => 
+        res.sendFile(path.resolve(_dirname, 'client', 'build', 'index.html'))
+    );
 }
 
 const PORT = process.env.PORT || 5000;
