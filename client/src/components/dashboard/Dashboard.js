@@ -39,14 +39,17 @@ const Dashboard = ({ getCurrentProfile, auth: { user}, profile : { profile, load
               <div className="card mb-3">
                     <div className="row g-0">
                       <div className="col-md-4">
-                        <img height="180" src={bball} alt="Eusoff"/>
+                        <img height="195" width ="195" src={bball} alt="Eusoff"/>
                       </div>
                       <div className="col-md-8">
                         <div className="card-body">
                           <h5 className="card-title">Basketball</h5>
                           <p className="card-text">Location: Eusoff Hall Basketball Court</p>
                           <p className="card-text">Players: 2 out of 6</p>
-                          <p className="card-text"><small className="text-muted">Created: 3 mins ago</small></p>
+                          <p className="card-text">
+                            <small className="text-muted">Created: 3 mins ago</small>
+                            <Link to="." className="btn btn-primary join"> Join Now</Link>
+                          </p>
                         </div>
                       </div>
                     </div>
@@ -54,14 +57,17 @@ const Dashboard = ({ getCurrentProfile, auth: { user}, profile : { profile, load
                 <div className="card mb-3">
                     <div className="row g-0">
                       <div className="col-md-4">
-                        <img height="180" src={bball2} alt="MPSH"/>
+                        <img height="195" width ="195" src={bball2} alt="MPSH"/>
                       </div>
                       <div className="col-md-8">
                         <div className="card-body">
                           <h5 className="card-title">Basketball</h5>
                           <p className="card-text">Location: MPSH 5 Basketball Court </p>
                           <p className="card-text">Players: 5 out of 6</p>
-                          <p className="card-text"><small className="text-muted">Created: 1 hour ago</small></p>
+                          <p className="card-text">
+                            <small className="text-muted">Created: 1 hour ago</small>
+                            <Link to="." className="btn btn-primary join"> Join Now</Link>
+                          </p>
                         </div>
                       </div>
                     </div>
