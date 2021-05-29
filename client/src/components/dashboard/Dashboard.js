@@ -29,7 +29,7 @@ const Dashboard = ({ getCurrentProfile, auth: { user}, profile : { profile, load
         <div class="row">
           <div class="col-sm-8 col-md-8">
 
-            <button className="btn btn-light btn-lg btn-block"><Link to="/my-profile"> Go To My Profile </Link></button>
+            <Link to="/my-profile" className="btn btn-light btn-lg btn-block"> Go To My Profile </Link>
             <h4 className="text-primary my-top">  My Interests </h4>
 
               <ul>
