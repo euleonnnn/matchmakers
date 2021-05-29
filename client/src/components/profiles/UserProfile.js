@@ -8,18 +8,19 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 const UserProfile = ({ authUser, getProfilesById, profile: { profile, loading }, auth, match }) => {
-    useEffect(() => {
+  
+  const [followed, toggle] = useState(
+    auth.user.followings.includes(match.params.id)
+  );
+
+  useEffect(() => {
+    authUser();
+  });
+
+
+  useEffect(() => {
       getProfilesById(match.params.id);
     }, [getProfilesById]);
-
-    useEffect(() => {
-      authUser();
-    });
-
-    
-    const [followed, toggle] = useState(
-      auth.user.followings.includes(match.params.id)
-    );
 
 
     const followUnfollow = () => {

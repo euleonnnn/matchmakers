@@ -5,15 +5,17 @@ import Spinner from '../layout/Spinner'
 import ProfileItem from './ProfileItem'
 import { getProfiles } from '../../actions/profile';
 
-const Profiles = ({getProfiles, profile: { profiles, loading }}) => {
+const Profiles = ({getProfiles, profile: { profiles, loading }, auth}) => {
     useEffect(()  => {
         getProfiles();
     }, [getProfiles]);
 
     const displayAll = profiles.length <= 0 ? <h4>No profiles found</h4> : 
-        profiles.map(profile => (
-            <ProfileItem key = {profile._id} profile ={profile} />
-        )) 
+        profiles.map(profile => {
+            if (profile.user._id !== auth.user._id) {
+                return <ProfileItem key = {profile._id} profile ={profile} />
+            }
+        })
 
     return <Fragment> 
         { loading ? <Spinner /> : <Fragment>
@@ -35,11 +37,13 @@ const Profiles = ({getProfiles, profile: { profiles, loading }}) => {
   
 Profiles.propTypes = {
     getProfiles: PropTypes.func.isRequired,
-    profile: PropTypes.object.isRequired
+    profile: PropTypes.object.isRequired,
+    auth: PropTypes.object.isRequired
 };
   
 const mapStateToProps = (state) => ({
-    profile: state.profile
+    profile: state.profile,
+    auth: state.auth
 });
 
   

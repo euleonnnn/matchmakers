@@ -28,7 +28,10 @@ const Dashboard = ({ getCurrentProfile, auth: { user}, profile : { profile, load
       <div class="container">
         <div class="row">
           <div class="col-sm-8 col-md-8">
-            <h4 className="text-primary">  My Interests </h4>
+
+            <button className="btn btn-light btn-lg btn-block"><Link to="/my-profile"> Go To My Profile </Link></button>
+            <h4 className="text-primary my-top">  My Interests </h4>
+
               <ul>
                   {profile.interests.map(item => {
                     return <li>{item}</li>;

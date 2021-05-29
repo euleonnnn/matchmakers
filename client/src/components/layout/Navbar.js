@@ -48,9 +48,7 @@ const Navbar = ({getCurrentProfile, auth, profile: {profile}, logout}) => {
       const profileLinks = (
           <div className="collapse navbar-collapse" id="navbarNav">
             <ul className="navbar-nav">
-              <li className ="nav-item"> 
-                 <span className = "nav-link"> <Link to="/my-profile"> My Profile </Link> </span>
-              </li>
+              
               <li className = "nav-item">
                 <span className = "nav-link"><Link to="/profiles"> Find Friends </Link> </span>
               </li>
@@ -61,8 +59,12 @@ const Navbar = ({getCurrentProfile, auth, profile: {profile}, logout}) => {
             </ul>
           </div>
       )
-
-
+    
+    const otherProfileLinks = (
+      <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+      </ul> 
+    );
+    
     return (
       <nav className ="navbar navbar-expand-lg navbar-dark bg-dark">
       <div className ="container-fluid">
@@ -72,8 +74,8 @@ const Navbar = ({getCurrentProfile, auth, profile: {profile}, logout}) => {
           <span className="navbar-toggler-icon"></span>
         </button>
         <div className="collapse navbar-collapse" id="navbarTogglerDemo02">
-        { !auth.loading && (<Fragment>{auth.isAuthenticated ? (profile !== null &&  
-            auth.user._id === profile.user._id ? profileLinks : loggedinLinks) : guestLinks}</Fragment>)}
+        {  !auth.loading && (<Fragment>{auth.isAuthenticated ? (profile !== null ? ( auth.user._id === profile.user._id ? profileLinks : otherProfileLinks) 
+          : profileLinks) : guestLinks} </Fragment>)}
         </div>
       </div>
     </nav>
