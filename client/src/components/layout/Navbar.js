@@ -3,10 +3,25 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { logout } from '../../actions/auth';
-
+import { makeStyles } from '@material-ui/core/styles';
+import IconButton from '@material-ui/core/IconButton';
+import Menu from '@material-ui/core/Menu';
+import MenuIcon from '@material-ui/icons/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
 import '../../css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 import { getCurrentProfile} from '../../actions/profile';
+
+/**
+ * Styles for the Menu Button
+ */
+ const useStyles = makeStyles({
+  root: {
+    backgroundColor: 'black',
+    display:"flex",
+    marginLeft:"auto",
+  },
+});
 
 /**
  * Functional component for the navigation bar. The links on the 
@@ -22,58 +37,81 @@ const Navbar = ({getCurrentProfile, auth, profile: {profile}, logout}) => {
     useEffect(() => {
       getCurrentProfile();
     }, [getCurrentProfile]);
+
+    const [anchorEl, setAnchorEl] = React.useState(null);
+
+    const classes = useStyles();
+
+    const handleClick = (event) => {
+      setAnchorEl(event.currentTarget);
+    };
+    
+    const handleClose = () => {
+      setAnchorEl(null);
+    };
     
     const loggedinLinks = (
-        <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-          <li className="nav-item"><a className = "nav-link" onClick={logout} href="#!">
-              Logout  
-            </a>
-          </li>
-        </ul> 
+      <Menu
+      id="simple-menu"
+      anchorEl={anchorEl}
+      keepMounted
+      open={Boolean(anchorEl)}
+      onClose={handleClose}>
+      <MenuItem onClick={logout} component={Link} to="#!">Logout</MenuItem>
+    </Menu>
     );
 
     const guestLinks = (
-      <div className="collapse navbar-collapse" id="navbarNav">
-          <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-            <li className="nav-item">
-              <span className="nav-link"><Link to="/register">Register </Link> </span>
-            </li>
-            <li className="nav-item">
-              <span className="nav-link"><Link to="/login">Login </Link> </span>
-            </li>
-          </ul>
+      <div>
+        <Menu
+          id="simple-menu"
+          anchorEl={anchorEl}
+          keepMounted
+          open={Boolean(anchorEl)}
+          onClose={handleClose}>
+          <MenuItem onClick={handleClose} component={Link} to="/register">Register</MenuItem>
+          <MenuItem onClick={handleClose} component={Link} to="/login">Login</MenuItem>
+        </Menu>
       </div>
     )
     
       const profileLinks = (
-          <div className="collapse navbar-collapse" id="navbarNav">
-            <ul className="navbar-nav">
-              
-              <li className = "nav-item">
-                <span className = "nav-link"><Link to="/profiles"> Find Friends </Link> </span>
-              </li>
-              <li className="nav-item"><a className = "nav-link" onClick={logout} href="#!">
-                Logout  
-                </a>
-              </li>
-            </ul>
+          <div>
+            <Menu
+              id="simple-menu"
+              anchorEl={anchorEl}
+              keepMounted
+              open={Boolean(anchorEl)}
+              onClose={handleClose}>
+              <MenuItem onClick={handleClose} component={Link} to="/profiles">Find Friends</MenuItem>
+              <MenuItem onClick={logout} component={Link} to="#!">Logout</MenuItem>
+            </Menu>
           </div>
       )
     
     const otherProfileLinks = (
-      <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-      </ul> 
+      <Menu
+      id="simple-menu"
+      anchorEl={anchorEl}
+      keepMounted
+      open={Boolean(anchorEl)}
+      onClose={handleClose}></Menu>
     );
     
     return (
       <nav className ="navbar navbar-expand-lg navbar-dark bg-dark">
       <div className ="container-fluid">
         <a className="navbar-brand"><Link to="/dashboard"> (Match) Maker </Link> </a>
-        <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" 
-          aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
-          <span className="navbar-toggler-icon"></span>
-        </button>
-        <div className="collapse navbar-collapse" id="navbarTogglerDemo02">
+        <IconButton
+        aria-label="more"
+        aria-controls="long-menu"
+        aria-haspopup="true"
+        className={classes.root}
+        color='inherit'
+        onClick={handleClick}>
+          <MenuIcon />
+        </IconButton>
+        <div>
         {  !auth.loading && (<Fragment>{auth.isAuthenticated ? (profile !== null ? ( auth.user._id === profile.user._id ? profileLinks : otherProfileLinks) 
           : profileLinks) : guestLinks} </Fragment>)}
         </div>
