@@ -95,7 +95,9 @@ const Navbar = ({getCurrentProfile, auth, profile: {profile}, logout}) => {
       anchorEl={anchorEl}
       keepMounted
       open={Boolean(anchorEl)}
-      onClose={handleClose}></Menu>
+      onClose={handleClose}>
+      <MenuItem onClick={handleClose} component={Link} to="/profiles">Find Friends</MenuItem>
+      </Menu>
     );
     
     return (
@@ -109,7 +111,7 @@ const Navbar = ({getCurrentProfile, auth, profile: {profile}, logout}) => {
         className={classes.root}
         color='inherit'
         onClick={handleClick}>
-          <MenuIcon />
+        <MenuIcon />
         </IconButton>
         <div>
         {  !auth.loading && (<Fragment>{auth.isAuthenticated ? (profile !== null ? ( auth.user._id === profile.user._id ? profileLinks : otherProfileLinks) 
