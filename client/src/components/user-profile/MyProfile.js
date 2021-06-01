@@ -4,9 +4,10 @@ import { connect } from 'react-redux'
 import { getCurrentProfile } from '../../actions/profile';
 import { Link } from 'react-router-dom';
 import Spinner from '../layout/Spinner';
+import { logout } from '../../actions/auth';
 
 
-const MyProfile = ({ auth: { user }, profile : { profile, loading } }) => {
+const MyProfile = ({ auth: { user }, profile : { profile, loading }, logout}) => {
     // eslint-disable-next-line
     useEffect(() => {
       getCurrentProfile();
@@ -37,6 +38,10 @@ const MyProfile = ({ auth: { user }, profile : { profile, loading } }) => {
           <Link to="/dashboard" className="btn btn-dark">
             Go Back
           </Link>
+          
+          <Link to ="#!" onClick={logout} className="btn btn-danger join-all">
+            Logout
+          </Link>
           </div>
         </Fragment> 
     }
@@ -48,7 +53,8 @@ const MyProfile = ({ auth: { user }, profile : { profile, loading } }) => {
   MyProfile.propTypes = {
     getCurrentProfile: PropTypes.func.isRequired,
     auth: PropTypes.object.isRequired,
-    profile: PropTypes.object.isRequired
+    profile: PropTypes.object.isRequired,
+    logout: PropTypes.func.isRequired
   };
   
   const mapStateToProps = (state) => ({
@@ -56,4 +62,4 @@ const MyProfile = ({ auth: { user }, profile : { profile, loading } }) => {
     profile: state.profile
   });
   
-  export default connect(mapStateToProps, { getCurrentProfile })(MyProfile);
+  export default connect(mapStateToProps, { getCurrentProfile, logout })(MyProfile);

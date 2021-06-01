@@ -9,15 +9,18 @@ import '../../css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 import bball from '../layout/bball.jpg';
 import bball2 from '../layout/bball2.jpg';
+import { logout } from '../../actions/auth';
 
-const Dashboard = ({ getCurrentProfile, auth: { user}, profile : { profile, loading } }) => {
+
+
+const Dashboard = ({ getCurrentProfile, auth: { user}, profile : { profile, loading }, logout }) => {
   // eslint-disable-next-line
   useEffect(() => {
     getCurrentProfile();
   }, [getCurrentProfile]);
 
 
-  if (loading && (profile === null || user === null)) {
+  if (loading && (profile === null)) {
     return <Spinner />; 
   } else {
       return  <Fragment>
@@ -29,7 +32,7 @@ const Dashboard = ({ getCurrentProfile, auth: { user}, profile : { profile, load
         <div class="row">
           <div class="col-sm-8 col-md-8">
 
-            <Link to="/my-profile" className="btn btn-light btn-lg btn-block"> Go To My Profile </Link>
+            <Link to="/my-profile" className="btn btn-secondary btn-lg btn-block"> <i class="fas fa-cog"/> Profile Settings </Link>
             <h4 className="text-primary my-top">  My Interests </h4>
 
               <ul>
@@ -84,12 +87,13 @@ const Dashboard = ({ getCurrentProfile, auth: { user}, profile : { profile, load
         </div>
       </div>
 
-      
-
       </Fragment> : 
       <Fragment> 
         <p> No Profile Yet. You will need a profile to host or join games. </p> 
         <Link to ='/create-profile' className="btn btn-primary my-1"> Set Up One Now </Link>
+        
+        <Link to ="#!" onClick={logout} className="btn btn-danger join-all"> Logout </Link>
+
       </Fragment> }
       </Fragment>
   }
@@ -98,7 +102,8 @@ const Dashboard = ({ getCurrentProfile, auth: { user}, profile : { profile, load
 Dashboard.propTypes = {
   getCurrentProfile: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
-  profile: PropTypes.object.isRequired
+  profile: PropTypes.object.isRequired,
+  logout: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
@@ -106,4 +111,4 @@ const mapStateToProps = (state) => ({
   profile: state.profile
 });
 
-export default connect(mapStateToProps, { getCurrentProfile })(Dashboard);
+export default connect(mapStateToProps, { getCurrentProfile, logout })(Dashboard);

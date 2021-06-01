@@ -49,17 +49,6 @@ const Navbar = ({getCurrentProfile, auth, profile: {profile}, logout}) => {
     const handleClose = () => {
       setAnchorEl(null);
     };
-    
-    const loggedinLinks = (
-      <Menu
-      id="simple-menu"
-      anchorEl={anchorEl}
-      keepMounted
-      open={Boolean(anchorEl)}
-      onClose={handleClose}>
-      <MenuItem onClick={logout} component={Link} to="#!">Logout</MenuItem>
-    </Menu>
-    );
 
     const guestLinks = (
       <div>
@@ -83,23 +72,13 @@ const Navbar = ({getCurrentProfile, auth, profile: {profile}, logout}) => {
               keepMounted
               open={Boolean(anchorEl)}
               onClose={handleClose}>
-              <MenuItem onClick={handleClose} component={Link} to="/profiles">Find Friends</MenuItem>
               <MenuItem onClick={handleClose} component={Link} to="/all-games">All Games</MenuItem>
-              <MenuItem onClick={logout} component={Link} to="#!">Logout</MenuItem>
+              <MenuItem onClick={handleClose} component={Link} to="/profiles">Find Friends</MenuItem>
             </Menu>
           </div>
       )
     
-    const otherProfileLinks = (
-      <Menu
-      id="simple-menu"
-      anchorEl={anchorEl}
-      keepMounted
-      open={Boolean(anchorEl)}
-      onClose={handleClose}>
-      <MenuItem onClick={handleClose} component={Link} to="/profiles">Find Friends</MenuItem>
-      </Menu>
-    );
+
     
     return (
       <nav className ="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -115,8 +94,7 @@ const Navbar = ({getCurrentProfile, auth, profile: {profile}, logout}) => {
         <MenuIcon />
         </IconButton>
         <div>
-        {  !auth.loading && (<Fragment>{auth.isAuthenticated ? (profile !== null ? ( auth.user._id === profile.user._id ? profileLinks : otherProfileLinks) 
-          : profileLinks) : guestLinks} </Fragment>)}
+        {  !auth.loading && (<Fragment>{auth.isAuthenticated ? profileLinks : guestLinks} </Fragment> )}
         </div>
       </div>
     </nav>
@@ -127,7 +105,6 @@ Navbar.propTypes = {
   logout: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
   profile: PropTypes.object.isRequired
-
 }
 
 const mapStateToProps = state => ({
