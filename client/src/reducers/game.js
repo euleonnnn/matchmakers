@@ -1,6 +1,7 @@
 import {
     GET_GAMES,
-    GAME_FAIL
+    GAME_FAIL,
+    JOIN_UNJOIN
 } from '../actions/types'
 
 const initialState = {
@@ -26,6 +27,13 @@ export default function (state = initialState, action) {
                 error: payload,
                 loading: false
              };
+        case JOIN_UNJOIN:
+            return {
+                ...state,
+                players: state.players.map(game => game._id === payload.id ? {...game, players:
+                    payload.players} : game),
+                loading: false
+            }
         default: 
             return state;
     }

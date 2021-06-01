@@ -114,7 +114,7 @@ router.delete('/:id', auth, async (req, res) => {
 });
 
 
-//@route PUT api/posts/join/:id
+//@route PUT api/games/join/:id
 //@desc Like a post 
 //@access Private
 router.put('/join/:id', auth, async(req, res) => {
@@ -124,33 +124,33 @@ router.put('/join/:id', auth, async(req, res) => {
             return res.status(400).json({msg: 'You have already joined the game'});
         }
         game.players.unshift({user: req.user.id});
-        await post.save();
-        res.json(post.players);
+        await game.save();
+        res.json(game.players);
     } catch (error) {
-        console.error(err.message);
+        console.error(error.message);
         res.status(500)
     }
 })
 
 
-// //@route PUT api/posts/unlike/:id
-// //@desc Unlike a post 
-// //@access Private
-// router.put('/unlike/:id', auth, async(req, res) => {
-//     try {
-//         const post = await Post.findById(req.params.id);
-//         if (post.likes.filter(like => like.user.toString() === req.user.id).length === 0) {
-//             return res.status(400).json({msg: 'Post has not yet been liked'});
-//         }
-//         const removeIndex = post.likes.map(like => like.user.toString()).indexOf(req.user.id);
-//         post.likes.splice(removeIndex,1);
-//         await post.save();
-//         res.json(post.likes);
-//     } catch (error) {
-//         console.error(err.message);
-//         res.status(500)
-//     }
-// })
+//@route PUT api/posts/unlike/:id
+//@desc Unlike a post 
+//@access Private
+router.put('/quit/:id', auth, async(req, res) => {
+    try {
+        const game = await Game.findById(req.params.id);
+        if (game.players.filter(joined => joined.user.toString() === req.user.id).length === 0) {
+            return res.status(400).json({msg: 'You have not joined the game'});
+        }
+        const removeIndex = game.players.map(joined => joined.user.toString()).indexOf(req.user.id);
+        game.players.splice(removeIndex,1);
+        await game.save();
+        res.json(game.players);
+    } catch (error) {
+        console.error(error.message);
+        res.status(500)
+    }
+})
 
 
 // //@route POST api/posts/comment/:id

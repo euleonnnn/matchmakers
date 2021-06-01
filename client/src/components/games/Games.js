@@ -4,8 +4,6 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import {getGames} from '../../actions/game';
 import Spinner from '../layout/Spinner';
-import Moment from 'react-moment';
-
 
 const Games = ( {getGames, game: {games, loading}, auth}) => {
     // eslint-disable-next-line
@@ -33,7 +31,7 @@ const Games = ( {getGames, game: {games, loading}, auth}) => {
                 <small className="text-muted"> Created on: {game.dateTime} </small>
                 <br></br>
                 <small className="text-muted"> Game Host: {game.name}</small>
-                {auth.user._id !== game.user ? <Link to="#!" className="btn btn-dark join-all"> Join Now</Link> :
+                {auth.user._id !== game.user ? <Link to={`/games/${game._id}`} className="btn btn-dark join-all"> Join Now</Link> :
                  <Link to="#!" className="btn btn-danger join-all"> Cancel Game </Link>}
                  </p>
                 </div>
@@ -55,4 +53,4 @@ const mapStateToProps = (state) => ({
     auth: state.auth
 });
 
-export default connect(mapStateToProps, { getGames})(Games);
+export default connect(mapStateToProps, { getGames })(Games);
