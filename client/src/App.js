@@ -12,6 +12,7 @@ import EditProfile from './components/user-profile/EditProfile';
 import UserProfile from './components/profiles/UserProfile';
 import PrivateRoute from './components/routing/PrivateRoute';
 import Profiles from './components/profiles/Profiles';
+import Games from './components/games/Games';
 import { Provider } from 'react-redux';
 import store from './store';
 import { authUser } from './actions/auth';
@@ -53,6 +54,7 @@ const App = () => {
           <PrivateRoute exact path ="/profile/:id" component= {UserProfile} />
           <PrivateRoute exact path ="/create-profile" component= {CreateProfile} />
           <PrivateRoute exact path ="/edit-profile" component= {EditProfile} />
+          <PrivateRoute exact path ="/all-games" component = {Games} />
         </Switch> 
       </section>
     </Fragment>

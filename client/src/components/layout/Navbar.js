@@ -84,6 +84,7 @@ const Navbar = ({getCurrentProfile, auth, profile: {profile}, logout}) => {
               open={Boolean(anchorEl)}
               onClose={handleClose}>
               <MenuItem onClick={handleClose} component={Link} to="/profiles">Find Friends</MenuItem>
+              <MenuItem onClick={handleClose} component={Link} to="/all-games">All Games</MenuItem>
               <MenuItem onClick={logout} component={Link} to="#!">Logout</MenuItem>
             </Menu>
           </div>

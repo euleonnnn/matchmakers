@@ -12,4 +12,4 @@ export const GET_PROFILES = 'GET_PROFILES';
 export const CLEAR_PROFILE = 'CLEAR_PROFILE';
 export const PROFILE_FAIL = 'PROFILE_FAIL';
 export const GET_GAMES = 'GET_GAMES';
-export const GAME_ERROR = 'GAME_ERROR';
+export const GAME_FAIL = 'GAME_FAIL';
