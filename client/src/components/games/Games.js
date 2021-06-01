@@ -4,8 +4,10 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import {getGames} from '../../actions/game';
 import Spinner from '../layout/Spinner';
+import Moment from 'react-moment';
 
-const Games = ( {getGames, game: {games, loading} }) => {
+
+const Games = ( {getGames, game: {games, loading}, auth}) => {
     // eslint-disable-next-line
     useEffect(() => {
         getGames();
@@ -28,11 +30,12 @@ const Games = ( {getGames, game: {games, loading} }) => {
                 <p className="card-text"> <span className='text-primary'> Waiting Room: </span> {game.players.length} players out of {game.maxPlayers}</p>
                 <p className="card-text"> <span className='text-primary'> Date: </span> </p>
                 <p className="card-text">
-                <small className="text-muted"> Created on: {game.dateTime}</small>
+                <small className="text-muted"> Created on: {game.dateTime} </small>
                 <br></br>
                 <small className="text-muted"> Game Host: {game.name}</small>
-                <Link to="#!" className="btn btn-dark join-all"> Join Now</Link>
-                </p>
+                {auth.user._id !== game.user ? <Link to="#!" className="btn btn-dark join-all"> Join Now</Link> :
+                 <Link to="#!" className="btn btn-danger join-all"> Cancel Game </Link>}
+                 </p>
                 </div>
             </div>
         ))}
@@ -43,11 +46,13 @@ const Games = ( {getGames, game: {games, loading} }) => {
 
 Games.propTypes = {
     getGames: PropTypes.func.isRequired,
-    game: PropTypes.object.isRequired
+    game: PropTypes.object.isRequired,
+    auth: PropTypes.object.isRequired
 }
 
 const mapStateToProps = (state) => ({
-    game : state.game
+    game : state.game,
+    auth: state.auth
 });
 
 export default connect(mapStateToProps, { getGames})(Games);
