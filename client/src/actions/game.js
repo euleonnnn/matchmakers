@@ -3,7 +3,8 @@ import { setAlert } from './alert';
 import {
     GET_GAMES,
     GAME_FAIL,
-    JOIN_UNJOIN
+    JOIN_UNJOIN,
+    GET_GAME
 } from './types';
 
 
@@ -59,3 +60,20 @@ export const quitGame = gameID => async dispatch => {
     }
 }
 
+
+
+//Get game by ID
+export const getGameById = gameID => async dispatch => {
+    try {
+        const res = await axios.get(`/api/games/${gameID}`);
+        dispatch({
+            type: GET_GAME,
+            payload: res.data
+        });
+    } catch (error) {
+        dispatch({
+            type: GAME_FAIL,
+            payload: { msg: error.response.statusText, status: error.response.status}
+        })
+    }
+}

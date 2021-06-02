@@ -102,6 +102,10 @@ p {
   margin-bottom: 1rem;
 }
 
+.host-title {
+  text-align: center !important;
+}
+
 abbr[data-original-title],
 abbr[title] {
   text-decoration: underline;
@@ -3391,7 +3395,6 @@ input[type='submit'].btn-block {
   margin-left: 170px;
 }
 
-
 .join-all {
   float: right;
 }
@@ -4282,6 +4285,7 @@ input[type='submit'].btn-block {
 .card-text:last-child {
   margin-bottom: 0;
 }
+
 .card-link:hover {
   text-decoration: none;
 }
@@ -7366,7 +7370,13 @@ button.bg-dark:hover {
   margin-top: 3rem !important;
 }
 
+.my-btm {
+  margin-bottom: 3rem !important;
+}
 
+.my-right {
+  margin-right: 1rem !important;
+}
 
 .p-0 {
   padding: 0 !important;
@@ -9243,4 +9253,5 @@ a.text-dark:hover {
     border-color: #dee2e6;
   }
 }
+
 /*# sourceMappingURL=bootstrap.min.css.map */

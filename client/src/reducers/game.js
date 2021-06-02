@@ -1,7 +1,8 @@
 import {
     GET_GAMES,
     GAME_FAIL,
-    JOIN_UNJOIN
+    JOIN_UNJOIN,
+    GET_GAME
 } from '../actions/types'
 
 const initialState = {
@@ -21,6 +22,12 @@ export default function (state = initialState, action) {
                 games: payload,
                 loading: false
             };
+        case GET_GAME: 
+            return {
+                ...state, 
+                game: payload,
+                loading: false
+            }
         case GAME_FAIL:
             return {
                 ...state, 

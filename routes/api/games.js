@@ -123,7 +123,13 @@ router.put('/join/:id', auth, async(req, res) => {
         if (game.players.filter(joined =>  joined.user.toString() === req.user.id).length !== 0) {
             return res.status(400).json({msg: 'You have already joined the game'});
         }
-        game.players.unshift({user: req.user.id});
+        const user =  await User.findById(req.user.id).select('-password');
+        const newPlayer = {
+            user: req.user.id,
+            name: user.name,
+            avatar: user.avatar
+        };
+        game.players.unshift(newPlayer);
         await game.save();
         res.json(game.players);
     } catch (error) {
@@ -132,10 +138,6 @@ router.put('/join/:id', auth, async(req, res) => {
     }
 })
 
-
-//@route PUT api/posts/unlike/:id
-//@desc Unlike a post 
-//@access Private
 router.put('/quit/:id', auth, async(req, res) => {
     try {
         const game = await Game.findById(req.params.id);

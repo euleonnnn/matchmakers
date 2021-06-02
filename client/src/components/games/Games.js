@@ -28,12 +28,16 @@ const Games = ( {getGames, game: {games, loading}, auth}) => {
                 <p className="card-text"> <span className='text-primary'> Waiting Room: </span> {game.players.length} players out of {game.maxPlayers}</p>
                 <p className="card-text"> <span className='text-primary'> Date: </span> </p>
                 <p className="card-text">
-                <small className="text-muted"> Created on: {game.dateTime} </small>
+                <small className="card-text"> Created on: {game.dateTime} </small></p>
                 <br></br>
-                <small className="text-muted"> Game Host: {game.name}</small>
-                {auth.user._id !== game.user ? <Link to={`/games/${game._id}`} className="btn btn-dark join-all"> Join Now</Link> :
-                 <Link to="#!" className="btn btn-danger join-all"> Cancel Game </Link>}
-                 </p>
+                <small className="text-muted"> Game Host: {game.name} </small>
+                {auth.user._id !== game.user ? <Link to={`/games/${game._id}`} className="btn btn-dark join-all"> Enter Room</Link> :
+                <Fragment>
+                 <Link to={`/games/${game._id}`} className="btn btn-dark join-all "> Enter Room </Link>
+                 <Link to="#!" className="btn btn-danger join-all my-right"> Cancel Game </Link>
+                 </Fragment>
+                 }
+                 
                 </div>
             </div>
         ))}
