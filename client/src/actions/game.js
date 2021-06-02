@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { setAlert } from './alert';
+
 import {
     GET_GAMES,
     GAME_FAIL,
@@ -77,3 +77,4 @@ export const getGameById = gameID => async dispatch => {
         })
     }
 }
+

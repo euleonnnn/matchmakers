@@ -7378,6 +7378,10 @@ button.bg-dark:hover {
   margin-right: 1rem !important;
 }
 
+.my-left {
+  margin-left: 1rem !important;
+}
+
 .p-0 {
   padding: 0 !important;
 }

@@ -1,23 +1,43 @@
-import React, { Fragment, useState, useEffect } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Spinner from '../layout/Spinner';
-import { getProfilesById } from '../../actions/profile';
 import { authUser } from '../../actions/auth'
 import { Link } from 'react-router-dom';
-import axios from 'axios';
 import { getGameById } from '../../actions/game';
-import { GAME_FAIL } from '../../actions/types';
-import auth from '../../reducers/auth';
+import axios from 'axios';
+import { getProfilesById } from '../../actions/profile';
+
+
 
 const GameRoom = ({ getGameById, authUser, auth, game : {game, loading}, match }) => {
+    
+
+    const quitGame = () => {
+        try {
+            axios.put(`/api/games/quit/${game._id}`);
+        } catch (err) { 
+            console.log(err.status)
+        }
+      };
+    
+    const joinGame = () => {
+        try {
+            axios.put(`/api/games/join/${game._id}`);
+        } catch (err) { 
+            console.log(err.status)
+        }
+      };
+
     useEffect(() => {
         getGameById(match.params.id);
-      });
+    });
     
     useEffect(() => {
         authUser();
     }, []);
+
+
 
     if (game === null || loading) {
         return(
@@ -28,7 +48,8 @@ const GameRoom = ({ getGameById, authUser, auth, game : {game, loading}, match }
     } else {
         return (
             <Fragment>
-                <h1 className="text-primary my-3 my-btm"> Game Lobby </h1>
+                <h1 className="text-primary my-3 my-btm"> Game Lobby <Link to="/all-games" className="btn btn-danger join-all">
+                    <i class="fas fa-sign-out-alt" /> Leave Lobby </Link> </h1>
                     <div class="row">
                         <div class="col-sm-6 col-md-6">
                             <div className="card mb-3">
@@ -54,36 +75,63 @@ const GameRoom = ({ getGameById, authUser, auth, game : {game, loading}, match }
                                             <div className="card mb-3">
                                             <div className="card-body">
                                                 {player.name}
-                                                <Link to="#!" className="btn btn-danger join-all"> <i class="far fa-times-circle"/> </Link>
+                                                <button onClick= {()=> {
+                                                    quitGame();
+                                                }} type="button" className="btn btn-danger join-all"> <i class="far fa-times-circle"/> </button>
                                             </div>
                                             </div>
                                             </Fragment>
                                         )
                                     } else {
                                         return (
+                                            <Fragment>
                                             <div className="card mb-3">
                                             <div className="card-body">
                                                 {player.name}
                                             </div>
                                             </div>
+                                            </Fragment>
                                         )
                                     }
                                 })}
+                                <p> { game.players.filter(player=> player.user === auth.user._id).length === 0  && 
+                                    <button onClick= {()=> {
+                                        joinGame();
+                                    }} type="button" className="btn btn-dark join-all"> Join Game </button>}
+                                </p>
+                             
                                 </div>
                             </div>
                         </div>
                     </div>
 
                     <div className="row">
-                    <div className="col-sm-6 col-md-6">
-                        <div className="card mb-3">
-                            <div className="card-body">
-                            <h5 className="card-title my-3 host-title ">About Game Host </h5>
-                                <p className="card-text"> <span className='text-primary'> Host Name: </span> {game.name}</p>
-                                <p className="card-text"> <span className='text-primary'> Date: </span> {game.dateTime} </p>
-                                <small className="card-text text-muted"> Created on: {game.dateTime} </small>
-                                <br></br>
+                        <div className="col-sm-6 col-md-6">
+                            <div className="card mb-3">
+                                <div className="card-body">
+                                    <h5 className="card-title my-3 host-title ">About Game Host </h5>
+                                    <p className="card-text"> <span className='text-primary'> Host Name: </span> {game.name}</p>
+                                    <p className="card-text"> <span className='text-primary'> Date: </span> {game.dateTime} </p>
+                                    <small className="card-text text-muted"> Created on: {game.dateTime} </small>
+                                    <br></br>
+                                </div>
+                                {game.user !== auth.user._id &&  <Link to={`/profile/${game.user}`} className="btn btn-dark btn-lg btn-block"> View Host Profile </Link>}
+                                {game.user === auth.user._id &&  <Link to="#!" className="btn btn-dark btn-lg btn-block"> <i class="fas fa-cog"/> Game Settings </Link>}
                             </div>
+                        </div>
+                    </div>
+
+                    <div className="row">
+                        <div className="col-sm-12 col-md-12">
+                            <div className="card mb-3">
+                                <div className="card-body">
+                                    <h5 className="card-title my-3 host-title "> Game Chat</h5>
+                                </div>
+                                <div className ="input-group my-3">
+                                <input type="search" className ="form-control rounded my-left" placeholder="Type Something to Send to the Room" aria-label="Search"
+                                    aria-describedby="search-addon" />
+                                <button type="button" class="btn btn-outline-primary my-right"> <i class="fas fa-paper-plane" /> </button>
+                                </div>
                             </div>
                         </div>
                     </div>

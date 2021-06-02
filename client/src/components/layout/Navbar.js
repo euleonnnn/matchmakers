@@ -83,7 +83,7 @@ const Navbar = ({getCurrentProfile, auth, profile: {profile}, logout}) => {
     return (
       <nav className ="navbar navbar-expand-lg navbar-dark bg-dark">
       <div className ="container-fluid">
-        <a className="navbar-brand"><Link to="/dashboard"> (Match) Maker </Link> </a>
+        <Link to="/dashboard" className="navbar-brand"> (Match) Maker </Link> 
         <IconButton
         aria-label="more"
         aria-controls="long-menu"
