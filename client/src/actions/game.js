@@ -5,7 +5,8 @@ import {
     GAME_FAIL,
     GET_GAME,
     CLEAR_GAME,
-    REMOVE_GAME
+    REMOVE_GAME,
+    CREATE_GAME
 } from './types';
 
 import { setAlert } from './alert';
@@ -104,3 +105,25 @@ export const deleteGame = gameID => async dispatch => {
     }
   };
   
+
+// create game
+export const createGame = formData => async dispatch => {
+    const config = {
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }
+    try {
+        const res = await axios.post('/api/games', formData, config);
+        dispatch({
+            type: CREATE_GAME,
+            payload: res.data
+        });
+        dispatch(setAlert('Created Game', 'success'));
+    } catch (error) {
+        dispatch({
+            type: GAME_FAIL,
+            payload: { msg: error.response.statusText, status: error.response.status }
+          });
+    }
+  };

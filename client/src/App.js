@@ -14,6 +14,7 @@ import PrivateRoute from './components/routing/PrivateRoute';
 import Profiles from './components/profiles/Profiles';
 import Games from './components/games/Games';
 import GameRoom from './components/games/GameRoom';
+import CreateGame from './components/games/CreateGame';
 import { Provider } from 'react-redux';
 import store from './store';
 import { authUser } from './actions/auth';
@@ -57,6 +58,7 @@ const App = () => {
           <PrivateRoute exact path ="/edit-profile" component= {EditProfile} />
           <PrivateRoute exact path ="/all-games" component = {Games} />
           <PrivateRoute exact path ="/games/:id" component = {GameRoom} />
+          <PrivateRoute exact path ="/create-game" component = {CreateGame} />
         </Switch> 
       </section>
     </Fragment>

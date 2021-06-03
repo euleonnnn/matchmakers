@@ -3,7 +3,8 @@ import {
     GAME_FAIL,
     GET_GAME,
     CLEAR_GAME,
-    REMOVE_GAME
+    REMOVE_GAME,
+    CREATE_GAME
 } from '../actions/types'
 
 const initialState = {
@@ -23,6 +24,12 @@ export default function (state = initialState, action) {
                 games: payload,
                 loading: false
             };
+        case CREATE_GAME:
+            return {
+                ...state, 
+                games: [payload, ...state.games],
+                loading: false
+            }
         case CLEAR_GAME:
             return {
                 ...state,

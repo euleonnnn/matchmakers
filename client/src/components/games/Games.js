@@ -8,7 +8,7 @@ import dateformat from '../../utils/dateformat';
 import { getCurrentProfile } from '../../actions/profile';
 
 
-const Games = ( {getCurrentProfile, deleteGame, clearGame, getGames, game: {game, games, loading}, auth}) => {
+const Games = ( {getCurrentProfile, deleteGame, clearGame, getGames, game: {games, loading}, auth}) => {
     // eslint-disable-next-line
     useEffect(() => {
         getGames();
@@ -30,7 +30,7 @@ const Games = ( {getCurrentProfile, deleteGame, clearGame, getGames, game: {game
                     aria-describedby="search-addon" />
                 <button type="button" class="btn btn-outline-primary">search</button>
             </div>
-            <Link to="#!" className="btn btn-light btn-dark btn-block my-4"> Host Your Game </Link>
+            <Link to="/create-game" className="btn btn-light btn-dark btn-block my-4"> Host Your Game </Link>
         {games.map(game => (
             <div className="card mb-3">
                 <div className="card-body">
