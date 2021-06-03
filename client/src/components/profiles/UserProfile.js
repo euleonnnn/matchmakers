@@ -17,38 +17,36 @@ const UserProfile = ({ authUser, getProfilesById, profile: { profile, loading },
     authUser();
   });
 
-
   useEffect(() => {
       getProfilesById(match.params.id);
     }, [getProfilesById]);
 
 
-    const followUnfollow = () => {
-        try {
-          if (!followed) {
-            toggle(!followed);
-            axios.put(`/api/users/${profile.user._id}/follow`, {
-              userId: auth.user._id,
-            });
-          } else {
-            toggle(!followed);
-            axios.put(`/api/users/${profile.user._id}/unfollow`, {
-              userId: auth.user._id,
-            });
-          }
-        }catch (err) { 
-          console.log(err.status)
+  const followUnfollow = () => {
+      try {
+        if (!followed) {
+          toggle(!followed);
+          axios.put(`/api/users/${profile.user._id}/follow`, {
+            userId: auth.user._id,
+          });
+        } else {
+          toggle(!followed);
+          axios.put(`/api/users/${profile.user._id}/unfollow`, {
+            userId: auth.user._id,
+          });
         }
-      };
+      }catch (err) { 
+        console.log(err.status)
+      }
+    };
     
-
-    return (
-      <Fragment>
-          {profile === null || loading ? (
-            <Spinner />
-      ) : (
-          <Fragment>
-         
+    if (profile === null || loading) {
+      return < Spinner />
+    } else {
+      if (profile.user._id === auth.user._id) {
+        return <Spinner />
+      } else {
+        return <Fragment>
             <h1> {profile.user.name}'s Profile  </h1>
             <br></br>
             <p> <strong> School:  </strong>National University of Singapore</p>
@@ -106,13 +104,9 @@ const UserProfile = ({ authUser, getProfilesById, profile: { profile, loading },
                 </Link>
                 ) 
             }
-
-           
-            </Fragment>
-        )}
-        </Fragment> 
-    
-    );
+        </Fragment>
+      }
+    }
   };
 
 

@@ -2,14 +2,25 @@ import React, { Fragment, useEffect } from 'react'
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import {getGames} from '../../actions/game';
+import { getGames, clearGame, deleteGame } from '../../actions/game';
 import Spinner from '../layout/Spinner';
+import dateformat from '../../utils/dateformat';
+import { getCurrentProfile } from '../../actions/profile';
 
-const Games = ( {getGames, game: {games, loading}, auth}) => {
+
+const Games = ( {getCurrentProfile, deleteGame, clearGame, getGames, game: {game, games, loading}, auth}) => {
     // eslint-disable-next-line
     useEffect(() => {
         getGames();
-    }, [getGames]);
+    },[getGames]);
+
+    useEffect(() => {
+        clearGame();
+    });
+
+    useEffect(() => {
+        getCurrentProfile();
+      }, [getCurrentProfile]);
 
     return loading ? <Spinner /> : <Fragment>
           <h1 className = "large text-primary big-header"> All Upcoming Games </h1>
@@ -24,17 +35,19 @@ const Games = ( {getGames, game: {games, loading}, auth}) => {
             <div className="card mb-3">
                 <div className="card-body">
                 <h5 className="card-title">{game.sport}</h5>
+                <br></br>
                 <p className="card-text"> <span className='text-primary'> Location: </span> {game.location}</p>
                 <p className="card-text"> <span className='text-primary'> Waiting Room: </span> {game.players.length} players out of {game.maxPlayers}</p>
                 <p className="card-text"> <span className='text-primary'> Date: </span> </p>
                 <p className="card-text">
-                <small className="card-text"> Created on: {game.dateTime} </small></p>
                 <br></br>
                 <small className="text-muted"> Game Host: {game.name} </small>
+                <br></br>
+                <small className="text-muted"> Created on: {dateformat(game.dateTime)} </small></p>
                 {auth.user._id !== game.user ? <Link to={`/games/${game._id}`} className="btn btn-dark join-all"> Enter Room</Link> :
                 <Fragment>
                  <Link to={`/games/${game._id}`} className="btn btn-dark join-all "> Enter Room </Link>
-                 <Link to="#!" className="btn btn-danger join-all my-right"> Cancel Game </Link>
+                 <button onClick={()=>deleteGame(game._id)} type ="button" className="btn btn-danger join-all my-right"> Cancel Game </button>
                  </Fragment>
                  }
                  
@@ -48,6 +61,9 @@ const Games = ( {getGames, game: {games, loading}, auth}) => {
 
 Games.propTypes = {
     getGames: PropTypes.func.isRequired,
+    clearGame: PropTypes.func.isRequired,
+    deleteGame: PropTypes.func.isRequired,
+    getCurrentProfile: PropTypes.func.isRequired,
     game: PropTypes.object.isRequired,
     auth: PropTypes.object.isRequired
 }
@@ -57,4 +73,4 @@ const mapStateToProps = (state) => ({
     auth: state.auth
 });
 
-export default connect(mapStateToProps, { getGames })(Games);
+export default connect(mapStateToProps, { getCurrentProfile, deleteGame, getGames, clearGame })(Games);

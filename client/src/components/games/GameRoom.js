@@ -5,12 +5,12 @@ import Spinner from '../layout/Spinner';
 import { authUser } from '../../actions/auth'
 import { Link } from 'react-router-dom';
 import { getGameById } from '../../actions/game';
+import { clearProfile } from '../../actions/profile';
 import axios from 'axios';
-import { getProfilesById } from '../../actions/profile';
+import dateformat from '../../utils/dateformat';
 
 
-
-const GameRoom = ({ getGameById, authUser, auth, game : {game, loading}, match }) => {
+const GameRoom = ({ clearProfile, getGameById, authUser, auth, game : {game, loading}, match }) => {
     
 
     const quitGame = () => {
@@ -37,6 +37,9 @@ const GameRoom = ({ getGameById, authUser, auth, game : {game, loading}, match }
         authUser();
     }, []);
 
+    useEffect(() => {
+        clearProfile();
+    }, []);
 
 
     if (game === null || loading) {
@@ -57,8 +60,8 @@ const GameRoom = ({ getGameById, authUser, auth, game : {game, loading}, match }
                             <h5 className="card-title my-3 host-title">{game.sport}</h5>
                                 <p className="card-text"> <span className='text-primary'> Experience Level: </span> {game.experience}</p>
                                 <p className="card-text"> <span className='text-primary'> Location: </span> {game.location}</p>
-                                <p className="card-text"> <span className='text-primary'> Date: </span> {game.dateTime} </p>
-                                <small className="card-text text-muted"> Created on: {game.dateTime} </small>
+                                <p className="card-text"> <span className='text-primary'> Date: </span> {dateformat(game.dateTime)} </p>
+                                <p className="card-text"> <span className='text-primary'> Max Players: </span> {game.maxPlayer} </p>
                                 <br></br>
                             </div>
                             </div>
@@ -67,7 +70,7 @@ const GameRoom = ({ getGameById, authUser, auth, game : {game, loading}, match }
                         <div class="col-sm-6 col-md-6">
                             <div className="card mb-3">
                                 <div className="card-body">
-                                <h5 className="card-title my-3 host-title">Players In Waiting Room</h5>
+                                <h5 className="card-title my-3 host-title">Players In Waiting Room : {game.players.length} </h5>
                                 {game.players.length > 0 && game.players.map(player => { 
                                     if (player.user === auth.user._id) {
                                         return (
@@ -87,7 +90,7 @@ const GameRoom = ({ getGameById, authUser, auth, game : {game, loading}, match }
                                             <Fragment>
                                             <div className="card mb-3">
                                             <div className="card-body">
-                                                {player.name}
+                                                <Link to={`/profile/${player.user}`}> {player.name} </Link> 
                                             </div>
                                             </div>
                                             </Fragment>
@@ -111,8 +114,7 @@ const GameRoom = ({ getGameById, authUser, auth, game : {game, loading}, match }
                                 <div className="card-body">
                                     <h5 className="card-title my-3 host-title ">About Game Host </h5>
                                     <p className="card-text"> <span className='text-primary'> Host Name: </span> {game.name}</p>
-                                    <p className="card-text"> <span className='text-primary'> Date: </span> {game.dateTime} </p>
-                                    <small className="card-text text-muted"> Created on: {game.dateTime} </small>
+                                    <small className="card-text text-muted"> Created on: {dateformat(game.dateTime)} </small>
                                     <br></br>
                                 </div>
                                 {game.user !== auth.user._id &&  <Link to={`/profile/${game.user}`} className="btn btn-dark btn-lg btn-block"> View Host Profile </Link>}
@@ -145,6 +147,7 @@ const GameRoom = ({ getGameById, authUser, auth, game : {game, loading}, match }
 GameRoom.propTypes = {
     getGameById: PropTypes.func.isRequired,
     authUser: PropTypes.func.isRequired,
+    clearProfile: PropTypes.func.isRequired,
     game: PropTypes.object.isRequired,
     auth: PropTypes.object.isRequired
 };
@@ -154,4 +157,4 @@ const mapStateToProps = state => ({
     auth: state.auth
 })
 
-export default connect(mapStateToProps, { getGameById, authUser })(GameRoom);
+export default connect(mapStateToProps, { clearProfile, getGameById, authUser })(GameRoom);

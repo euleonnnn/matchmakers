@@ -13,5 +13,6 @@ export const CLEAR_PROFILE = 'CLEAR_PROFILE';
 export const PROFILE_FAIL = 'PROFILE_FAIL';
 export const GET_GAMES = 'GET_GAMES';
 export const GAME_FAIL = 'GAME_FAIL';
-export const JOIN_UNJOIN = 'JOIN_UNJOIN';
 export const GET_GAME = 'GET_GAME';
+export const CLEAR_GAME = 'CLEAR_GAME';
+export const REMOVE_GAME = 'REMOVE_GAME';

@@ -89,6 +89,11 @@ export const getProfiles = () => async dispatch => {
 }
 
 
+export const clearProfile = () => async dispatch => {
+    dispatch({ type: CLEAR_PROFILE });
+}
+
+
 //Get profile by ID
 export const getProfilesById = id => async dispatch => {
     try {

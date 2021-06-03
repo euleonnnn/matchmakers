@@ -36,7 +36,7 @@ const MyProfile = ({ auth: { user }, profile : { profile, loading }, logout}) =>
           
           <> </>
           <Link to="/dashboard" className="btn btn-dark">
-            Go Back
+            Home
           </Link>
           
           <Link to ="#!" onClick={logout} className="btn btn-danger join-all">

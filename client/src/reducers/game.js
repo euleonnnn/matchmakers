@@ -1,8 +1,9 @@
 import {
     GET_GAMES,
     GAME_FAIL,
-    JOIN_UNJOIN,
-    GET_GAME
+    GET_GAME,
+    CLEAR_GAME,
+    REMOVE_GAME
 } from '../actions/types'
 
 const initialState = {
@@ -22,6 +23,12 @@ export default function (state = initialState, action) {
                 games: payload,
                 loading: false
             };
+        case CLEAR_GAME:
+            return {
+                ...state,
+                game: null,
+                loading: false
+            }
         case GET_GAME: 
             return {
                 ...state, 
@@ -33,12 +40,11 @@ export default function (state = initialState, action) {
                 ...state, 
                 error: payload,
                 loading: false
-             };
-        case JOIN_UNJOIN:
+             }
+        case REMOVE_GAME:
             return {
                 ...state,
-                players: state.players.map(game => game._id === payload.id ? {...game, players:
-                    payload.players} : game),
+                games: state.games.filter(game => game._id !== payload),
                 loading: false
             }
         default: 
