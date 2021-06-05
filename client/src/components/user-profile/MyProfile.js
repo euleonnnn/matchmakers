@@ -7,7 +7,7 @@ import Spinner from '../layout/Spinner';
 import { logout } from '../../actions/auth';
 
 
-const MyProfile = ({ auth: { user }, profile : { profile, loading }, logout}) => {
+const MyProfile = ({ getCurrentProfile, auth: { user }, profile : { profile, loading }, logout}) => {
     // eslint-disable-next-line
     useEffect(() => {
       getCurrentProfile();
