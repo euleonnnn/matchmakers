@@ -22,6 +22,7 @@ const initialState = {
  * @param state initial state cotaining token, loading, user and isAuthenticated
  * @param action Will be the dispatched action from auth.js in actions
  */
+// eslint-disable-next-line
 export default function(state = initialState, action) {
     const { type, payload } = action;
 

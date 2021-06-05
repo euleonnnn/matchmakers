@@ -19,6 +19,7 @@ const UserProfile = ({ authUser, getProfilesById, profile: { profile, loading },
 
   useEffect(() => {
       getProfilesById(match.params.id);
+      // eslint-disable-next-line
     }, [getProfilesById]);
 
 

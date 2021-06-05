@@ -19,7 +19,6 @@ const EditProfile = ({profile : {profile, loading},
 
     const [displaySocial, toggleSocial] = useState(false);
 
-    // eslint-disable-next-line
     useEffect(() => {
         getCurrentProfile(); 
         setFormData({
@@ -30,6 +29,7 @@ const EditProfile = ({profile : {profile, loading},
             facebook: loading || !profile.social ? '' : profile.social.facebook,
             instagram: loading || !profile.social ? '' : profile.social.instagram
         });
+        // eslint-disable-next-line
     }, [loading, getCurrentProfile]);
 
     const {

@@ -35,10 +35,12 @@ const GameRoom = ({ clearProfile, getGameById, authUser, auth, game : {game, loa
     
     useEffect(() => {
         authUser();
+        // eslint-disable-next-line
     }, []);
 
     useEffect(() => {
         clearProfile();
+        // eslint-disable-next-line
     }, []);
 
 
