@@ -23,7 +23,7 @@ const Games = ( {getCurrentProfile, deleteGame, clearGame, getGames, game: {game
       }, [getCurrentProfile]);
 
     return loading ? <Spinner /> : <Fragment>
-          <h1 className = "large text-primary big-header"> All Upcoming Games </h1>
+          <h1 className = "large big-header"> All Upcoming Games </h1>
 
             <div className ="input-group my-3">
                 <input type="search" className ="form-control rounded" placeholder="Search" aria-label="Search"

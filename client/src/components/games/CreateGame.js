@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { createGame } from '../../actions/game';
 import { Link, withRouter } from 'react-router-dom';
 
-const CreateGame = ({ createGame }) => {
+const CreateGame = ({ createGame, history }) => {
     const [formData, setFormData] = useState({
         sport: '',
         location: '',
@@ -24,14 +24,14 @@ const CreateGame = ({ createGame }) => {
 
     const onSubmit = e => {
         e.preventDefault();
-        createGame(formData);
+        createGame(formData, history);
     }
 
 
     return (
         <Fragment>
-            <h1 className="large text-primary"> <i className="fas fa-address-card"></i>
-                {" "} Host Your Own Game
+            <h1 className="large"> <i class="fas fa-football-ball"/> {" "}
+                Host Your Own Game
             </h1>
        
             <form className="form" onSubmit = {data => onSubmit(data)}>
@@ -54,7 +54,7 @@ const CreateGame = ({ createGame }) => {
                 onChange = {e=> onChange(e)} />
                 </div>
 
-                <input type="submit" className="btn btn-dark my-3" />
+                <input type="submit" className="btn btn-primary my-3" />
 
                 <>   </>
                 <Link className="btn btn-light my-3" to="/all-games">Go Back</Link>

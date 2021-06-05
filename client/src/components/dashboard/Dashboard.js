@@ -17,10 +17,10 @@ const Dashboard = ({ getCurrentProfile, auth: { user}, profile : { profile, load
   // eslint-disable-next-line
   useEffect(() => {
     getCurrentProfile();
-  }, [getCurrentProfile]);
+  });
 
 
-  if (loading || profile === null) {
+  if (loading) {
     return <Spinner />; 
   } else {
     return  <Fragment>

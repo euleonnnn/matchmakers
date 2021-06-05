@@ -107,7 +107,7 @@ export const deleteGame = gameID => async dispatch => {
   
 
 // create game
-export const createGame = formData => async dispatch => {
+export const createGame = (formData, hist) => async dispatch => {
     const config = {
         headers: {
             'Content-Type': 'application/json'
@@ -120,6 +120,9 @@ export const createGame = formData => async dispatch => {
             payload: res.data
         });
         dispatch(setAlert('Created Game', 'success'));
+
+        hist.push('/all-games')
+
     } catch (error) {
         dispatch({
             type: GAME_FAIL,

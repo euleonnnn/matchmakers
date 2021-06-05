@@ -11,7 +11,7 @@ const MyProfile = ({ auth: { user }, profile : { profile, loading }, logout}) =>
     // eslint-disable-next-line
     useEffect(() => {
       getCurrentProfile();
-    }, []);
+    },[]);
   
     return (
       <Fragment>
