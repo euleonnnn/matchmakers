@@ -27,7 +27,7 @@ export default function (state = initialState, action) {
         case CREATE_GAME:
             return {
                 ...state, 
-                games: [payload, ...state.games],
+                games: [payload,...state.games],
                 loading: false
             }
         case CLEAR_GAME:

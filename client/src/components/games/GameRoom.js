@@ -51,8 +51,12 @@ const GameRoom = ({ clearProfile, getGameById, authUser, auth, game : {game, loa
     } else {
         return (
             <Fragment>
-                <h1 className="text-primary my-3 my-btm"> Game Lobby <Link to="/all-games" className="btn btn-danger join-all">
-                    <i class="fas fa-sign-out-alt" /> Leave Lobby </Link> </h1>
+                <h1 className="text-primary my-3 my-btm"> {game.name}'s Game Lobby  </h1>
+                <div class="row">
+                <div className="card-body">
+                <Link to="/all-games" className="btn btn-danger join-all"> <i class="fas fa-sign-out-alt" /> Leave Lobby </Link>
+                </div>
+                </div>
                     <div class="row">
                         <div class="col-sm-6 col-md-6">
                             <div className="card mb-3">
@@ -76,7 +80,7 @@ const GameRoom = ({ clearProfile, getGameById, authUser, auth, game : {game, loa
                                         return (
                                             <Fragment>
                                             <div className="card mb-3">
-                                            <div className="card-body">
+                                            <div className="card-body player-card">
                                                 {player.name}
                                                 <button onClick= {()=> {
                                                     quitGame();
@@ -89,7 +93,7 @@ const GameRoom = ({ clearProfile, getGameById, authUser, auth, game : {game, loa
                                         return (
                                             <Fragment>
                                             <div className="card mb-3">
-                                            <div className="card-body">
+                                            <div className="card-body player-card">
                                                 <Link to={`/profile/${player.user}`}> {player.name} </Link> 
                                             </div>
                                             </div>

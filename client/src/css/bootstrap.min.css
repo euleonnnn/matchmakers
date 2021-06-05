@@ -164,6 +164,11 @@ sub {
 sup {
   top: -0.5em;
 }
+
+.left-float {
+  float: left;
+}
+
 a {
   color: #007bff;
   text-decoration: none;
@@ -201,6 +206,11 @@ pre {
 figure {
   margin: 0 0 1rem;
 }
+
+.player-card {
+  height: 70px;
+}
+
 img {
   vertical-align: middle;
   border-style: none;
@@ -9089,7 +9099,7 @@ button.bg-dark:hover {
 }
 .text-primary {
   color: #f58f7c !important;
-  font-family: 'Franklin Gothic Medium';
+  font-family: 'Trebuchet MS';
 }
 a.text-primary:focus,
 a.text-primary:hover {

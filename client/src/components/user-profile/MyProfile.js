@@ -15,7 +15,7 @@ const MyProfile = ({ auth: { user }, profile : { profile, loading }, logout}) =>
   
     return (
       <Fragment>
-          {profile === null || loading ? (
+          { loading ? (
             <Spinner /> ):
         <Fragment> 
             <h1 className="large"> {user.name}'s Profile  </h1>
