@@ -4,10 +4,8 @@ import { connect } from 'react-redux'
 import { getCurrentProfile } from '../../actions/profile';
 import { Link } from 'react-router-dom';
 import Spinner from '../layout/Spinner';
-import { logout } from '../../actions/auth';
 
-
-const MyProfile = ({ getCurrentProfile, auth: { user }, profile : { profile, loading }, logout}) => {
+const MyProfile = ({ getCurrentProfile, auth: { user }, profile : { profile, loading } }) => {
     // eslint-disable-next-line
     useEffect(() => {
       getCurrentProfile();
@@ -15,7 +13,7 @@ const MyProfile = ({ getCurrentProfile, auth: { user }, profile : { profile, loa
   
     return (
       <Fragment>
-          { loading ? (
+          { loading || profile.user._id !== user._id ? (
             <Spinner /> ):
         <Fragment> 
             <h1 className="large"> {user.name}'s Profile  </h1>
@@ -35,13 +33,11 @@ const MyProfile = ({ getCurrentProfile, auth: { user }, profile : { profile, loa
             <Link to ='/edit-profile' className="btn btn-primary my-1"> Update Profile </Link>
           
           <> </>
-          <Link to="/dashboard" className="btn btn-dark">
+          <Link to="/dashboard" className="btn btn-dark join-all">
             Home
           </Link>
           
-          <Link to ="#!" onClick={logout} className="btn btn-danger join-all">
-            Logout
-          </Link>
+         
           </div>
         </Fragment> 
     }
@@ -54,7 +50,6 @@ const MyProfile = ({ getCurrentProfile, auth: { user }, profile : { profile, loa
     getCurrentProfile: PropTypes.func.isRequired,
     auth: PropTypes.object.isRequired,
     profile: PropTypes.object.isRequired,
-    logout: PropTypes.func.isRequired
   };
   
   const mapStateToProps = (state) => ({
@@ -62,4 +57,4 @@ const MyProfile = ({ getCurrentProfile, auth: { user }, profile : { profile, loa
     profile: state.profile
   });
   
-  export default connect(mapStateToProps, { getCurrentProfile, logout })(MyProfile);
+  export default connect(mapStateToProps, { getCurrentProfile })(MyProfile);

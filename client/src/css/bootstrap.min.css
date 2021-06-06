@@ -7392,6 +7392,10 @@ button.bg-dark:hover {
   margin-left: 1rem !important;
 }
 
+.badge-left {
+  margin-left: 2rem !important;
+}
+
 .p-0 {
   padding: 0 !important;
 }

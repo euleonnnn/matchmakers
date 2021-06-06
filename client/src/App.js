@@ -21,6 +21,7 @@ import { authUser } from './actions/auth';
 import setAuthToken from './utils/setAuthToken';
 import './css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
+import AccountSettings from './components/auth/AccountSettings';
 
 
 if (localStorage.token) { 
@@ -59,6 +60,7 @@ const App = () => {
           <PrivateRoute exact path ="/all-games" component = {Games} />
           <PrivateRoute exact path ="/games/:id" component = {GameRoom} />
           <PrivateRoute exact path ="/create-game" component = {CreateGame} />
+          <PrivateRoute exact path ="/account" component = {AccountSettings} />
         </Switch> 
       </section>
     </Fragment>

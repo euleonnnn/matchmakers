@@ -26,7 +26,7 @@ const FriendList = ({ auth: { user }}) => {
       
       <div className="card">
           <div className="card-header">
-              <strong> My Friends </strong>
+              <strong> My Friends ({friends.length}) </strong>
           </div>
         
           <ul className="list-group list-group-flush">

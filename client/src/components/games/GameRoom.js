@@ -9,7 +9,6 @@ import { clearProfile } from '../../actions/profile';
 import axios from 'axios';
 import dateformat from '../../utils/dateformat';
 
-
 const GameRoom = ({ clearProfile, getGameById, authUser, auth, game : {game, loading}, match }) => {
     
 
@@ -56,7 +55,7 @@ const GameRoom = ({ clearProfile, getGameById, authUser, auth, game : {game, loa
                 <h1 className="text-primary my-3 my-btm"> {game.name}'s Game Lobby  </h1>
                 <div class="row">
                 <div className="card-body">
-                <Link to="/all-games" className="btn btn-danger join-all"> <i class="fas fa-sign-out-alt" /> Leave Lobby </Link>
+                <Link to="/all-games" className="btn btn-secondary join-all"> <i class="fas fa-sign-out-alt" /> Leave Lobby </Link>
                 </div>
                 </div>
                     <div class="row">
@@ -67,7 +66,7 @@ const GameRoom = ({ clearProfile, getGameById, authUser, auth, game : {game, loa
                                 <p className="card-text"> <span className='text-primary'> Experience Level: </span> {game.experience}</p>
                                 <p className="card-text"> <span className='text-primary'> Location: </span> {game.location}</p>
                                 <p className="card-text"> <span className='text-primary'> Date: </span> {dateformat(game.dateTime)} </p>
-                                <p className="card-text"> <span className='text-primary'> Max Players: </span> {game.maxPlayer} </p>
+                                <p className="card-text"> <span className='text-primary'> Max Players: </span> {game.maxPlayers} </p>
                                 <br></br>
                             </div>
                             </div>
@@ -103,11 +102,15 @@ const GameRoom = ({ clearProfile, getGameById, authUser, auth, game : {game, loa
                                         )
                                     }
                                 })}
-                                <p> { game.players.filter(player=> player.user === auth.user._id).length === 0  && 
+                                <p> { game.players.length < game.maxPlayers && game.players.filter(player => 
+                                    player.user === auth.user._id).length === 0  && 
                                     <button onClick= {()=> {
                                         joinGame();
                                     }} type="button" className="btn btn-dark join-all"> Join Game </button>}
                                 </p>
+
+                                <h5> { game.players.length >= game.maxPlayers && <span class="badge badge-light">
+                                    Waiting Room is Currently Full</span>}</h5>
                              
                                 </div>
                             </div>
@@ -117,12 +120,17 @@ const GameRoom = ({ clearProfile, getGameById, authUser, auth, game : {game, loa
                     <div className="row">
                         <div className="col-sm-6 col-md-6">
                             <div className="card mb-3">
-                                <div className="card-body">
+                                <div className="row g-0">
+                                <div className="col-md-4">
+                                    <img height="195" width ="195" src={game.avatar} className="round-img" alt=""/>
+                                </div>
+                                <div className="col-md-8">
                                     <h5 className="card-title my-3 host-title ">About Game Host </h5>
                                     <p className="card-text"> <span className='text-primary'> Host Name: </span> {game.name}</p>
-                                    <small className="card-text text-muted"> Created on: {dateformat(game.dateTime)} </small>
+                                    <small className="card-text text-muted"> Room Created: {dateformat(game.dateTime)} </small>
                                     <br></br>
                                 </div>
+                            </div>
                                 {game.user !== auth.user._id &&  <Link to={`/profile/${game.user}`} className="btn btn-dark btn-lg btn-block"> View Host Profile </Link>}
                                 {game.user === auth.user._id &&  <Link to="#!" className="btn btn-dark btn-lg btn-block"> <i class="fas fa-cog"/> Game Settings </Link>}
                             </div>
@@ -146,7 +154,7 @@ const GameRoom = ({ clearProfile, getGameById, authUser, auth, game : {game, loa
 
             </Fragment>
         )
-    };
+    }
 }
 
 
