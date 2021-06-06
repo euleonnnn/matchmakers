@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Spinner from '../layout/Spinner';
 import FriendList from './FriendList';
-import { getCurrentProfile } from '../../actions/profile';
+import { clearProfile, getCurrentProfile } from '../../actions/profile';
 import '../../css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 import bball from '../layout/bball.jpg';
@@ -14,18 +14,26 @@ import { logout } from '../../actions/auth';
 
 
 const Dashboard = ({ getCurrentProfile, auth: { user}, profile : { profile, loading }, logout }) => {
+
+  useEffect(() => {
+    clearProfile();
+  }, []);
+
+
   // eslint-disable-next-line
   useEffect(() => {
     getCurrentProfile();
   });
 
+ 
 
   if (loading) {
     return <Spinner />; 
   } else {
     return  <Fragment>
       <h1 className="large text-primary big-header"><i class="fas fa-dumbbell"/> {" "} Hello There, {user && user.name}</h1>
-      {profile !== null ? 
+      {profile !== null && user !== null ? 
+        (profile.user._id !== user._id ? <Spinner /> :
       <Fragment> 
 
       <div class="container">
@@ -49,12 +57,12 @@ const Dashboard = ({ getCurrentProfile, auth: { user}, profile : { profile, load
                       </div>
                       <div className="col-md-8">
                         <div className="card-body">
-                          <h5 className="card-title">Basketball</h5>
+                          <h5 className="card-title">Placeholder</h5>
                           <p className="card-text">Location: Eusoff Hall Basketball Court</p>
                           <p className="card-text">Players: 2 out of 6</p>
                           <p className="card-text">
                             <small className="text-muted">Created: 3 mins ago</small>
-                            <Link to="#!" className="btn btn-primary join"> Join Now</Link>
+                            <Link to="#!" className="btn btn-primary join"> Not LEGIT </Link>
                           </p>
                         </div>
                       </div>
@@ -67,12 +75,12 @@ const Dashboard = ({ getCurrentProfile, auth: { user}, profile : { profile, load
                       </div>
                       <div className="col-md-8">
                         <div className="card-body">
-                          <h5 className="card-title">Basketball</h5>
+                          <h5 className="card-title">Placeholderl</h5>
                           <p className="card-text">Location: MPSH 5 Basketball Court </p>
                           <p className="card-text">Players: 5 out of 6</p>
                           <p className="card-text">
                             <small className="text-muted">Created: 1 hour ago</small>
-                            <Link to="#!" className="btn btn-primary join"> Join Now</Link>
+                            <Link to="#!" className="btn btn-primary join"> Not LEGIT </Link>
                           </p>
                         </div>
                       </div>
@@ -87,7 +95,8 @@ const Dashboard = ({ getCurrentProfile, auth: { user}, profile : { profile, load
         </div>
       </div>
 
-      </Fragment> : 
+      </Fragment> ) : 
+
       <Fragment> 
         <p> No Profile Yet. You will need a profile to host or join games. </p> 
         <Link to ='/create-profile' className="btn btn-primary my-1"> Set Up One Now </Link>
@@ -101,6 +110,7 @@ const Dashboard = ({ getCurrentProfile, auth: { user}, profile : { profile, load
 
 Dashboard.propTypes = {
   getCurrentProfile: PropTypes.func.isRequired,
+  clearProfile: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
   profile: PropTypes.object.isRequired,
   logout: PropTypes.func.isRequired
@@ -111,4 +121,4 @@ const mapStateToProps = (state) => ({
   profile: state.profile
 });
 
-export default connect(mapStateToProps, { getCurrentProfile, logout })(Dashboard);
+export default connect(mapStateToProps, { clearProfile, getCurrentProfile, logout })(Dashboard);
