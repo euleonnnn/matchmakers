@@ -38,12 +38,13 @@ const Games = ( {getCurrentProfile, deleteGame, clearGame, getGames, game: {game
                 <br></br>
                 <p className="card-text"> <span className='text-primary'> Location: </span> {game.location}</p>
                 <p className="card-text"> <span className='text-primary'> Waiting Room: </span> {game.players.length} players out of {game.maxPlayers}</p>
-                <p className="card-text"> <span className='text-primary'> Date: </span> </p>
+                <p className="card-text"> <span className='text-primary'> Date: </span> {dateformat(game.dateTime)} </p>
                 <p className="card-text">
-                <br></br>
-                <small className="text-muted"> Game Host: {game.name} </small>
-                <br></br>
-                <small className="text-muted"> Created on: {dateformat(game.dateTime)} </small></p>
+                    <br></br>
+                    <small className="text-muted"> Game Host: {game.name} </small>
+                    <br></br>
+                    <small className="text-muted"> Created on: {dateformat(game.createTime)} </small>
+                </p>
                 {auth.user._id !== game.user ? <Link to={`/games/${game._id}`} className="btn btn-dark join-all"> Enter Room</Link> :
                 <Fragment>
                  <Link to={`/games/${game._id}`} className="btn btn-dark join-all "> Enter Room </Link>
