@@ -32,7 +32,8 @@ router.post('/', [auth,
                 experience: req.body.experience, 
                 dateTime: req.body.dateTime,
                 maxPlayers: req.body.maxPlayers,
-                location: req.body.location
+                location: req.body.location,
+                otherLoc: req.body.otherLoc
             });
 
             const createdGame = await newGame.save();
