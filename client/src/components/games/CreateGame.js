@@ -9,6 +9,7 @@ const CreateGame = ({ createGame, history }) => {
     const [formData, setFormData] = useState({
         sport: '',
         location: '',
+        otherLoc: 'Others',
         experience: '',
         maxPlayers: '',
         dateTime: Date.now,
@@ -18,6 +19,7 @@ const CreateGame = ({ createGame, history }) => {
     const {
        sport,
        location,
+       otherLoc,
        experience,
        maxPlayers,
        dateTime,
@@ -27,11 +29,11 @@ const CreateGame = ({ createGame, history }) => {
     const sports = [
         { sport: "Badminton", locations:["Kent Ridge - MPSH 5", "UTown - Sports Hall 1"], 
             maxPlayers:["2","3","4","5","6"] },
-        { sport: "Basketball", locations:["Eusoff Hall", "NUS Sports & Recreation Centre","Temasek Hall"], 
+        { sport: "Basketball", locations:["Eusoff Hall", "NUS Sports & Recreation Centre","Temasek Hall","Others"], 
         maxPlayers:["4","6","8","9","10"] },
-        { sport: "Frisbee", locations:["Kent Ridge - Multi-Purpose Fields","Utown - Open Field"], 
+        { sport: "Frisbee", locations:["Kent Ridge - Multi-Purpose Fields","Utown - Open Field","Others"], 
         maxPlayers:["4","6","8","9","10"] },
-        { sport: "Running", locations:["Kent Ridge - Running Field", "West Coast Park"], 
+        { sport: "Running", locations:["Kent Ridge - Running Field", "West Coast Park","Others"], 
         maxPlayers:["2","3","4","5"] },
         { sport: "Squash", locations:["Kent Ridge - Squash Courts"], 
         maxPlayers:["2","3","4"] },
@@ -48,8 +50,8 @@ const CreateGame = ({ createGame, history }) => {
         var dd = today.getDate();
         var mm = today.getMonth() + 1;
         var yyyy = today.getFullYear();
-        var hh = today.getHours();
-        var mins = today.getMinutes();
+        var hh = today.getHours() + 1;
+        var mins = "00";
 
         if (dd<10) {
             dd = "0" + dd;
@@ -59,12 +61,13 @@ const CreateGame = ({ createGame, history }) => {
             mm = "0" + mm;
         }
 
+
         if (hh<10) {
             hh = "0" + hh;
         }
 
-        if (mins<10) {
-            mins = "0" + mins;
+        if (hh===24) {
+            hh = "00";
         }
 
         today = yyyy+'-'+mm+'-'+dd+'T'+hh+":"+mins;
@@ -72,6 +75,13 @@ const CreateGame = ({ createGame, history }) => {
     }
 
     const onChange = e => setFormData({...formData, [e.target.name]: e.target.value});
+
+    const locationChange = e => {
+        setFormData({...formData, [e.target.name]: e.target.value});
+        if (e.target.value!=="Others" && formData.otherLoc!=='') {
+            document.getElementById('otherLoc').value = '';
+        }
+    }
 
     const onSubmit = e => {
         e.preventDefault();
@@ -95,12 +105,29 @@ const CreateGame = ({ createGame, history }) => {
                     </select> 
                 </div>
                 <div className="form-group2">
-                    <select name="location" value={location} onChange = {e=> onChange(e)}>
+                    <select name="location" value={location} onChange = {e=> locationChange(e)}>
                         <option value="" disabled selected hidden>Location</option>
                         {sports.filter(sport => sport.sport===formData.sport).map(
                             sport => sport.locations.map(location => {return <option>{location}</option>}))
                         }
                     </select>
+                </div>
+                <div className="form-group2">
+                    {formData.location==="Others" 
+                        ? <input 
+                            id="otherLoc"
+                            type="text" 
+                            name="otherLoc" 
+                            value={otherLoc} 
+                            placeholder="Other Locations" 
+                            onChange = {e=> onChange(e)}/>
+                        : <input
+                            id="otherLoc"
+                            name="otherLoc" 
+                            type="text"  
+                            placeholder="Other Locations" 
+                            disabled/>
+                    }
                 </div>
                 
                 <div className="form-group2">
@@ -131,6 +158,8 @@ const CreateGame = ({ createGame, history }) => {
                         onChange={e => onChange(e)}
                         onClick={setToday}
                         className="col-md-6"
+                        max="2022-06-14T00:00"
+                        step="900"
                     />
                 </div>
 
