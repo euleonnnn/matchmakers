@@ -520,6 +520,15 @@ pre code {
   margin-right: auto;
   margin-left: auto;
 }
+
+.container-form {
+  width: 80%;
+  padding-right: 80px;
+  padding-left: 80px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
 @media (min-width: 576px) {
   .container {
     max-width: 540px;

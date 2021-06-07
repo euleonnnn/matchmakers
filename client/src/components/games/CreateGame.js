@@ -52,14 +52,15 @@ const CreateGame = ({ createGame, history }) => {
 
     return (
         <Fragment>
-            <h1 className="large"> <i class="fas fa-football-ball"/> {" "}
+            <div className ="container-form">
+            <h1 className="large my-btm"> <i class="fas fa-football-ball"/> {" "}
                 Host Your Own Game
             </h1>
-       
+
             <form className="form" onSubmit = {data => onSubmit(data)}>
                 <div className="form-group">
                     <select name="sport" value={sport} onChange = {e=> onChange(e)}>
-                        <option>Sport</option>
+                        <option value="" disabled selected hidden> Sport </option>
                         {sports.map(sport => {
                             return <option>{sport.sport}</option>
                         })}
@@ -92,12 +93,14 @@ const CreateGame = ({ createGame, history }) => {
                     </select> 
                 </div>
 
-                <div className="form-group">
-                    <input
+                <div className="form-group row my-btm">
+                    <div className="col-md-1"> Date </div>
+                    <input 
                         name="dateTime"
                         type="datetime-local"
                         value={dateTime}
                         onChange={e => onChange(e)}
+                        className="col-md-6"
                     />
                 </div>
 
@@ -106,6 +109,7 @@ const CreateGame = ({ createGame, history }) => {
                 <>   </>
                 <Link className="btn btn-light my-3" to="/all-games">Go Back</Link>
             </form>
+            </div>
         </Fragment>
     )
 }
