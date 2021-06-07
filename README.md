@@ -19,7 +19,7 @@ We hope to be a convenient and accessible intermediary platform where sports mat
 3. As an administrator who wants to prevent abuse of the system, I should be able to identify users guilty of “no-show” or verbal abuse in the in-built chat function, warn them or even ban them if they continue to be disruptive. 
 
 ## Features and Timeline
-| <img height="300" src="https://github.com/euleonnnn/matchmakers/blob/master/readimg/Telegram.png"/>|<img height="300" src="https://github.com/euleonnnn/matchmakers/blob/master/readimg/logo.png" />| 
+| <img height="300" width="300" src="https://github.com/euleonnnn/matchmakers/blob/master/readimg/Telegram.png"/>|<img height="300" width="300" src="https://github.com/euleonnnn/matchmakers/blob/master/readimg/logo.png" />| 
 |---|---|
 |Telegram Bot will remind users of upcoming matches, and provide updates on available slots for sports users have shown interests in.| A Mobile Web App where users have their own profile and credentials, and can set up or join a game. Mobile Web App will have a chat function for users participating in the same game to communicate with one another before and after the game. |
 
