@@ -27,9 +27,9 @@ const CreateGame = ({ createGame, history }) => {
     const sports = [
         { sport: "Badminton", locations:["Kent Ridge - MPSH 5", "UTown - Sports Hall 1"], 
             maxPlayers:["2","3","4","5","6"] },
-        { sport: "Basketball", locations:["Kent Ridge - Multi-Purpose Fields","Utown - Open Field"], 
+        { sport: "Basketball", locations:["Eusoff Hall", "NUS Sports & Recreation Centre","Temasek Hall"], 
         maxPlayers:["4","6","8","9","10"] },
-        { sport: "Frisbee", locations:["Eusoff Hall", "NUS Sports & Recreation Centre","Temasek Hall"], 
+        { sport: "Frisbee", locations:["Kent Ridge - Multi-Purpose Fields","Utown - Open Field"], 
         maxPlayers:["4","6","8","9","10"] },
         { sport: "Running", locations:["Kent Ridge - Running Field", "West Coast Park"], 
         maxPlayers:["2","3","4","5"] },
