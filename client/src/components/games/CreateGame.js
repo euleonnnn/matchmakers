@@ -52,13 +52,13 @@ const CreateGame = ({ createGame, history }) => {
 
     return (
         <Fragment>
-            <div className ="container-form">
+            <div className ="container">
             <h1 className="large my-btm"> <i class="fas fa-football-ball"/> {" "}
                 Host Your Own Game
             </h1>
 
-            <form className="form" onSubmit = {data => onSubmit(data)}>
-                <div className="form-group">
+            <form className="form2" onSubmit = {data => onSubmit(data)}>
+                <div className="form-group2">
                     <select name="sport" value={sport} onChange = {e=> onChange(e)}>
                         <option value="" disabled selected hidden> Sport </option>
                         {sports.map(sport => {
@@ -66,7 +66,7 @@ const CreateGame = ({ createGame, history }) => {
                         })}
                     </select> 
                 </div>
-                <div className="form-group">
+                <div className="form-group2">
                     <select name="location" value={location} onChange = {e=> onChange(e)}>
                         <option value="" disabled selected hidden>Location</option>
                         {sports.filter(sport => sport.sport===formData.sport).map(
@@ -75,7 +75,7 @@ const CreateGame = ({ createGame, history }) => {
                     </select>
                 </div>
                 
-                <div className="form-group">
+                <div className="form-group2">
                     <select name="experience" value={experience} onChange = {e=> onChange(e)}>
                             <option value="" disabled selected hidden>Experience Level</option>
                             <option>Beginner</option>
@@ -84,7 +84,7 @@ const CreateGame = ({ createGame, history }) => {
                     </select> 
                 </div>
                
-                <div className="form-group">
+                <div className="form-group2">
                     <select name="maxPlayers" value={maxPlayers} onChange = {e=> onChange(e)}>
                             <option value="" disabled selected hidden>Max Players</option>
                             {sports.filter(sport => sport.sport===formData.sport).map(

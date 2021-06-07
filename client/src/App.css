@@ -283,6 +283,42 @@ button {
   color: #0077b5;
 }
 
+.form2 .form-group2 {
+  margin: 1.2rem 0;
+}
+
+.form2 .form-text2 {
+  display: block;
+  margin-top: 0.3rem;
+  color: #888;
+}
+
+.form2 select,
+.form2 textarea {
+  display: block;
+  width: 100%;
+  padding: 0.4rem;
+  font-size: 1.2rem;
+  border: 1px solid #ccc;
+}
+
+.form2 select {
+  display: block;
+  width: 100%;
+  padding: 0.4rem;
+  font-size: 1.2rem;
+  border: 1px solid #ccc;
+}
+
+.form2 textarea,
+.form2 input[type='text'] {
+  display: block;
+  width: 100%;
+  padding: 0.4rem;
+  font-size: 1.2rem;
+  border: 1px solid #ccc;
+}
+
 .table th,
 .table td {
   padding: 1rem;

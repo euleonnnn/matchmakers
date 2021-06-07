@@ -23,14 +23,14 @@ const Games = ( {getCurrentProfile, deleteGame, clearGame, getGames, game: {game
       }, [getCurrentProfile]);
 
     return loading ? <Spinner /> : <Fragment>
-          <h1 className = "large big-header text-dark"> All Available Game Rooms </h1>
+          <h1 className = "large big-header text-dark"> Available Game Rooms </h1>
 
             <div className ="input-group my-3">
                 <input type="search" className ="form-control rounded" placeholder="Search" aria-label="Search"
                     aria-describedby="search-addon" />
                 <button type="button" class="btn btn-outline-primary">search</button>
             </div>
-            <Link to="/create-game" className="btn btn-dark btn-block btn-lg my-4"> <i class="fas fa-football-ball"/> {" "} Host Your Game </Link>
+            <Link to="/create-game" className="btn btn-primary btn-block btn-lg my-4"> <i class="fas fa-football-ball"/> {" "} Host Your Game </Link>
         {games.map(game => (
             <div className="card mb-3">
                 <div className="card-body">

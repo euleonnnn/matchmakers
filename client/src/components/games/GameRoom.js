@@ -55,7 +55,7 @@ const GameRoom = ({ clearProfile, getGameById, authUser, auth, game : {game, loa
                 <h1 className="text-primary my-3 my-btm"> {game.name}'s Game Lobby  </h1>
                 <div class="row">
                 <div className="card-body">
-                <Link to="/all-games" className="btn btn-secondary join-all"> <i class="fas fa-sign-out-alt" /> Leave Lobby </Link>
+                <Link to="/all-games" className="btn btn-dark join-all"> <i class="fas fa-sign-out-alt" /> Leave Lobby </Link>
                 </div>
                 </div>
                     <div class="row">
@@ -106,7 +106,7 @@ const GameRoom = ({ clearProfile, getGameById, authUser, auth, game : {game, loa
                                     player.user === auth.user._id).length === 0  && 
                                     <button onClick= {()=> {
                                         joinGame();
-                                    }} type="button" className="btn btn-dark join-all"> Join Game </button>}
+                                    }} type="button" className="btn btn-primary join-all"> Join Game </button>}
                                 </p>
 
                                 <h5> { game.players.length >= game.maxPlayers && <span class="badge badge-light">
