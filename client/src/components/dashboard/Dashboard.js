@@ -5,15 +5,22 @@ import { connect } from 'react-redux';
 import Spinner from '../layout/Spinner';
 import FriendList from './FriendList';
 import { clearProfile, getCurrentProfile } from '../../actions/profile';
+import { getGames } from '../../actions/game';
 import '../../css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 import bball from '../layout/bball.jpg';
 import bball2 from '../layout/bball2.jpg';
 import { logout } from '../../actions/auth';
+import dateformat from '../../utils/dateformat';
 
 
 
-const Dashboard = ({ getCurrentProfile, auth: { user}, profile : { profile, loading }, logout }) => {
+const Dashboard = ({ getGames, getCurrentProfile, auth: { user}, profile : { profile, loading }, game: {games}, logout }) => {
+
+  useEffect(() => {
+    getGames();
+  }, [getGames]);
+ 
 
   useEffect(() => {
     clearProfile();
@@ -23,13 +30,14 @@ const Dashboard = ({ getCurrentProfile, auth: { user}, profile : { profile, load
   // eslint-disable-next-line
   useEffect(() => {
     getCurrentProfile();
-  });
+  },[]);
 
  
 
   if (loading) {
     return <Spinner />; 
   } else {
+    const my_games = games.filter(game => game.user === user._id)
     return  <Fragment>
       <h1 className="large text-primary big-header"><i class="fas fa-dumbbell"/> {" "} Hello There, {user && user.name}</h1>
       {profile !== null && user !== null ? 
@@ -40,15 +48,35 @@ const Dashboard = ({ getCurrentProfile, auth: { user}, profile : { profile, load
         <div class="row">
           <div class="col-sm-8 col-md-8">
 
-            <Link to="/my-profile" className="btn btn-secondary btn-lg btn-block"> <i class="fas fa-cog"/> Profile Settings </Link>
-            <h4 className="text-primary my-top">  My Interests </h4>
+            
+            <h4 className="text-primary">  My Interests </h4>
 
               <ul>
                   {profile.interests.map(item => {
                     return <li>{item}</li>;
                   })}
               </ul>
+              
+              {my_games.length>0 && <h4 className="text-primary my-top"> Pending Games </h4>}
+              
+              {my_games.length>0 && my_games.map(game => (
+                  <div className="card mb-3">
+                  <div className="card-body">
+                  <h5 className="card-title">{game.sport}</h5>
+                  <br></br>
+                  <p className="card-text"> <span className='text-primary'> Location: </span> {game.location}</p>
+                  <p className="card-text"> <span className='text-primary'> Waiting Room: </span> {game.players.length} players out of {game.maxPlayers}</p>
+                  <p className="card-text"> <span className='text-primary'> Game Day: </span> {dateformat(game.dateTime)} </p>
+                  <Link to={`/games/${game._id}`} className="btn btn-dark join-all"> Enter Room</Link>
+                  <p className="card-text">
+                     
+                  </p>
+                  </div>
+                  </div>
+                 
+              ))}
 
+              
               <h4 className="text-primary my-top">  Here are the games we think you'd like : </h4>
               <div className="card mb-3">
                     <div className="row g-0">
@@ -91,6 +119,8 @@ const Dashboard = ({ getCurrentProfile, auth: { user}, profile : { profile, load
           
           <div class="col-sm-4 col-md-4">
             <FriendList />
+
+            <Link to="/my-profile" className="btn btn-secondary btn-lg btn-block my-top"> <i class="fas fa-cog"/> Profile Settings </Link>
           </div>
         </div>
       </div>
@@ -110,6 +140,7 @@ const Dashboard = ({ getCurrentProfile, auth: { user}, profile : { profile, load
 
 Dashboard.propTypes = {
   getCurrentProfile: PropTypes.func.isRequired,
+  getGames: PropTypes.func.isRequired,
   clearProfile: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
   profile: PropTypes.object.isRequired,
@@ -118,7 +149,8 @@ Dashboard.propTypes = {
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
-  profile: state.profile
+  profile: state.profile,
+  game: state.game
 });
 
-export default connect(mapStateToProps, { clearProfile, getCurrentProfile, logout })(Dashboard);
+export default connect(mapStateToProps, { getGames, clearProfile, getCurrentProfile, logout })(Dashboard);

@@ -114,7 +114,7 @@ const CreateGame = ({ createGame, history }) => {
                
                 <div className="form-group2">
                     <select name="maxPlayers" value={maxPlayers} onChange = {e=> onChange(e)}>
-                            <option value="" disabled selected hidden>Max Players</option>
+                            <option value="" disabled selected hidden>Max Number of Players</option>
                             {sports.filter(sport => sport.sport===formData.sport).map(
                                 sport => sport.maxPlayers.map(player => {return <option>{player}</option>}))
                             }
@@ -122,7 +122,7 @@ const CreateGame = ({ createGame, history }) => {
                 </div>
 
                 <div className="form-group row my-btm">
-                    <div className="col-md-1"> Date </div>
+                    <div className="col-md-2"> <h5> Date and Time </h5> </div>
                     <input 
                         id="datefield"
                         name="dateTime"
