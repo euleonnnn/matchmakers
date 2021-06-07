@@ -17,6 +17,11 @@ const GameSchema = new Schema({
         default: Date.now
     },
 
+    createTime : {
+        type: Date,
+        default: Date.now
+    },
+
     experience : {
         type: String,
         required: true
