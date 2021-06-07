@@ -43,6 +43,34 @@ const CreateGame = ({ createGame, history }) => {
         maxPlayers:["2","3","4","5","6"] },
       ];
 
+    const setToday = () => {
+        var today = new Date();
+        var dd = today.getDate();
+        var mm = today.getMonth() + 1;
+        var yyyy = today.getFullYear();
+        var hh = today.getHours();
+        var mins = today.getMinutes();
+
+        if (dd<10) {
+            dd = "0" + dd;
+        }
+
+        if (mm<10) {
+            mm = "0" + mm;
+        }
+
+        if (hh<10) {
+            hh = "0" + hh;
+        }
+
+        if (mins<10) {
+            mins = "0" + mins;
+        }
+
+        today = yyyy+'-'+mm+'-'+dd+'T'+hh+":"+mins;
+        document.getElementById("datefield").setAttribute("min", today);
+    }
+
     const onChange = e => setFormData({...formData, [e.target.name]: e.target.value});
 
     const onSubmit = e => {
@@ -96,10 +124,12 @@ const CreateGame = ({ createGame, history }) => {
                 <div className="form-group row my-btm">
                     <div className="col-md-1"> Date </div>
                     <input 
+                        id="datefield"
                         name="dateTime"
                         type="datetime-local"
                         value={dateTime}
                         onChange={e => onChange(e)}
+                        onClick={setToday}
                         className="col-md-6"
                     />
                 </div>
