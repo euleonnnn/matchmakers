@@ -64,7 +64,7 @@ const GameRoom = ({ clearProfile, getGameById, authUser, auth, game : {game, loa
                             <div className="card-body">
                             <h5 className="card-title my-3 host-title">{game.sport}</h5>
                                 <p className="card-text"> <span className='text-primary'> Experience Level: </span> {game.experience}</p>
-                                <p className="card-text"> <span className='text-primary'> Location: </span> {game.location}</p>
+                                <p className="card-text"> <span className='text-primary'> Location: </span> {game.location==="Others"?game.otherLoc:game.location}</p>
                                 <p className="card-text"> <span className='text-primary'> Date: </span> {dateformat(game.dateTime)} </p>
                                 <p className="card-text"> <span className='text-primary'> Max Players: </span> {game.maxPlayers} </p>
                                 <br></br>
@@ -127,7 +127,7 @@ const GameRoom = ({ clearProfile, getGameById, authUser, auth, game : {game, loa
                                 <div className="col-md-8">
                                     <h5 className="card-title my-3 host-title ">About Game Host </h5>
                                     <p className="card-text"> <span className='text-primary'> Host Name: </span> {game.name}</p>
-                                    <small className="card-text text-muted"> Room Created: {dateformat(game.dateTime)} </small>
+                                    <small className="card-text text-muted"> Room Created: {dateformat(game.createTime)} </small>
                                     <br></br>
                                 </div>
                             </div>
