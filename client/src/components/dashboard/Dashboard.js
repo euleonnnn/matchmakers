@@ -21,12 +21,7 @@ const Dashboard = ({ getGames, getCurrentProfile, auth: { user}, profile : { pro
     getGames();
   }, [getGames]);
  
-
-  useEffect(() => {
-    clearProfile();
-  }, []);
-
-
+  //Necessary to rerender 
   // eslint-disable-next-line
   useEffect(() => {
     getCurrentProfile();
@@ -34,7 +29,7 @@ const Dashboard = ({ getGames, getCurrentProfile, auth: { user}, profile : { pro
 
  
 
-  if (loading) {
+  if (loading || user === null) {
     return <Spinner />; 
   } else {
     const my_games = games.filter(game => game.user === user._id)
