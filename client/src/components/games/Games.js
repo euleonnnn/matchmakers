@@ -36,7 +36,7 @@ const Games = ( {getCurrentProfile, deleteGame, clearGame, getGames, game: {game
                 <div className="card-body">
                 <h5 className="card-title">{game.sport}</h5>
                 <br></br>
-                <p className="card-text"> <span className='text-primary'> Location: </span> {game.location}</p>
+                <p className="card-text"> <span className='text-primary'> Location: </span> {game.location==="Others"? game.otherLoc : game.location}</p>
                 <p className="card-text"> <span className='text-primary'> Waiting Room: </span> {game.players.length} players out of {game.maxPlayers}</p>
                 <p className="card-text"> <span className='text-primary'> Game Day: </span> {dateformat(game.dateTime)} </p>
                 <p className="card-text">
