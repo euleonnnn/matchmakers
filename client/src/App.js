@@ -22,7 +22,7 @@ import setAuthToken from './utils/setAuthToken';
 import './css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 import AccountSettings from './components/auth/AccountSettings';
-
+import MessageBox from './components/chat/MessageBox';
 
 if (localStorage.token) { 
   setAuthToken(localStorage.token);
@@ -61,6 +61,7 @@ const App = () => {
           <PrivateRoute exact path ="/games/:id" component = {GameRoom} />
           <PrivateRoute exact path ="/create-game" component = {CreateGame} />
           <PrivateRoute exact path ="/account" component = {AccountSettings} />
+          <PrivateRoute exact path ="/messagebox" component = {MessageBox} />
         </Switch> 
       </section>
     </Fragment>

@@ -18,7 +18,7 @@
   --white: #fff;
   --gray: #6c757d;
   --gray-dark: #343a40;
-  --primary: #007bff;
+  --primary: #f58f7c;
   --secondary: #6c757d;
   --success: #28a745;
   --info: #17a2b8;
@@ -1804,7 +1804,7 @@ pre code {
   background-color: #fff;
   border-color: #f58f7c;
   outline: 0;
-  box-shadow: 0 0 0 0.2rem rgba(243, 183, 172, 0.924);
+  box-shadow: 0 0 0 0rem rgba(243, 183, 172, 0.924);
   margin-right: 2rem;
 }
 .form-control::-webkit-input-placeholder {
@@ -3814,6 +3814,43 @@ input[type='submit'].btn-block {
   .custom-select {
     transition: none;
   }
+}
+
+.conversation {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+}
+
+.conversation:hover {
+  background-color: rgb(223, 223, 223);
+}
+
+.conversationName {
+  font-weight: 500;
+}
+
+.textmessage {
+  padding: 15px;
+  border-radius: 20px;
+  background-color: var(--primary);
+  color: white;
+  max-width: 40%;
+}
+
+.sent {
+  align-items: flex-end;
+}
+
+.sent .textmessage {
+  background-color: rgb(211, 211, 211);
+  color: black;
+}
+
+.btmtext {
+  font-size: 80%;
+  font-weight: 400;
+  margin-top: 0px;
 }
 
 .nav {
@@ -7380,6 +7417,10 @@ button.bg-dark:hover {
 
 .my-top {
   margin-top: 3rem !important;
+}
+
+.my-top-small {
+  margin-top: 1.5rem !important;
 }
 
 .my-btm {
