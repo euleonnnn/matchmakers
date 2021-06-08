@@ -53,8 +53,14 @@ const CreateProfile = ({createProfile, history}) => {
                 >
                 </div>
                 <div className="form-group">
-                <input type="text" placeholder="Year" name="year" value={year}
-                onChange = {e=> onChange(e)}/>
+                <select name="year" value={year} onChange = {e=> onChange(e)}>
+                        <option value="" disabled selected hidden>Year</option>
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                </select> 
                 <small className="form-text"
                     >Year of University Education</small
                 >
