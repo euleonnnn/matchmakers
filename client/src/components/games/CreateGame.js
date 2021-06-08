@@ -9,7 +9,7 @@ const CreateGame = ({ createGame, history }) => {
     const [formData, setFormData] = useState({
         sport: '',
         location: '',
-        otherLoc: 'Others',
+        otherLoc: '',
         experience: '',
         maxPlayers: '',
         dateTime: Date.now,
@@ -104,32 +104,35 @@ const CreateGame = ({ createGame, history }) => {
                         })}
                     </select> 
                 </div>
-                <div className="form-group2">
-                    <select name="location" value={location} onChange = {e=> locationChange(e)}>
-                        <option value="" disabled selected hidden>Location</option>
-                        {sports.filter(sport => sport.sport===formData.sport).map(
-                            sport => sport.locations.map(location => {return <option>{location}</option>}))
-                        }
-                    </select>
+                <div className="row">
+                    <div className="col">
+                        <div className="form-group2">
+                            <select name="location" value={location} onChange = {e=> locationChange(e)}>
+                                <option value="" disabled selected hidden>Location</option>
+                                {sports.filter(sport => sport.sport===formData.sport).map(
+                                    sport => sport.locations.map(location => {return <option>{location}</option>}))
+                                }
+                            </select>
+                        </div>
+                    </div>
+                    <div className="col">
+                        <div className="form-group2">
+                            {formData.location==="Others" && 
+                            <Fragment>
+                            <input 
+                                    id="otherLoc"
+                                    type="text" 
+                                    name="otherLoc" 
+                                    value={otherLoc} 
+                                    placeholder="Other Locations" 
+                                    onChange = {e=> onChange(e)}/>
+                             <small className="form-text"> Facilities booking for these locations will not be allowed within (Match) Maker </small>
+                            </Fragment>
+                            }
+                        </div>
+                    </div>
                 </div>
-                <div className="form-group2">
-                    {formData.location==="Others" 
-                        ? <input 
-                            id="otherLoc"
-                            type="text" 
-                            name="otherLoc" 
-                            value={otherLoc} 
-                            placeholder="Other Locations" 
-                            onChange = {e=> onChange(e)}/>
-                        : <input
-                            id="otherLoc"
-                            name="otherLoc" 
-                            type="text"  
-                            placeholder="Other Locations" 
-                            disabled/>
-                    }
-                </div>
-                
+
                 <div className="form-group2">
                     <select name="experience" value={experience} onChange = {e=> onChange(e)}>
                             <option value="" disabled selected hidden>Experience Level</option>
@@ -138,6 +141,7 @@ const CreateGame = ({ createGame, history }) => {
                             <option>Expert</option>
                     </select> 
                 </div>
+               
                
                 <div className="form-group2">
                     <select name="maxPlayers" value={maxPlayers} onChange = {e=> onChange(e)}>
