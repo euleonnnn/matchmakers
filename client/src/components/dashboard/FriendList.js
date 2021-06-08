@@ -7,6 +7,7 @@ import '../../css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 
 const FriendList = ({ auth: { user }}) => {
+
     const [friends, setFriends] = useState([]);
 
     useEffect(() => {
@@ -32,7 +33,7 @@ const FriendList = ({ auth: { user }}) => {
           <ul className="list-group list-group-flush">
             {friends.map((friend) => (
                 <li className="list-group-item"> 
-                <Link to={`/profile/${friend._id}`}> {friend.name}  </Link> 
+                {friend.name}  
                 <button className ="btn btn-dark msg" >  <i class="fas fa-comment-dots"/> </button></li> 
            ))}
           </ul>

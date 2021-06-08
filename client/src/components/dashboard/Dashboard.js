@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Spinner from '../layout/Spinner';
 import FriendList from './FriendList';
-import { clearProfile, getCurrentProfile } from '../../actions/profile';
+import { getCurrentProfile } from '../../actions/profile';
 import { getGames } from '../../actions/game';
 import '../../css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
@@ -15,7 +15,7 @@ import dateformat from '../../utils/dateformat';
 
 
 
-const Dashboard = ({ getGames, getCurrentProfile, auth: { user}, profile : { profile, loading }, game: {games}, logout }) => {
+const Dashboard = ({ getGames, getCurrentProfile, auth: { user }, profile : { profile, loading }, game: {games}, logout }) => {
 
   useEffect(() => {
     getGames();
@@ -25,8 +25,7 @@ const Dashboard = ({ getGames, getCurrentProfile, auth: { user}, profile : { pro
   // eslint-disable-next-line
   useEffect(() => {
     getCurrentProfile();
-  },[]);
-
+  });
  
 
   if (loading || user === null) {
@@ -136,7 +135,6 @@ const Dashboard = ({ getGames, getCurrentProfile, auth: { user}, profile : { pro
 Dashboard.propTypes = {
   getCurrentProfile: PropTypes.func.isRequired,
   getGames: PropTypes.func.isRequired,
-  clearProfile: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
   profile: PropTypes.object.isRequired,
   logout: PropTypes.func.isRequired
@@ -148,4 +146,4 @@ const mapStateToProps = (state) => ({
   game: state.game
 });
 
-export default connect(mapStateToProps, { getGames, clearProfile, getCurrentProfile, logout })(Dashboard);
+export default connect(mapStateToProps, { getGames, getCurrentProfile, logout })(Dashboard);

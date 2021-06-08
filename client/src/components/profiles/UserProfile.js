@@ -17,10 +17,12 @@ const UserProfile = ({ authUser, getProfilesById, profile: { profile, loading },
     authUser();
   });
 
+
+  //cannot rerender if not clicking directly on the main page will conflict with main page rerender
   useEffect(() => {
       getProfilesById(match.params.id);
       // eslint-disable-next-line
-    }, [getProfilesById]);
+    },[getProfilesById]);
 
 
   const followUnfollow = () => {

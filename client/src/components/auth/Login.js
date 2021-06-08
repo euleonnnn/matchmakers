@@ -30,6 +30,7 @@ const Login = ({ login, isAuthenticated }) => {
     login(formData.email, formData.password);
   };
 
+
   if (isAuthenticated) {
     return <Redirect to="/dashboard" />;
   }
@@ -71,6 +72,7 @@ const Login = ({ login, isAuthenticated }) => {
 
 Login.propTypes = {
   login: PropTypes.func.isRequired,
+  profile: PropTypes.object.isRequired,
   isAuthenticated: PropTypes.bool
 };
 

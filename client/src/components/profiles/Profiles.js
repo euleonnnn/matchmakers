@@ -3,12 +3,18 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import Spinner from '../layout/Spinner'
 import ProfileItem from './ProfileItem'
-import { getProfiles } from '../../actions/profile';
+import { clearProfile, getProfiles } from '../../actions/profile';
 
-const Profiles = ({getProfiles, profile: { profiles, loading }, auth}) => {
+const Profiles = ({clearProfile, getProfiles, profile: { profiles, loading }, auth}) => {
     useEffect(()  => {
         getProfiles();
     }, [getProfiles]);
+
+    //additional clear profile to clear out dashboard rerendering
+    useEffect(()  => {
+        clearProfile();
+    }, [clearProfile]);
+
 
     const displayAll = profiles.length <= 0 ? <h4>No profiles found</h4> : 
         profiles.map(profile => {
@@ -37,6 +43,7 @@ const Profiles = ({getProfiles, profile: { profiles, loading }, auth}) => {
   
 Profiles.propTypes = {
     getProfiles: PropTypes.func.isRequired,
+    clearProfile: PropTypes.func.isRequired,
     profile: PropTypes.object.isRequired,
     auth: PropTypes.object.isRequired
 };
@@ -47,4 +54,4 @@ const mapStateToProps = (state) => ({
 });
 
   
-export default connect(mapStateToProps, { getProfiles})(Profiles);
+export default connect(mapStateToProps, { clearProfile, getProfiles})(Profiles);
