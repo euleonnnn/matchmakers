@@ -5,7 +5,7 @@ import {
     CHAT_FAIL
 } from './types';
 
-//Get games
+//Get chats
 export const getChats = () => async dispatch => {
     try {
         const res = await axios.get('/api/chat');
