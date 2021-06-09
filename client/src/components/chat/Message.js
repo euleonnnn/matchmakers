@@ -4,13 +4,13 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Spinner from '../layout/Spinner';
 
-const Message = ({auth: { user }, sent}) => {
+const Message = ({auth: { user }, sent, message}) => {
 
   return (
     <Fragment>
        <div className={sent ? "message sent" : "message"}>
         <div className="toptext">
-          <p className="messagetext">Hello thereeee</p>
+          <p className="messagetext">{message.text}</p>
         </div>
         <div className="text-muted btmtext">3 minutes ago</div>
       </div>
