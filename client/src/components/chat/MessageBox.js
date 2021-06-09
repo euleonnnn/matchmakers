@@ -7,6 +7,7 @@ import Chat from './Chat';
 import Message from './Message';
 import { getChats } from '../../actions/chat';
 import axios from 'axios';
+import ChatBG from '../../img/ChatBG.png'
 
 //main page for display of all conversations and messages 
 const MessageBox = ({getChats, auth: { user }, chat : {chats}}) => {
@@ -39,7 +40,7 @@ const MessageBox = ({getChats, auth: { user }, chat : {chats}}) => {
             )))}
         </div>
         {currChat ? 
-        <div className="col-sm-8 col-md-8"> 
+        <div className="col-sm-8 col-md-8 chatstyles"> 
             <div className="chatbox">
                 {messages.map((msg) => (
                     <div >
@@ -52,7 +53,12 @@ const MessageBox = ({getChats, auth: { user }, chat : {chats}}) => {
             <button type="button" class="btn btn-outline-primary my-right"> <i class="fas fa-paper-plane" /> </button>
             </div>
         </div>
-        : <span>Click on a Profile to Begin Chatting.</span>
+        : <div className="col-sm-8 col-md-8 chatstyles emptychat">
+          <h3 className ="emptychattextln1">Howdy, {user.name}!</h3>
+          <h3 className ="emptychattextln2">Click on a Profile to Begin Chatting :-)</h3>
+          <br/>
+          <img className="emptychatimg" src={ChatBG} alt="ChatBG"/>
+          </div>
         }
         </div>
     </Fragment> 
