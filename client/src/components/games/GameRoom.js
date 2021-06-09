@@ -85,7 +85,7 @@ const GameRoom = ({ clearProfile, getGameById, authUser, auth, game : {game, loa
                                                 {player.name}
                                                 <button onClick= {()=> {
                                                     quitGame();
-                                                }} type="button" className="btn btn-danger join-all"> <i class="far fa-times-circle"/> </button>
+                                                }} type="button" className="btn btn-danger btn-round join-all"> <i class="far fa-times-circle"/> </button>
                                             </div>
                                             </div>
                                             </Fragment>
