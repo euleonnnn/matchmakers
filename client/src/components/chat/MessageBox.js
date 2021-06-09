@@ -9,6 +9,7 @@ import Message from './Message';
 
 const MessageBox = ({auth: { user }}) => {
     return <Fragment>
+        <h1 className = "large text-dark big-header"> My Messages </h1>
         <div className ="row">
         <div className="col-sm-4 col-md-4">
             <Conversation />
@@ -17,11 +18,16 @@ const MessageBox = ({auth: { user }}) => {
             <Conversation />
         </div>
         <div className="col-sm-8 col-md-8"> 
-            < Message />
-            < Message sent ={true}/>
-            < Message />
-            < Message />
-            <div className ="input-group">
+            <div className="chatbox">
+                < Message />
+                < Message sent ={true}/>
+                < Message />
+                < Message />
+                < Message sent ={true}/>
+                < Message sent ={true}/>
+                < Message sent ={true}/>
+            </div>
+            <div className ="input-group my-top">
             <textarea type="text" className ="form-control rounded" placeholder="Type Something" aria-describedby="search-addon" />
             <button type="button" class="btn btn-outline-primary my-right"> <i class="fas fa-paper-plane" /> </button>
             </div>

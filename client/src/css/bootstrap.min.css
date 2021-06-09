@@ -3823,27 +3823,37 @@ input[type='submit'].btn-block {
 }
 
 .conversation:hover {
-  background-color: rgb(223, 223, 223);
+  background-color: #f5d1ca;
 }
 
 .conversationName {
   font-weight: 500;
 }
 
-.textmessage {
-  padding: 15px;
-  border-radius: 20px;
-  background-color: var(--primary);
-  color: white;
-  max-width: 40%;
+.message {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
 }
 
-.sent {
+.toptext {
+  display: flex;
+}
+
+.messagetext {
+  padding: 15px;
+  border-radius: 10px;
+  background-color: rgb(226, 222, 222);
+  color: black;
+  max-width: 300px;
+}
+
+.message.sent {
   align-items: flex-end;
 }
 
-.sent .textmessage {
-  background-color: rgb(211, 211, 211);
+.message.sent .messagetext {
+  background-color: #ffbbaf;
   color: black;
 }
 
@@ -3851,6 +3861,15 @@ input[type='submit'].btn-block {
   font-size: 80%;
   font-weight: 400;
   margin-top: 0px;
+}
+
+.chatbox {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 500px;
+  overflow-y: scroll;
+  padding-right: 10px;
 }
 
 .nav {
@@ -5478,6 +5497,7 @@ a.close.disabled {
   height: 50px;
   overflow: scroll;
 }
+
 @media (min-width: 576px) {
   .modal-dialog {
     max-width: 500px;

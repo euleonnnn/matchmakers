@@ -8,11 +8,13 @@ const Message = ({auth: { user }, sent}) => {
 
   return (
     <Fragment>
-        <div className= { sent ? "message sent": "message"}>
-        <p className="textmessage"> Hello I am not your friend</p>
-        <p className="text-muted btmtext">Sent: 3 mins ago</p>
+       <div className={sent ? "message sent" : "message"}>
+        <div className="toptext">
+          <p className="messagetext">Hello thereeee</p>
         </div>
-    </Fragment>
+        <div className="text-muted btmtext">3 minutes ago</div>
+      </div>
+      </Fragment>
   );
 }
 
