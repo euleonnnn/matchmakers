@@ -163,7 +163,6 @@ const CreateGame = ({ createGame, history }) => {
                         onClick={setToday}
                         className="col-md-6"
                         max="2022-06-14T00:00"
-                        step="900"
                     />
                 </div>
 
