@@ -62,8 +62,8 @@ router.get('/', auth, async (req, res) => {
 })
 
 
-//@route GET api/posts/:id
-//@desc Get post by ID
+//@route GET api/game/:id
+//@desc Get game by ID
 //@access Private
 router.get('/:id', auth, async (req, res) => {
     try {

@@ -31,6 +31,10 @@ app.use('/api/users', require("./routes/api/users"));
 app.use('/api/auth', require("./routes/api/auth"));
 app.use('/api/profile', require("./routes/api/profile"));
 app.use('/api/games', require("./routes/api/games"));
+app.use('/api/chat', require("./routes/api/chat"));
+app.use('/api/message', require("./routes/api/message"));
+
+
 
 if (process.env.NODE_ENV == 'production') {
     app.use(express.static('client/build'));
