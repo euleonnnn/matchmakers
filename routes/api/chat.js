@@ -29,7 +29,7 @@ router.post("/", [auth], async (req, res) => {
 
 
 //Get conversation
-router.get("/mychats", [auth], async (req,res) => {
+router.get("/", [auth], async (req,res) => {
     try {
         const chat = await Chat.find({
             users: { $in: [req.user.id]}

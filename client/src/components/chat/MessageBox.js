@@ -3,19 +3,25 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Spinner from '../layout/Spinner';
-import Conversation from './Conversation';
+import Chat from './Chat';
 import Message from './Message';
+import { getChats } from '../../actions/chat';
 
 
-const MessageBox = ({auth: { user }}) => {
+//main page for display of all conversations and messages 
+const MessageBox = ({getChats, auth: { user }, chat}) => {
+    useEffect(() => {
+        getChats();
+      }, [getChats]);
+
     return <Fragment>
         <h1 className = "large text-dark big-header"> My Messages </h1>
         <div className ="row">
         <div className="col-sm-4 col-md-4">
-            <Conversation />
-            <Conversation />
-            <Conversation />
-            <Conversation />
+            <Chat />
+            <Chat />
+            <Chat />
+            <Chat />
         </div>
         <div className="col-sm-8 col-md-8"> 
             <div className="chatbox">
@@ -39,11 +45,14 @@ const MessageBox = ({auth: { user }}) => {
 
 MessageBox.propTypes = {
     auth: PropTypes.object.isRequired,
+    chat: PropTypes.object.isRequired,
+    getChats: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
     auth: state.auth,
+    chat: state.chat
 });
 
   
-export default connect(mapStateToProps, {})(MessageBox);
+export default connect(mapStateToProps, {getChats})(MessageBox);

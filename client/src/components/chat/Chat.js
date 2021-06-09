@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Spinner from '../layout/Spinner';
 
-const Conversation = ({auth: { user }}) => {
+const Chat = ({auth: { user }}) => {
 
   return (
     <div className="conversation my-top-small">
@@ -14,7 +14,7 @@ const Conversation = ({auth: { user }}) => {
 }
 
 
-Conversation.propTypes = {
+Chat.propTypes = {
     auth: PropTypes.object.isRequired,
 };
 
@@ -23,4 +23,4 @@ const mapStateToProps = (state) => ({
 });
 
   
-export default connect(mapStateToProps, {})(Conversation);
+export default connect(mapStateToProps, {})(Chat);
