@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { Fragment, useEffect, useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -13,6 +13,8 @@ import ChatBG from '../../img/ChatBG.png'
 const MessageBox = ({getChats, auth: { user }, chat : {chats}}) => {
     const [currChat, setChat] = useState(null);
     const [messages, setMessages] = useState([]);
+    const [formData, setFormData] = useState("");
+    const scroll = useRef();
 
     useEffect(() => {
         getChats();
@@ -30,6 +32,28 @@ const MessageBox = ({getChats, auth: { user }, chat : {chats}}) => {
         getMessages();
       }, [currChat]);
 
+    const onSubmit = async (e) => {
+      e.preventDefault();
+      const message = {
+        text: formData
+      }
+
+      try {
+        if (message.text !== ""){
+          const res = await axios.post(`/api/message/${currChat._id}`, message);
+          setMessages([...messages, res.data])
+          setFormData("")
+        } 
+      } catch (error) {
+        console.log(error)
+      }
+    }
+
+    useEffect(() => {
+      scroll.current?.scrollIntoView({ behavior: "smooth" });
+    }, [messages]);
+  
+    
     return <Fragment>
         <div className ="row">
         <div className="col-sm-4 col-md-4">
@@ -43,14 +67,20 @@ const MessageBox = ({getChats, auth: { user }, chat : {chats}}) => {
         <div className="col-sm-8 col-md-8 chatstyles"> 
             <div className="chatbox">
                 {messages.map((msg) => (
-                    <div >
+                    <div ref = {scroll}>
                       <Message message={msg} sent={msg.sender === user._id} />
                     </div>
                   ))}
             </div>
             <div className ="input-group my-top">
-            <textarea type="text" className ="form-control rounded" placeholder="Type Something" aria-describedby="search-addon" />
-            <button type="button" class="btn btn-outline-primary my-right"> <i class="fas fa-paper-plane" /> </button>
+            <textarea 
+                type="text" 
+                className ="form-control rounded" 
+                placeholder="Type Something" 
+                onChange={(e)=>setFormData(e.target.value)}
+                value = {formData}
+                />
+            <button type="button" class="btn btn-outline-primary my-right" onClick={onSubmit}> <i class="fas fa-paper-plane" /> </button>
             </div>
         </div>
         : <div className="col-sm-8 col-md-8 chatstyles emptychat">
