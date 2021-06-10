@@ -33,9 +33,9 @@ const MessageBox = ({getChats, auth: { user }, chat : {chats}}) => {
     return <Fragment>
         <div className ="row">
         <div className="col-sm-4 col-md-4">
-            {chats.map((convo => (
-                <div onClick ={()=> setChat(convo)}>
-                    <Chat convo = {convo}/> 
+            {chats.map((chat=> (
+                <div onClick ={()=> setChat(chat)}>
+                    <Chat chat = {chat}/> 
                 </div>
             )))}
         </div>
