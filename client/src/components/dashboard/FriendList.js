@@ -34,7 +34,9 @@ const FriendList = ({ auth: { user }}) => {
             {friends.map((friend) => (
                 <li className="list-group-item"> 
                 {friend.name}  
-                <button className ="btn btn-dark msg" >  <i class="fas fa-comment-dots"/> </button></li> 
+     
+                <Link to={'/messagebox'} className="btn btn-dark join-all">  <i class="fas fa-comment-dots"/> </Link>
+                </li> 
            ))}
           </ul>
         </div>

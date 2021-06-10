@@ -57,6 +57,7 @@ const MessageBox = ({getChats, auth: { user }, chat : {chats}}) => {
     return <Fragment>
         <div className ="row">
         <div className="col-sm-4 col-md-4">
+        <button type="button" class="btn btn-outline-primary my-top"> <i class="fas fa-plus"/> </button>
             {chats.map((chat=> (
                 <div onClick ={()=> setChat(chat)}>
                     <Chat chat = {chat}/> 
@@ -66,6 +67,7 @@ const MessageBox = ({getChats, auth: { user }, chat : {chats}}) => {
         {currChat ? 
         <div className="col-sm-8 col-md-8 chatstyles"> 
             <div className="chatbox">
+
                 {messages.map((msg) => (
                     <div ref = {scroll}>
                       <Message message={msg} sent={msg.sender === user._id} />
@@ -85,7 +87,7 @@ const MessageBox = ({getChats, auth: { user }, chat : {chats}}) => {
         </div>
         : <div className="col-sm-8 col-md-8 chatstyles emptychat">
           <h3 className ="emptychattextln1">Howdy, {user.name}!</h3>
-          <h3 className ="emptychattextln2">Click on a Profile to Begin Chatting :-)</h3>
+          <h3 className ="emptychattextln2">Open a Conversation to Start Chatting :-)</h3>
           <br/>
           <img className="emptychatimg" src={ChatBG} alt="ChatBG"/>
           </div>
