@@ -67,9 +67,9 @@ const MessageBox = ({getChats, auth: { user }, chat : {chats}}) => {
         </div>
         {currChat ? 
         <Fragment>             
-        <div className="col-sm-8 col-md-8">      
-        <h4 className="emptychattextln2 my-btm"> {currChat === null ? <></> : currChat.names.find(name => name !== user.name)} </h4>     
-            <div className="chatbox chatstyles">
+        <div className="col-sm-8 col-md-8 namebox bg-dark">      
+        <h4 className="nametext my-btm"> {currChat === null ? <></> : currChat.names.find(name => name !== user.name)} </h4>     
+            <div className="chatbox">
                 {messages.map((msg) => (
                     <div ref = {scroll}>
                       <Message message={msg} sent={msg.sender === user._id} />
@@ -88,7 +88,7 @@ const MessageBox = ({getChats, auth: { user }, chat : {chats}}) => {
             </div>
         </div>
         </Fragment> : 
-        <div className="col-sm-8 col-md-8 chatstyles emptychat">
+        <div className="col-sm-8 col-md-8 emptychat">
           <h3 className ="emptychattextln1">Howdy, {user.name}!</h3>
           <h3 className ="emptychattextln2">Open a Conversation to Start Chatting :-)</h3>
           <br/>
