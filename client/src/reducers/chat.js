@@ -1,6 +1,7 @@
 import {
     GET_CHATS,
-    CHAT_FAIL
+    CHAT_FAIL,
+    CREATE_CHAT
 } from '../actions/types'
 
 const initialState = {
@@ -27,6 +28,12 @@ function chatReducer(state = initialState, action) {
                 error: payload,
                 loading: false
              }
+        case CREATE_CHAT:
+            return {
+                ...state, 
+                chats: [payload,...state.chats],
+                loading: false
+            }
         default: 
             return state;
     }

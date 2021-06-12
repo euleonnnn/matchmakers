@@ -4,11 +4,38 @@ import { connect } from 'react-redux';
 import Spinner from '../layout/Spinner';
 import { getProfilesById } from '../../actions/profile';
 import { authUser } from '../../actions/auth'
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import axios from 'axios';
+import {createChat} from '../../actions/chat';
 
-const UserProfile = ({ authUser, getProfilesById, profile: { profile, loading }, auth, match }) => {
+
+const UserProfile = ({ createChat, chat:{chats}, authUser, getProfilesById, profile: { profile, loading }, auth, match, history}) => {
+
+  const chatID = [];
+  if (chats.length > 0) {
+    chats.map(chat => {
+      chatID.push(chat.users.find(id => id !== auth.user._id));
+    })
+  }
   
+
+  const startNewConvo= () => {
+      try {
+        if (!chatID.includes(profile.user._id)) {
+            const formData = {
+                receiver: profile.user._id
+            }
+            createChat(formData, history)
+        } else {
+            history.push('/messagebox')
+        }
+      } catch (error) {
+        console.log(error)
+      }
+    }
+
+  
+
   const [followed, toggle] = useState(
     auth.user.followings.includes(match.params.id)
   );
@@ -102,9 +129,9 @@ const UserProfile = ({ authUser, getProfilesById, profile: { profile, loading },
             {auth.isAuthenticated &&
                 auth.loading === false &&
                 auth.user._id !== profile.user._id && (
-                <Link to="#!" className="btn btn-primary my-1"> <i class="fas fa-comment-dots"/>
+                <button onClick= {()=> {startNewConvo()}} type="button" className="btn btn-primary my-1"> <i class="fas fa-comment-dots"/>
                     {" "} Message
-                </Link>
+                 </button>
                 ) 
             }
         </Fragment>
@@ -117,12 +144,15 @@ UserProfile.propTypes = {
     getProfilesById: PropTypes.func.isRequired,
     authUser: PropTypes.func.isRequired,
     profile: PropTypes.object.isRequired,
-    auth: PropTypes.object.isRequired
+    auth: PropTypes.object.isRequired,
+    chat: PropTypes.object.isRequired,
+    createChat: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
     profile: state.profile,
-    auth: state.auth
+    auth: state.auth,
+    chat: state.chat
 })
 
-export default connect(mapStateToProps, { authUser, getProfilesById })(UserProfile);
+export default connect(mapStateToProps, { authUser, getProfilesById, createChat })(withRouter(UserProfile));

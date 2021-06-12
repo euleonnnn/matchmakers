@@ -78,7 +78,7 @@ const EditProfile = ({profile : {profile, loading},
                         <option>5</option>
                 </select> 
                 <small className="form-text"
-                    >Year of Education</small
+                    >Year of Study</small
                 >
                 </div>
                 

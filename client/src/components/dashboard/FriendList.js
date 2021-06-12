@@ -3,12 +3,13 @@ import { Link } from 'react-router-dom';
 import axios from "axios";
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import '../../css/bootstrap.css';
-import 'bootstrap/dist/js/bootstrap.bundle.min';
+import FriendItem from "./FriendItem";
 
-const FriendList = ({ auth: { user }}) => {
+
+const FriendList = ({auth: { user }, chat:{chats}}) => {
 
     const [friends, setFriends] = useState([]);
+
 
     useEffect(() => {
         const getFriends = async () => {
@@ -21,8 +22,9 @@ const FriendList = ({ auth: { user }}) => {
         };
         getFriends()
       });
-
     
+    
+
     return (
       
       <div className="card">
@@ -32,11 +34,7 @@ const FriendList = ({ auth: { user }}) => {
         
           <ul className="list-group list-group-flush">
             {friends.map((friend) => (
-                <li className="list-group-item"> 
-                {friend.name}  
-     
-                <Link to={'/messagebox'} className="btn btn-dark join-all">  <i class="fas fa-comment-dots"/> </Link>
-                </li> 
+                <FriendItem friend ={friend}/>
            ))}
           </ul>
         </div>
@@ -46,11 +44,13 @@ const FriendList = ({ auth: { user }}) => {
 
 
 FriendList.propTypes = {
-  auth: PropTypes.object.isRequired
+  auth: PropTypes.object.isRequired,
+  chat: PropTypes.object.isRequired
 };
 
 const mapStateToProps = (state) => ({
-    auth: state.auth
+    auth: state.auth,
+    chat: state.chat
 });
 
 export default connect(mapStateToProps)(FriendList);

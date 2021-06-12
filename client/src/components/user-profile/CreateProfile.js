@@ -62,7 +62,7 @@ const CreateProfile = ({createProfile, history}) => {
                         <option>5</option>
                 </select> 
                 <small className="form-text"
-                    >Year of University Education</small
+                    >Year of Study</small
                 >
                 </div>
                 

@@ -19,5 +19,6 @@ export const REMOVE_GAME = 'REMOVE_GAME';
 export const CREATE_GAME = 'CREATE_GAME';
 export const GET_CHATS = 'GET_CHATS';
 export const CHAT_FAIL = 'CHAT_FAIL';
+export const CREATE_CHAT = 'CREATE_CHAT';
 export const SEND_MESSAGE = 'SEND_MESSAGE';
 export const MESSAGE_FAIL = 'MESSAGE_FAIL';

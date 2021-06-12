@@ -19,6 +19,7 @@ const MessageBox = ({getChats, auth: { user }, chat : {chats}}) => {
     useEffect(() => {
         getChats();
       }, [getChats]);
+    
 
     useEffect(() => {
         const getMessages = async () => {
