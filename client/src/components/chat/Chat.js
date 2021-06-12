@@ -9,7 +9,7 @@ const Chat = ({auth : {user} , chat , loading }) => {
   useEffect(() => {
     const friendName = chat.names.find((name)=> name !== user.name);
     setUser(friendName);
-  }, []);
+  });
 
     if (loading || otherUser == null) {
       return null;
