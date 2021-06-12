@@ -2,6 +2,7 @@ import React, { Fragment, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import {format} from 'timeago.js'
 
 const Message = ({auth: { user }, sent, message}) => {
 
@@ -11,7 +12,7 @@ const Message = ({auth: { user }, sent, message}) => {
         <div className="toptext">
           <p className="messagetext">{message.text}</p>
         </div>
-        <div className="text-muted btmtext">3 minutes ago</div>
+        <div className="text-muted btmtext">{format(message.createdAt)}</div>
       </div>
       </Fragment>
   );
