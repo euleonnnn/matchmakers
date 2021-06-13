@@ -67,7 +67,7 @@ const MessageBox = ({getChats, auth: { user }, chat : {chats}}) => {
         </div>
         {currChat ? 
         <Fragment>             
-        <div className="col-sm-8 col-md-8 namebox bg-dark">      
+        <div className="col-sm-8 col-md-8 namebox bg-secondary">      
         <h4 className="nametext my-btm"> {currChat === null ? <></> : currChat.names.find(name => name !== user.name)} </h4>     
             <div className="chatbox">
                 {messages.map((msg) => (
