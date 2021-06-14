@@ -7,6 +7,7 @@ import { withRouter } from 'react-router-dom';
 const EditProfile = ({profile : {profile, loading}, 
     createProfile, getCurrentProfile, history}) => {
     const [formData, setFormData] = useState({
+        avatar: '',
         faculty: '',
         year: '',
         interests: '',
@@ -22,6 +23,7 @@ const EditProfile = ({profile : {profile, loading},
     useEffect(() => {
         getCurrentProfile(); 
         setFormData({
+            avatar: loading || !profile.user.avatar ? '' : profile.user.avatar,
             faculty: loading || !profile.faculty ? '' : profile.faculty,
             year: loading || !profile.year ? '' : profile.year,
             interests: loading || !profile.interests ? '' : profile.interests,
@@ -33,6 +35,7 @@ const EditProfile = ({profile : {profile, loading},
     }, [loading, getCurrentProfile]);
 
     const {
+        avatar,
         faculty, 
         year,
         interests,
@@ -43,6 +46,7 @@ const EditProfile = ({profile : {profile, loading},
 
     const onChange = e => setFormData({...formData, [e.target.name]: e.target.value});
 
+    const imgChange = e => setFormData({...formData, [e.target.name]: URL.createObjectURL(e.target.files[0])});
 
     const onSubmit = e => {
         e.preventDefault();
@@ -52,7 +56,6 @@ const EditProfile = ({profile : {profile, loading},
 
     return (
         <Fragment>
- 
             <h1 className="large text-primary"> <i className="fas fa-address-card"></i>
                 {" "} Update Your Profile
             </h1>
@@ -61,6 +64,17 @@ const EditProfile = ({profile : {profile, loading},
             </p>
             <small>* = required field</small>
             <form className="form" onSubmit = {data => onSubmit(data)}>
+                <div>
+                    <h4 className="text-primary">Change Profile Picture</h4>
+                    <img className="profiledp" src={avatar} alt=""/>
+                    <br/>
+                    <input 
+                        className="" type="file"
+                        name="avatar" 
+                        accept="image/png, image/jpeg"
+                        onChange={e=> imgChange(e)}
+                    />
+                </div>
                 <div className="form-group">
                 <input type="text" placeholder="* Faculty" name="faculty" value={faculty}
                 onChange = {e=> onChange(e)} />
