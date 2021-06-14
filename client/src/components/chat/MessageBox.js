@@ -14,12 +14,25 @@ const MessageBox = ({getChats, auth: { user }, chat : {chats}}) => {
     const [currChat, setChat] = useState(null);
     const [messages, setMessages] = useState([]);
     const [formData, setFormData] = useState("");
+    const [friendImg, setImg] = useState(null);
     const scroll = useRef();
 
     useEffect(() => {
         getChats();
       }, [getChats]);
-    
+
+      useEffect(() => async () => {
+        try {
+          if (currChat !== null) {
+          const friendId = currChat.users.find((u)=> u !== user._id);
+          const res = await axios.get(`/api/profile/user/${friendId}`);
+          const img = res.data.user.avatar;
+          setImg(img);
+          } 
+        } catch (error) {
+          console.log(error);
+        }
+      });
 
     useEffect(() => {
         const getMessages = async () => {
@@ -57,8 +70,8 @@ const MessageBox = ({getChats, auth: { user }, chat : {chats}}) => {
     
     return <Fragment>
         <div className ="row">
-        <div className="col-sm-4 col-md-4">
-        <Link to ='/profiles' className="btn btn-outline-dark my-top"> Find More Friends <i class="fas fa-plus"/> </Link>
+        <div className="col-sm-4 col-md-4 chatbg-dark">
+        <Link to ='/profiles' className="btn btn-outline-primary my-top"> Find More Friends <i class="fas fa-plus"/> </Link>
             {chats.map((chat=> (
                 <div onClick ={()=> setChat(chat)}>
                     <Chat chat = {chat}/> 
@@ -67,9 +80,12 @@ const MessageBox = ({getChats, auth: { user }, chat : {chats}}) => {
         </div>
         {currChat ? 
         <Fragment>             
-        <div className="col-sm-8 col-md-8 namebox bg-secondary">      
-        <h4 className="nametext my-btm"> {currChat === null ? <></> : currChat.names.find(name => name !== user.name)} </h4>     
-            <div className="chatbox">
+        <div className="col-sm-8 col-md-8 namebox chatbg-dark">
+        <h4 className="nametext my-btm"> 
+          {currChat === null ? <></> : currChat.names.find(name => name !== user.name)} 
+          <img className="chatboxdp" src={friendImg} alt=""/>      
+        </h4>     
+            <div className="chatbox chatbg">
                 {messages.map((msg) => (
                     <div ref = {scroll}>
                       <Message message={msg} sent={msg.sender === user._id} />
