@@ -16,7 +16,11 @@ const MyProfile = ({ getCurrentProfile, auth: { user }, profile : { profile, loa
           { loading || profile.user._id !== user._id ? (
             <Spinner /> ):
         <Fragment> 
-            <h1 className="large"> {user.name}'s Profile  </h1>
+            <h1 className="large"> 
+              {user.name}'s Profile  
+              <br/> 
+              <img className="profiledp" src={user.avatar} alt=""/>
+            </h1>
             <br></br>
             <p> <strong> School:  </strong>National University of Singapore</p>
             <p> <strong> Faculty: </strong> { profile.faculty }</p>
