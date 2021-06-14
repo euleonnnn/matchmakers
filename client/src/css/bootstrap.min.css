@@ -3826,15 +3826,18 @@ input[type='submit'].btn-block {
   display: flex;
   align-items: center;
   padding: 10px;
+  color:white;
 }
 
 .conversation:hover {
   cursor: pointer;
   background-color: #f5d1ca;
+  color:black;
 }
 
 .conversationName {
   font-weight: 500;
+  padding-left:10px;
 }
 
 .message {
@@ -3906,8 +3909,30 @@ input[type='submit'].btn-block {
   margin-top: 0px;
 }
 
-.chatbox {
+.chatdp {
+  width: 30px;
+  height:30px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.chatboxdp {
+  float: right;
+  width: 50px;
+  height:50px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.chatbg {
   background-color: #fff5f5;
+}
+
+.chatbg-dark {
+  background-color: #4d545a;
+}
+
+.chatbox {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -4360,6 +4385,15 @@ input[type='submit'].btn-block {
 .navbar-dark .navbar-text a:hover {
   color: #fff;
 }
+
+.profiledp {
+  width: 300px;
+  height:300px;
+  object-fit: cover;
+  padding: 20px;
+  float:center;
+}
+
 .card {
   position: relative;
   display: -ms-flexbox;
