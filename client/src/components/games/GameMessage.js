@@ -7,22 +7,14 @@ import axios from 'axios';
 
 
 const GameMessage = ({auth: { user }, message}) => {
-  const [playerName, setName] = useState(null);
-  
-  useEffect(() => async () => {
-    try {
-      const res = await axios.get(`/api/profile/user/${message.sender}`);
-      const username = res.data.user.name;
-      setName(username);
-    } catch (error) {
-      console.log(error);
-    }
-  }, []);
- 
+
+  const sent = message.name === user.name;
+
   return <Fragment>
-       <div>
-         <p>{playerName}</p>
+       <div className={sent ? "message sent" : "message"}>
+        <p>{message.name}</p> 
         <div className="toptext">
+          {sent ? <></> : <img className="gamechatdp" src={message.avatar} alt=""/>}
           <p className="messagetext">{message.text}</p>
         </div>
         <div className="text-muted btmtext">{format(message.createdAt)}</div>
