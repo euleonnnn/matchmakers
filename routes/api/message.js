@@ -7,10 +7,13 @@ const User = require('../../models/User');
 const Message= require('../../models/Message');
 
 router.post("/:chatID", [auth], async (req, res) => {
+    const sendername = await User.findById(req.user.id).select('-password');
     const newMessage = new Message ({
         chatID : req.params.chatID,
         sender : req.user.id,
-        text : req.body.text
+        name: sendername.name,
+        text : req.body.text,
+        avatar: sendername.avatar
     })
     try {
         const savedMessage = await newMessage.save();
@@ -19,7 +22,6 @@ router.post("/:chatID", [auth], async (req, res) => {
         res.status(500).send('Server error');
     }
 })
-
 
 //get all messages in a chat
 
