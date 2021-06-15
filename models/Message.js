@@ -2,10 +2,16 @@ const mongoose = require ('mongoose');
 const Schema = mongoose.Schema;
 
 const MessageSchema = new Schema({
+    avatar: {
+        type: String
+    },
     chatID: {
         type: String
     },
     sender:{
+        type: String
+    },
+    name:{
         type: String
     },
     text: {
