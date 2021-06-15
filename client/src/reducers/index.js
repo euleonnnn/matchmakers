@@ -4,6 +4,7 @@ import auth from  './auth';
 import profile from './profile';
 import game from './game';
 import chatReducer from './chat';
+import gamechatReducer from './gamechat';
 
 const allReducers = combineReducers({
     game: game,
@@ -11,6 +12,7 @@ const allReducers = combineReducers({
     auth : auth,
     profile: profile,
     chat: chatReducer,
+    gamechat: gamechatReducer
 });
 
 

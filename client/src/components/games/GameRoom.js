@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Spinner from '../layout/Spinner';
@@ -8,9 +8,31 @@ import { getGameById } from '../../actions/game';
 import { clearProfile } from '../../actions/profile';
 import axios from 'axios';
 import dateformat from '../../utils/dateformat';
+import GameChat from './GameChat';
+import { getChats } from '../../actions/chat';
+import { getGameChat, createGameChat } from '../../actions/gamechat';
 
-const GameRoom = ({ clearProfile, getGameById, authUser, auth, game : {game, loading}, match }) => {
+
+const GameRoom = ({ getGameChat, createGameChat, clearProfile, getGameById, authUser, auth, game : {game, loading}, match, gamechat }) => {
+
+    const [messages, setMessages] = useState([]);
+
+    const [chatStatus, startChat] = useState(
+        messages.length === 0
+    );
     
+  
+    
+    const startNewConvo= () => {
+        try {
+            const formData = {
+                room: game._id
+            }
+            createGameChat(formData)
+        } catch (error) {
+          console.log(error)
+        }
+    }
 
     const quitGame = () => {
         try {
@@ -27,6 +49,10 @@ const GameRoom = ({ clearProfile, getGameById, authUser, auth, game : {game, loa
             console.log(err.status)
         }
       };
+
+    useEffect(() => {
+        getGameChat(match.params.id);
+    },[]);
 
     useEffect(() => {
         getGameById(match.params.id);
@@ -53,13 +79,13 @@ const GameRoom = ({ clearProfile, getGameById, authUser, auth, game : {game, loa
         return (
             <Fragment>
                 <h1 className="text-primary my-3 my-btm"> {game.name}'s Game Lobby  </h1>
-                <div class="row">
+                <div className="row">
                 <div className="card-body">
                 <Link to="/all-games" className="btn btn-dark join-all"> <i class="fas fa-sign-out-alt" /> Leave Lobby </Link>
                 </div>
                 </div>
-                    <div class="row">
-                        <div class="col-sm-6 col-md-6">
+                    <div className="row">
+                        <div className="col-sm-6 col-md-6">
                             <div className="card mb-3">
                             <div className="card-body">
                             <h5 className="card-title my-3 host-title">{game.sport}</h5>
@@ -143,11 +169,11 @@ const GameRoom = ({ clearProfile, getGameById, authUser, auth, game : {game, loa
                                 <div className="card-body">
                                     <h5 className="card-title my-3 host-title "> Game Chat</h5>
                                 </div>
-                                <div className ="input-group my-3">
-                                <input type="search" className ="form-control rounded my-left" placeholder="Type Something to Send to the Room" aria-label="Search"
-                                    aria-describedby="search-addon" />
-                                <button type="button" class="btn btn-outline-primary my-right"> <i class="fas fa-paper-plane" /> </button>
-                                </div>
+                                { (chatStatus && game.user === auth.user._id) 
+                                    && <button type="button" onClick = {()=> {startNewConvo()}} className="btn btn-success btn-lg btn-block ">
+                                      Enable Chat
+                                </button> }
+                                <GameChat />
                             </div>
                         </div>
                     </div>
@@ -162,13 +188,18 @@ GameRoom.propTypes = {
     getGameById: PropTypes.func.isRequired,
     authUser: PropTypes.func.isRequired,
     clearProfile: PropTypes.func.isRequired,
+    createGameChat: PropTypes.func.isRequired,
+    getGameChat: PropTypes.func.isRequired,
+    getChats: PropTypes.func.isRequired,
     game: PropTypes.object.isRequired,
-    auth: PropTypes.object.isRequired
+    auth: PropTypes.object.isRequired,
+    gamechat: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
     game: state.game,
-    auth: state.auth
+    auth: state.auth,
+    gamechat: state.gamechat
 })
 
-export default connect(mapStateToProps, { clearProfile, getGameById, authUser })(GameRoom);
+export default connect(mapStateToProps, { getGameChat, createGameChat, clearProfile, getGameById, authUser })(GameRoom);

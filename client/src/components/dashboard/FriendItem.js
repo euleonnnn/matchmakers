@@ -11,6 +11,7 @@ const FriendItem = ({createChat, getChats, auth: { user }, friend, chat:{chats},
       }, [getChats]);
 
     const chatID = [];
+    
     chats.map(chat => {
         chatID.push(chat.users.find(id => id !== user._id));
     })
