@@ -5,7 +5,8 @@ import { connect } from 'react-redux';
 import {format} from 'timeago.js'
 import axios from 'axios';
 
-const GameMessage = ({auth: { user }, message, loading}) => {
+
+const GameMessage = ({auth: { user }, message}) => {
   const [playerName, setName] = useState(null);
   
   useEffect(() => async () => {
@@ -16,11 +17,11 @@ const GameMessage = ({auth: { user }, message, loading}) => {
     } catch (error) {
       console.log(error);
     }
-  });
-
+  }, []);
  
   return <Fragment>
        <div>
+         <p>{playerName}</p>
         <div className="toptext">
           <p className="messagetext">{message.text}</p>
         </div>
@@ -32,7 +33,7 @@ const GameMessage = ({auth: { user }, message, loading}) => {
 
 
 GameMessage.propTypes = {
-    auth: PropTypes.object.isRequired,
+    auth: PropTypes.object.isRequired
 };
 
 const mapStateToProps = (state) => ({ 

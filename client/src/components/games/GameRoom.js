@@ -72,7 +72,7 @@ const GameRoom = ({ getGameChat, createGameChat, clearProfile, getGameById, auth
     if (game === null || loading) {
         return(
             <Fragment>
-                <Spinner />; 
+                <Spinner />
             </Fragment>
         ) 
     } else {

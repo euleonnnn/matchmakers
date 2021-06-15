@@ -5,8 +5,9 @@ import axios from 'axios';
 import GameMessage from './GameMessage';
 
 
-const GameChat = ({game : {game}, gamechat : {gamechat} }) => {
+const GameChat = ({gamechat : {gamechat} }) => {
     const [messages, setMessages] = useState([]);
+    const [formData, setFormData] = useState("");
     
     const scroll = useRef();
 
@@ -26,22 +27,23 @@ const GameChat = ({game : {game}, gamechat : {gamechat} }) => {
         };
         getMessages();
       }, [gamechat]);
-    // const onSubmit = async (e) => {
-    //   e.preventDefault();
-    //   const message = {
-    //     text: formData
-    //   }
 
-    //   try {
-    //     if (message.text !== ""){
-    //       const res = await axios.post(`/api/message/${currChat._id}`, message);
-    //       setMessages([...messages, res.data])
-    //       setFormData("")
-    //     } 
-    //   } catch (error) {
-    //     console.log(error)
-    //   }
-    // }
+    const onSubmit = async (e) => {
+      e.preventDefault();
+      const message = {
+        text: formData
+      }
+
+      try {
+        if (message.text !== ""){
+          const res = await axios.post(`/api/message/${gamechat[0]._id}`, message);
+          setMessages([...messages, res.data])
+          setFormData("")
+        } 
+      } catch (error) {
+        console.log(error)
+      }
+    }
 
       return <Fragment>
           <div className="chatbox chatbg">
@@ -51,10 +53,14 @@ const GameChat = ({game : {game}, gamechat : {gamechat} }) => {
                     </div>
                   ))}
             <div className ="input-group my-top">
-            <input type="search" className ="form-control rounded my-left" 
-            placeholder="Type Something to Send to the Room" aria-label="Search"
-                aria-describedby="search-addon" />
-            <button type="button" class="btn btn-outline-primary my-right"> <i class="fas fa-paper-plane" /> </button>
+            <textarea 
+                type="text" 
+                className ="form-control rounded" 
+                placeholder="Type Something" 
+                onChange={(e)=>setFormData(e.target.value)}
+                value = {formData}
+                />
+            <button type="button" class="btn btn-outline-primary my-right" onClick={onSubmit}> <i class="fas fa-paper-plane" /> </button>
             </div>
         </div>
       </Fragment>
@@ -64,17 +70,11 @@ const GameChat = ({game : {game}, gamechat : {gamechat} }) => {
 
 
 GameChat.propTypes = {
-    auth: PropTypes.object.isRequired,
-    chat: PropTypes.object.isRequired,
-    game: PropTypes.object.isRequired,
     gamechat: PropTypes.object.isRequired
 };
 
 
 const mapStateToProps = (state) => ({ 
-    auth: state.auth,
-    chat: state.chat,
-    game: state.game,
     gamechat: state.gamechat
 });
 
