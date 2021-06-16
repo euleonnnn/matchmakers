@@ -47,7 +47,11 @@ const GameChat = ({gamechat : {gamechat} }) => {
 
       return <Fragment>
           <div className="chatbox chatbg">
-                {messages.map((msg) => (
+                {messages.length === 0 &&
+                 <div ref = {scroll}>
+                  </div>
+                }
+                {messages.length > 0 && messages.map((msg) => (
                     <div ref = {scroll}>
                     < GameMessage message={msg} />
                     </div>

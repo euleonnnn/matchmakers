@@ -13,7 +13,7 @@ import { getChats } from '../../actions/chat';
 import { getGameChat, createGameChat } from '../../actions/gamechat';
 
 
-const GameRoom = ({ getGameChat, createGameChat, clearProfile, getGameById, authUser, auth, game : {game, loading}, match, gamechat }) => {
+const GameRoom = ({ getGameChat, createGameChat, clearProfile, getGameById, authUser, auth, game : {game, loading}, match, gamechat: {gamechat} }) => {
 
     const [messages, setMessages] = useState([]);
 
@@ -69,7 +69,7 @@ const GameRoom = ({ getGameChat, createGameChat, clearProfile, getGameById, auth
     }, []);
 
 
-    if (game === null || loading) {
+    if (game === null || loading || gamechat === null) {
         return(
             <Fragment>
                 <Spinner />
@@ -169,11 +169,20 @@ const GameRoom = ({ getGameChat, createGameChat, clearProfile, getGameById, auth
                                 <div className="card-body">
                                     <h5 className="card-title my-3 host-title "> Game Chat</h5>
                                 </div>
-                                { (chatStatus && game.user === auth.user._id) 
+
+                                { gamechat.length === 0 && game.user !== auth.user._id &&
+                                    <Fragment>
+                                        <h1 className ="badge badge-danger"> Game Chat has not been enabled </h1>
+                                    </Fragment>
+                                }
+
+                                { (gamechat.length === 0 && game.user === auth.user._id) 
                                     && <button type="button" onClick = {()=> {startNewConvo()}} className="btn btn-success btn-lg btn-block ">
                                       Enable Chat
                                 </button> }
-                                <GameChat />
+
+                                { gamechat.length > 0 &&  <GameChat />}
+                               
                             </div>
                         </div>
                     </div>

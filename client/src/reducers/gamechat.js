@@ -5,7 +5,7 @@ import {
 } from '../actions/types'
 
 const initialState = {
-    gamechat: null,
+    gamechat: [],
     loading: true,
     error: {}
 }
@@ -30,7 +30,7 @@ function gamechatReducer(state = initialState, action) {
         case CREATE_GAMECHAT:
             return {
                 ...state, 
-                gamechat: payload,
+                gamechat: [payload, ...state.gamechat],
                 loading: false
             }
         default: 
