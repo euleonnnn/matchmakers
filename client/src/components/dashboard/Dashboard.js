@@ -32,6 +32,7 @@ const Dashboard = ({ getGames, getCurrentProfile, auth: { user }, profile : { pr
     return <Spinner />; 
   } else {
     const my_games = games.filter(game => game.user === user._id)
+    const joined_games = games.filter(game => game.user !== user._id && game.players.filter(player => player.user === user._id).length > 0)
     return  <Fragment>
       <h1 className="large text-primary big-header"><i class="fas fa-dumbbell"/> {" "} Hello There, {user && user.name}</h1>
       {profile !== null && user !== null ? 
@@ -55,10 +56,11 @@ const Dashboard = ({ getGames, getCurrentProfile, auth: { user }, profile : { pr
               
               {my_games.length>0 && my_games.map(game => (
                   <div className="card mb-3">
+                  <i className="fas fa-crown my-left my-top-small"></i>
                   <div className="card-body">
                   <h5 className="card-title">{game.sport}</h5>
                   <br></br>
-                  <p className="card-text"> <span className='text-primary'> Location: </span> {game.location}</p>
+                  <p className="card-text"> <span className='text-primary'> Location: </span> {game.location==="Others"? game.otherLoc : game.location}</p>
                   <p className="card-text"> <span className='text-primary'> Waiting Room: </span> {game.players.length} players out of {game.maxPlayers}</p>
                   <p className="card-text"> <span className='text-primary'> Game Day: </span> {dateformat(game.dateTime)} </p>
                   <Link to={`/games/${game._id}`} className="btn btn-dark join-all"> Enter Room</Link>
@@ -70,51 +72,44 @@ const Dashboard = ({ getGames, getCurrentProfile, auth: { user }, profile : { pr
                  
               ))}
 
-              
-              <h4 className="text-primary my-top">  Here are the games we think you'd like : </h4>
-              <div className="card mb-3">
-                    <div className="row g-0">
-                      <div className="col-md-4">
-                        <img height="195" width ="195" src={bball} alt="Eusoff"/>
-                      </div>
-                      <div className="col-md-8">
-                        <div className="card-body">
-                          <h5 className="card-title">Placeholder</h5>
-                          <p className="card-text">Location: Eusoff Hall Basketball Court</p>
-                          <p className="card-text">Players: 2 out of 6</p>
-                          <p className="card-text">
-                            <small className="text-muted">Created: 3 mins ago</small>
-                            <Link to="#!" className="btn btn-primary join"> Not LEGIT </Link>
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                </div>
-                <div className="card mb-3">
-                    <div className="row g-0">
-                      <div className="col-md-4">
-                        <img height="195" width ="195" src={bball2} alt="MPSH"/>
-                      </div>
-                      <div className="col-md-8">
-                        <div className="card-body">
-                          <h5 className="card-title">Placeholderl</h5>
-                          <p className="card-text">Location: MPSH 5 Basketball Court </p>
-                          <p className="card-text">Players: 5 out of 6</p>
-                          <p className="card-text">
-                            <small className="text-muted">Created: 1 hour ago</small>
-                            <Link to="#!" className="btn btn-primary join"> Not LEGIT </Link>
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                </div>
-              
+              {joined_games.length > 0 && joined_games.map(game => (
+                 <div className="card mb-3">
+                 <div className="card-body">
+                 <h5 className="card-title">{game.sport}</h5>
+                 <br></br>
+                 <p className="card-text"> <span className='text-primary'> Location: </span> {game.location==="Others"? game.otherLoc : game.location}</p>
+                 <p className="card-text"> <span className='text-primary'> Waiting Room: </span> {game.players.length} players out of {game.maxPlayers}</p>
+                 <p className="card-text"> <span className='text-primary'> Game Day: </span> {dateformat(game.dateTime)} </p>
+                 <Link to={`/games/${game._id}`} className="btn btn-dark join-all"> Enter Room</Link>
+                 <p className="card-text">
+                    
+                 </p>
+                 </div>
+                 </div>
+              ))}
+
+            
           </div>
           
           <div className="col-sm-4 col-md-4">
             <FriendList />
 
             <Link to="/my-profile" className="btn btn-secondary btn-lg btn-block my-top"> <i class="fas fa-cog"/> Profile Settings </Link>
+
+              
+            <h4 className="text-primary my-top">  Suggested Games : </h4>
+              <div className="card mb-3">
+                    <div className="row g-0">
+                      <div className="col-md-4">
+                        <img height="100" width ="195" src={bball} alt="Eusoff"/>
+                      </div>
+                      <div className="col-md-8">
+                        <div className="card-body">
+                          <h5 className="card-title">Placeholder</h5>
+                        </div>
+                      </div>
+                    </div>
+                </div>      
           </div>
         </div>
       </div>

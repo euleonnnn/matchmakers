@@ -38,7 +38,7 @@ const Games = ( {getCurrentProfile, deleteGame, clearGame, getGames, game: {game
                 <br></br>
                 <p className="card-text"> <span className='text-primary'> Location: </span> {game.location==="Others"? game.otherLoc : game.location}</p>
                 <p className="card-text"> <span className='text-primary'> Waiting Room: </span> {game.players.length} players out of {game.maxPlayers}</p>
-                <p className="card-text"> <span className='text-primary'> Game Day: </span> {dateformat(game.dateTime)} </p>
+                <p className="card-text"> <span className='text-primary'> Time: </span> {dateformat(game.dateTime)} </p>
                 <p className="card-text">
                     <br></br>
                     <small className="text-muted"> Game Host: {game.name} </small>
