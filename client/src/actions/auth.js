@@ -10,6 +10,7 @@ import {
     LOGIN_FAIL,
     LOGOUT,
     CLEAR_PROFILE,
+    CHANGE_PW
 } from './types';
 
 import setAuthToken from '../utils/setAuthToken';
@@ -45,6 +46,38 @@ export const register = ({name, email, password}) => async dispatch => {
         });
     }
 }
+
+export const changePassword = (formData, hist) => async dispatch => {
+    const config = {
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }
+    try {
+        const res = await axios.post('/api/users/password', formData , config);
+        dispatch({
+            type: CHANGE_PW,
+            payload: res.data
+        });
+        dispatch(authUser());
+        dispatch(setAlert('Password has been changed','success'));
+        hist.push('/dashboard')
+
+    } catch (err) {
+        const errors = err.response.data.errors;
+        if (errors) {
+            errors.map(error => dispatch(setAlert(error.msg,'danger')));
+        }
+        dispatch({
+            type: REG_FAIL
+        });
+    }
+}
+
+
+
+
+
 
 /**
  * Function login, which dispatches the actions LOGIN_SUCCESS or 

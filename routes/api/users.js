@@ -7,6 +7,7 @@ const config = require('config');
 const bcrypt = require('bcryptjs');
 const { restart } = require('nodemon');
 const User = require('../../models/User');
+const auth = require('../../middleware/auth');
 
 
 /**
@@ -76,9 +77,55 @@ router.post(
         console.error(err.message);
         res.status(500).send('Server error');
     }
-
-  
 });
+
+
+router.post('/password', 
+  [auth], async (req, res) => {
+    const errors = validationResult(req);
+    if(!errors.isEmpty()){
+        return res.status(400).json({errors: errors.array()});
+    }
+
+    const { password } = req.body;
+
+    try { 
+        const user = await User.findOneAndUpdate(
+          { user : req.user._id }, 
+          { password: password },
+          { new: true }
+        );
+        
+        const salt = await bcrypt.genSalt(5);
+
+        user.password = await bcrypt.hash(password, salt);
+          
+        const newUser = await user.save();
+
+        const payload = {
+            user: {
+                id: user.id 
+            }
+        }
+
+        jwt.sign(
+            payload, 
+            config.get('jwtSecret'),
+            {expiresIn: 3600000},   
+            (err, token)=> {
+                if(err) throw err;
+                res.json({token, newUser});
+            });
+
+
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send('Server error');
+    }
+  });
+
+
+
 
 
 /**

@@ -24,3 +24,4 @@ export const SEND_MESSAGE = 'SEND_MESSAGE';
 export const MESSAGE_FAIL = 'MESSAGE_FAIL';
 export const CREATE_GAMECHAT = 'CREATE_GAMECHAT';
 export const GET_GAMECHAT = 'GET_GAMECHAT';
+export const CHANGE_PW = "CHANGE_PW";

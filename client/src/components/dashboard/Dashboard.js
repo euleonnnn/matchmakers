@@ -48,7 +48,7 @@ const Dashboard = ({ getGames, getCurrentProfile, auth: { user }, profile : { pr
 
               <ul>
                   {profile.interests.map(item => {
-                    return <li>{item}</li>;
+                    return <li><i class="fas fa-dot-circle"/> {item}</li>;
                   })}
               </ul>
               
