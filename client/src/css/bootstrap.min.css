@@ -3952,6 +3952,14 @@ input[type='submit'].btn-block {
   object-fit: cover;
 }
 
+.navbardp {
+  width: 40px;
+  height: 40px;
+  margin-right: auto;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
 .nav {
   display: -ms-flexbox;
   display: flex;
