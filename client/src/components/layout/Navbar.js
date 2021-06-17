@@ -32,7 +32,7 @@ import { getCurrentProfile} from '../../actions/profile';
  * @param profile the profile document of logged in user
  * @param logout function which logs out user
  */
-const Navbar = ({getCurrentProfile, auth, profile: {profile}, logout}) => {
+const Navbar = ({getCurrentProfile, auth, auth: {user}, profile: {profile}, logout}) => {
     // eslint-disable-next-line
     useEffect(() => {
       getCurrentProfile();
@@ -86,6 +86,7 @@ const Navbar = ({getCurrentProfile, auth, profile: {profile}, logout}) => {
       <nav className ="navbar navbar-expand-lg navbar-dark bg-dark">
       <div className ="container-fluid">
         <Link to="/dashboard" className="navbar-brand"> (Match) Maker </Link> 
+        {!auth.loading && auth.isAuthenticated ? <img className="navbardp" src={user.avatar} alt=""/> : <></>}
         <IconButton
         aria-label="more"
         aria-controls="long-menu"
