@@ -60,6 +60,7 @@ const Dashboard = ({ getGames, getCurrentProfile, auth: { user }, profile : { pr
               {my_games.length>0 && <h4 className="text-primary my-top"> Pending Games </h4>}
               
               {my_games.length>0 && my_games.map(game => (convertTime(game.dateTime) < Date.now() ? <span>None</span> :
+              
                   <div className="card mb-3">
                   <i className="fas fa-crown my-left my-top-small"></i>
                   <div className="card-body">
