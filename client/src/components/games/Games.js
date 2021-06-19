@@ -9,6 +9,7 @@ import { getCurrentProfile } from '../../actions/profile';
 
 
 const Games = ( {getCurrentProfile, deleteGame, clearGame, getGames, game: {games, loading}, auth}) => {
+
     // eslint-disable-next-line
     useEffect(() => {
         getGames();
@@ -22,6 +23,11 @@ const Games = ( {getCurrentProfile, deleteGame, clearGame, getGames, game: {game
         getCurrentProfile();
       }, [getCurrentProfile]);
 
+    const convertTime = e => {
+        var d1 = new Date(e);
+        return d1.getTime();
+    }
+
     return loading ? <Spinner /> : <Fragment>
           <h1 className = "large big-header text-dark"> Available Game Rooms </h1>
 
@@ -31,7 +37,7 @@ const Games = ( {getCurrentProfile, deleteGame, clearGame, getGames, game: {game
                 <button type="button" class="btn btn-outline-primary">search</button>
             </div>
             <Link to="/create-game" className="btn btn-primary btn-block btn-lg my-4"> <i class="fas fa-football-ball"/> {" "} Host Your Game </Link>
-        {games.map(game => (
+        {games.map(game => (convertTime(game.dateTime) < Date.now() ? <></> :
             <div className="card mb-3">
                 <div className="card-body">
                 <h5 className="card-title">{game.sport}</h5>
