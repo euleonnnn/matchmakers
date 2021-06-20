@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 
+
 export default class ChannelForm extends Component {
   constructor(props) {
     super(props);
@@ -7,6 +8,7 @@ export default class ChannelForm extends Component {
       channel: ""
     };
   }
+
   onChange = e => {
     let { name, value } = e.target;
     this.setState({ [name]: value });
@@ -22,7 +24,7 @@ export default class ChannelForm extends Component {
   render() {
     return (
       <div>
-        <form>
+        <form onSubmit={this.onSubmit}>
           <label>Channel Name</label>
           <input
             placeholder="Channel Name"

@@ -4,7 +4,7 @@ let client = AgoraRTC.createClient({ mode: "live", codec: "h264" });
 
 const USER_ID = Math.floor(Math.random() * 1000000001);
 
-export default class VideoCall extends Component {
+export default class Call extends Component {
   localStream = AgoraRTC.createStream({
     streamID: USER_ID,
     audio: true,
@@ -38,7 +38,7 @@ export default class VideoCall extends Component {
 
   initClient = () => {
     client.init(
-      "1eb6cb9def814e4e96ac6afc003a47b0",
+      "b231fb03c517418e9a0d4668c05592ed",
       function() {
         console.log("AgoraRTC client initialized");
       },
@@ -51,7 +51,7 @@ export default class VideoCall extends Component {
   joinChannel = () => {
     let me = this;
     client.join(
-      null,
+      "0061eb6cb9def814e4e96ac6afc003a47b0IACZ25WcljhS8TJINRd2Divqqj49ZQJBWyrgPrj9wx+7bred2P0AAAAAEACX33iMxzLQYAEAAQDHMtBg",
       me.props.channel,
       USER_ID,
       function(uid) {
