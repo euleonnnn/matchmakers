@@ -1,4 +1,3 @@
-// App.js
 import React, { Component } from "react";
 import ChannelForm from "./ChannelForm";
 import VideoCall from "./VideoCall"

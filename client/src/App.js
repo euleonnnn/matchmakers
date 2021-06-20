@@ -24,6 +24,7 @@ import 'bootstrap/dist/js/bootstrap.bundle.min';
 import AccountSettings from './components/auth/AccountSettings';
 import MessageBox from './components/chat/MessageBox';
 import PasswordChange from './components/auth/PasswordChange';
+import EnterCall from './components/video/EnterCall';
 
 if (localStorage.token) { 
   setAuthToken(localStorage.token);
@@ -64,6 +65,7 @@ const App = () => {
           <PrivateRoute exact path ="/account" component = {AccountSettings} />
           <PrivateRoute exact path ="/messagebox" component = {MessageBox} />
           <PrivateRoute exact path ="/change-password" component = {PasswordChange} />
+          <PrivateRoute exact path ="/entercall/:id" component = {EnterCall} />
         </Switch> 
       </section>
     </Fragment>

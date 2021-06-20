@@ -53,6 +53,8 @@ export default class Call extends Component {
     let me = this;
     client.on("stream-added", me.onStreamAdded);
     client.on("stream-subscribed", me.onRemoteClientAdded);
+    client.on("stream-removed", me.onStreamRemoved);
+    client.on("peer-leave", me.onPeerLeave);
   };
 
   state = {
@@ -106,6 +108,38 @@ export default class Call extends Component {
     me.state.remoteStreams[remoteStream.getId()].play(
       "agora_remote " + remoteStream.getId()
     );
+  };
+
+  onStreamRemoved = evt => {
+    let me = this;
+    let stream = evt.stream;
+    if (stream) {
+      let streamId = stream.getId();
+      let { remoteStreams } = me.state;
+
+      stream.stop();
+      delete remoteStreams[streamId];
+
+      me.setState({ remoteStreams });
+
+      console.log("Remote stream is removed " + stream.getId());
+    }
+  };
+
+  onPeerLeave = evt => {
+    let me = this;
+    let stream = evt.stream;
+    if (stream) {
+      let streamId = stream.getId();
+      let { remoteStreams } = me.state;
+
+      stream.stop();
+      delete remoteStreams[streamId];
+
+      me.setState({ remoteStreams });
+
+      console.log("Remote stream is removed " + stream.getId());
+    }
   };
 
 

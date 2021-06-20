@@ -134,7 +134,9 @@ const GameRoom = ({ getGameChat, createGameChat, clearProfile, getGameById, auth
                              
                                 </div>
                             </div>
-                             <EnterCall/>
+                            {game.players.filter(player => player.user === auth.user._id).length === 0 
+                            ? <></> 
+                            : <Link to={`/entercall/${match.params.id}`} className="btn btn-secondary btn-lg btn-block"> Enter Video Chat </Link>}
                             <div>
                             </div>
                         </div>
