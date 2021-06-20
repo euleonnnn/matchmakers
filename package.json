@@ -13,6 +13,7 @@
   "author": "Eu Leon & Yuen Sheng",
   "license": "MIT",
   "dependencies": {
+    "agora-rtc-sdk": "^3.6.0",
     "axios": "^0.21.0",
     "bcryptjs": "^2.4.3",
     "bootstrap": "^5.0.1",

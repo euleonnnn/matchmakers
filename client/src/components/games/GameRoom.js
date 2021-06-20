@@ -9,19 +9,13 @@ import { clearProfile } from '../../actions/profile';
 import axios from 'axios';
 import dateformat from '../../utils/dateformat';
 import GameChat from './GameChat';
-import { getChats } from '../../actions/chat';
 import { getGameChat, createGameChat } from '../../actions/gamechat';
+import EnterCall from '../video/EnterCall';
 
 
 const GameRoom = ({ getGameChat, createGameChat, clearProfile, getGameById, authUser, auth, game : {game, loading}, match, gamechat: {gamechat} }) => {
 
-    const [messages, setMessages] = useState([]);
-
-    const [chatStatus, startChat] = useState(
-        messages.length === 0
-    );
-    
-  
+    const [messages, setMessages] = useState([]);  
     
     const startNewConvo= () => {
         try {
@@ -140,6 +134,9 @@ const GameRoom = ({ getGameChat, createGameChat, clearProfile, getGameById, auth
                              
                                 </div>
                             </div>
+                             <EnterCall/>
+                            <div>
+                            </div>
                         </div>
                     </div>
 
@@ -182,6 +179,8 @@ const GameRoom = ({ getGameChat, createGameChat, clearProfile, getGameById, auth
                                 </button> }
 
                                 { gamechat.length > 0 &&  <GameChat />}
+
+                                
                                
                             </div>
                         </div>
