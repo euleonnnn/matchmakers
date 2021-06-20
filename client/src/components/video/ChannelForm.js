@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 
 
 export default class ChannelForm extends Component {
@@ -23,18 +23,22 @@ export default class ChannelForm extends Component {
   
   render() {
     return (
-      <div>
+      <Fragment>
+      <div className="my-top">
         <form onSubmit={this.onSubmit}>
-          <label>Channel Name</label>
+          <label> Channel Name </label> {' '}
           <input
             placeholder="Channel Name"
             name="channel"
             value={this.state.channel}
             onChange={this.onChange}
           />
-          <input type="submit" value="Join Channel" />
+          <input type="submit" value="Join Channel" className="btn btn-primary my-left" />
         </form>
+        <p>Please type in Matchmaker1 as the Channel Name</p>
+
       </div>
+      </Fragment>
     );
   }
 }

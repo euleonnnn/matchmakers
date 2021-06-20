@@ -14,8 +14,6 @@ import EnterCall from '../video/EnterCall';
 
 
 const GameRoom = ({ getGameChat, createGameChat, clearProfile, getGameById, authUser, auth, game : {game, loading}, match, gamechat: {gamechat} }) => {
-
-    const [messages, setMessages] = useState([]);  
     
     const startNewConvo= () => {
         try {
@@ -72,7 +70,7 @@ const GameRoom = ({ getGameChat, createGameChat, clearProfile, getGameById, auth
     } else {
         return (
             <Fragment>
-                <h1 className="text-primary my-3 my-btm"> {game.name}'s Game Lobby  </h1>
+                <h1 className="text-primary my-3 my-btm"> {game.name}'s Lobby  </h1>
                 <div className="row">
                 <div className="card-body">
                 <Link to="/all-games" className="btn btn-dark join-all"> <i class="fas fa-sign-out-alt" /> Leave Lobby </Link>
@@ -84,9 +82,14 @@ const GameRoom = ({ getGameChat, createGameChat, clearProfile, getGameById, auth
                             <div className="card-body">
                             <h5 className="card-title my-3 host-title">{game.sport}</h5>
                                 <p className="card-text"> <span className='text-primary'> Experience Level: </span> {game.experience}</p>
-                                <p className="card-text"> <span className='text-primary'> Location: </span> {game.location==="Others"?game.otherLoc:game.location}</p>
+                                <p className="card-text"> <span className='text-primary'> Location: </span> {game.location==="Others"?
+                                    game.otherLoc:game.location}</p>
                                 <p className="card-text"> <span className='text-primary'> Date: </span> {dateformat(game.dateTime)} </p>
                                 <p className="card-text"> <span className='text-primary'> Max Players: </span> {game.maxPlayers} </p>
+                                {game.roomType === "study" && <p>This room should only be used for the forming of study groups among NUS students. 
+                                    Misuse of platform will not be tolerated. </p>}
+                                {game.roomType === "onlineGame" && <p>This room should only be used for the facilitating of (legal) online/offline games among
+                                    NUS students. Misuse of platform will not be tolerated</p>}
                                 <br></br>
                             </div>
                             </div>
@@ -136,7 +139,10 @@ const GameRoom = ({ getGameChat, createGameChat, clearProfile, getGameById, auth
                             </div>
                             {game.players.filter(player => player.user === auth.user._id).length === 0 
                             ? <></> 
-                            : <Link to={`/entercall/${match.params.id}`} className="btn btn-secondary btn-lg btn-block"> Enter Video Chat </Link>}
+                            : (game.roomType === "onlineGame" || "study") && game.location === "Online" ? 
+                                    <Link to={`/entercall/${match.params.id}`} className="btn btn-secondary btn-lg btn-block"> 
+                                    Enter Video Chat  <i class="fas fa-video"/></Link> 
+                            : <></>}
                             <div>
                             </div>
                         </div>
@@ -177,7 +183,7 @@ const GameRoom = ({ getGameChat, createGameChat, clearProfile, getGameById, auth
 
                                 { (gamechat.length === 0 && game.user === auth.user._id) 
                                     && <button type="button" onClick = {()=> {startNewConvo()}} className="btn btn-success btn-lg btn-block ">
-                                      Enable Chat
+                                      Enable Room Chat
                                 </button> }
 
                                 { gamechat.length > 0 &&  <GameChat />}

@@ -7,6 +7,7 @@ import { Link, withRouter } from 'react-router-dom';
 const StudyForm = ({ createGame, history }) => {
 
     const [formData, setFormData] = useState({
+        roomType: 'study',
         sport: '',
         location: '',
         otherLoc: '',
@@ -20,30 +21,9 @@ const StudyForm = ({ createGame, history }) => {
         sport,
         location,
         otherLoc,
-        experience,
         maxPlayers,
         dateTime,
-        createTime,
     } = formData;
-
-    const sports = [
-        { sport: "Badminton", locations:["Kent Ridge - MPSH 5", "UTown - Sports Hall 1"], 
-            maxPlayers:["2","3","4","5","6"] },
-        { sport: "Basketball", locations:["Eusoff Hall", "NUS Sports & Recreation Centre","Temasek Hall","Others"], 
-        maxPlayers:["4","6","8","9","10"] },
-        { sport: "Frisbee", locations:["Kent Ridge - Multi-Purpose Fields","Utown - Open Field","Others"], 
-        maxPlayers:["4","6","8","9","10"] },
-        { sport: "Running", locations:["Kent Ridge - Running Field", "West Coast Park","Others"], 
-        maxPlayers:["2","3","4","5"] },
-        { sport: "Squash", locations:["Kent Ridge - Squash Courts"], 
-        maxPlayers:["2","3","4"] },
-        { sport: "Swimming", locations:["NUS Sports & Recreation Centre"], 
-        maxPlayers:["2","3","4","5"] },
-        { sport: "Table Tennis", locations:["Kent Ridge - MPSH 2"], 
-        maxPlayers:["2","3","4","5","6"] },
-        { sport: "Tennis", locations:["Kent Ridge - Outdoor Tennis Courts"], 
-        maxPlayers:["2","3","4","5","6"] },
-      ];
 
     const setToday = () => {
         var today = new Date();
@@ -89,9 +69,9 @@ const StudyForm = ({ createGame, history }) => {
     }
 
     return (
-            <form className="form2" onSubmit = {data => onSubmit(data)}>
+            <form className="form2 my-top" onSubmit = {data => onSubmit(data)}>
                 <div className="form-group2">
-                    <input type="text" name="sport" placeholder="Subject" value={sport} onChange = {e=> onChange(e)}/>
+                    <input type="text" name="sport" placeholder="Module" value={sport} onChange = {e=> onChange(e)}/>
                 </div>
                 <div className="row">
                     <div className="col">
@@ -124,9 +104,9 @@ const StudyForm = ({ createGame, history }) => {
                 <div className="form-group2">
                     <select name="maxPlayers" value={maxPlayers} onChange = {e=> onChange(e)}>
                             <option value="" disabled selected hidden>Max Number of Students</option>
-                            <option>5</option>
-                            <option>10</option>
-                            <option>20</option>
+                            <option>2</option>
+                            <option>4</option>
+                            <option>6</option>
                     </select> 
                 </div>
 
@@ -157,4 +137,4 @@ StudyForm.propTypes = {
 }
 
 
-export default connect(null, {createGame}) (StudyForm)
+export default connect(null, {createGame}) (withRouter(StudyForm))

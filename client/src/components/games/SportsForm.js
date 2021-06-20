@@ -7,6 +7,7 @@ import { Link, withRouter } from 'react-router-dom';
 const SportsForm = ({ createGame, history }) => {
 
     const [formData, setFormData] = useState({
+        roomType: 'sports',
         sport: '',
         location: '',
         otherLoc: '',
@@ -23,7 +24,6 @@ const SportsForm = ({ createGame, history }) => {
         experience,
         maxPlayers,
         dateTime,
-        createTime,
     } = formData;
 
     const sports = [
@@ -89,7 +89,7 @@ const SportsForm = ({ createGame, history }) => {
     }
 
     return (
-            <form className="form2" onSubmit = {data => onSubmit(data)}>
+            <form className="form2 my-top" onSubmit = {data => onSubmit(data)}>
                 <div className="form-group2">
                     <select name="sport" value={sport} onChange = {e=> onChange(e)}>
                         <option value="" disabled selected hidden> Sport </option>
@@ -126,7 +126,6 @@ const SportsForm = ({ createGame, history }) => {
                         </div>
                     </div>
                 </div>
-
                 <div className="form-group2">
                     <select name="experience" value={experience} onChange = {e=> onChange(e)}>
                             <option value="" disabled selected hidden>Experience Level</option>
@@ -135,7 +134,6 @@ const SportsForm = ({ createGame, history }) => {
                             <option>Expert</option>
                     </select> 
                 </div>
-               
                
                 <div className="form-group2">
                     <select name="maxPlayers" value={maxPlayers} onChange = {e=> onChange(e)}>
@@ -173,4 +171,4 @@ SportsForm.propTypes = {
 }
 
 
-export default connect(null, {createGame}) (SportsForm)
+export default connect(null, {createGame})(withRouter(SportsForm))

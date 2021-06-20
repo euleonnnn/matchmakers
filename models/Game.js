@@ -7,6 +7,10 @@ const GameSchema = new Schema({
         ref: 'user' // link post to User model, allows us to later populate all the posts by User that has 
         //same ID as ObjectID provided 
     },
+    roomType: {
+        type: String,
+        required: true
+    },
     sport : {
         type: String,
         required: true

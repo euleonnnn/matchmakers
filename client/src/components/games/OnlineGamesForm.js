@@ -7,6 +7,7 @@ import { Link, withRouter } from 'react-router-dom';
 const OnlineGamesForm = ({ createGame, history }) => {
 
     const [formData, setFormData] = useState({
+        roomType: 'onlineGame',
         sport: '',
         location: '',
         otherLoc: '',
@@ -23,27 +24,7 @@ const OnlineGamesForm = ({ createGame, history }) => {
         experience,
         maxPlayers,
         dateTime,
-        createTime,
     } = formData;
-
-    const sports = [
-        { sport: "Badminton", locations:["Kent Ridge - MPSH 5", "UTown - Sports Hall 1"], 
-            maxPlayers:["2","3","4","5","6"] },
-        { sport: "Basketball", locations:["Eusoff Hall", "NUS Sports & Recreation Centre","Temasek Hall","Others"], 
-        maxPlayers:["4","6","8","9","10"] },
-        { sport: "Frisbee", locations:["Kent Ridge - Multi-Purpose Fields","Utown - Open Field","Others"], 
-        maxPlayers:["4","6","8","9","10"] },
-        { sport: "Running", locations:["Kent Ridge - Running Field", "West Coast Park","Others"], 
-        maxPlayers:["2","3","4","5"] },
-        { sport: "Squash", locations:["Kent Ridge - Squash Courts"], 
-        maxPlayers:["2","3","4"] },
-        { sport: "Swimming", locations:["NUS Sports & Recreation Centre"], 
-        maxPlayers:["2","3","4","5"] },
-        { sport: "Table Tennis", locations:["Kent Ridge - MPSH 2"], 
-        maxPlayers:["2","3","4","5","6"] },
-        { sport: "Tennis", locations:["Kent Ridge - Outdoor Tennis Courts"], 
-        maxPlayers:["2","3","4","5","6"] },
-      ];
 
     const setToday = () => {
         var today = new Date();
@@ -90,9 +71,12 @@ const OnlineGamesForm = ({ createGame, history }) => {
 
     return (
             <form className="form2" onSubmit = {data => onSubmit(data)}>
-                <div className="form-group2">
+                <div className="form-group2 my-top">
                     <input type="text" name="sport" placeholder="Game" value={sport} onChange = {e=> onChange(e)}/>
+                    <small className="form-text"> Example of Online Games: Poker, Chess, Among Us </small>
+
                 </div>
+                
                 <div className="row">
                     <div className="col">
                         <div className="form-group2">
@@ -134,8 +118,10 @@ const OnlineGamesForm = ({ createGame, history }) => {
                 <div className="form-group2">
                     <select name="maxPlayers" value={maxPlayers} onChange = {e=> onChange(e)}>
                             <option value="" disabled selected hidden>Max Number of Players</option>
+                            <option>2</option>
                             <option>4</option>
                             <option>5</option>
+                            <option>8</option>
                             <option>10</option>
                             <option>20</option>
                     </select> 
@@ -168,4 +154,4 @@ OnlineGamesForm.propTypes = {
 }
 
 
-export default connect(null, {createGame}) (OnlineGamesForm)
+export default connect(null, {createGame}) (withRouter(OnlineGamesForm))
