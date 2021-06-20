@@ -15,6 +15,8 @@ import EnterCall from '../video/EnterCall';
 
 const GameRoom = ({ getGameChat, createGameChat, clearProfile, getGameById, authUser, auth, game : {game, loading}, match, gamechat: {gamechat} }) => {
     
+    const [showTutorial, toggle] = useState(false);
+
     const startNewConvo= () => {
         try {
             const formData = {
@@ -73,10 +75,53 @@ const GameRoom = ({ getGameChat, createGameChat, clearProfile, getGameById, auth
                 <h1 className="text-primary my-3 my-btm"> {game.name}'s Lobby  </h1>
                 <div className="row">
                 <div className="card-body">
+                {!showTutorial && <button className="btn btn-success" onClick={()=>toggle(!showTutorial)}>Show Tutorial</button>}
+                {showTutorial && <button className="btn btn-danger" onClick={()=>toggle(!showTutorial)}>Hide Tutorial</button>}
                 <Link to="/all-games" className="btn btn-dark join-all"> <i class="fas fa-sign-out-alt" /> Leave Lobby </Link>
                 </div>
                 </div>
                     <div className="row">
+                    {showTutorial && game.user === auth.user._id &&
+                                <Fragment>
+                                    <div className="col-sm-12 col-md-12">
+                                    <div className="card mb-3">
+                                <div className="card-body">
+                                <h5 className="card-title my-3 host-title"> Guide To Navigating Around </h5>
+                                <h6>As a Host, you can ... </h6>
+                                <ul>
+                                    <li><strong>Enable Chat:</strong> Chat will not be enabled by default. To allow chat to take place in the room, 
+                                    you can enable it by clicking the green button below </li>
+                                    <li><strong>Join Game:</strong> As the host, you still have to press "Join Game" (pink button) to confirm your availability 
+                                    and be part of the game </li>
+                                    <li><strong>Leave Lobby:</strong> Allows you to leave the room and be search for other rooms available. Do not that the room will not be 
+                                    cancelled until you press the cancel button in the All Games page</li>
+                                    <li><strong>Enter Video Call:</strong> This button will only show if your room is created for any online activities, such as study groups and 
+                                    online games</li>
+                                </ul>
+                                </div>
+                                </div>
+                                </div>
+                                </Fragment>}
+                            
+                            {showTutorial && game.user !== auth.user._id &&
+                                <Fragment>
+                                 <div className="col-sm-12 col-md-12">
+                                <div className="card mb-3">
+                                <div className="card-body">
+                                <h5 className="card-title my-3 host-title"> Guide To Navigating Around </h5>
+                                <h6>As a Participant, you can ... </h6>
+                                <ul>
+                                    <li><strong>Chat:</strong> Chat will have to be enabled by the room Host before any chatting can occur between users in the room</li>
+                                    <li><strong>Join Game:</strong> Please remember press "Join Game" (pink button) to confirm your availability 
+                                    and be part of the game </li>
+                                    <li><strong>Leave Lobby:</strong> Allows you to leave the room and be search for other rooms available.</li>
+                                    <li><strong>Enter Video Call:</strong> This button will only show if the room is created for any online activities, such as study groups and 
+                                    online games</li>
+                                </ul>
+                                </div>
+                                </div>
+                                </div>    
+                            </Fragment>}
                         <div className="col-sm-6 col-md-6">
                             <div className="card mb-3">
                             <div className="card-body">
@@ -137,6 +182,8 @@ const GameRoom = ({ getGameChat, createGameChat, clearProfile, getGameById, auth
                              
                                 </div>
                             </div>
+
+                            
                             {game.players.filter(player => player.user === auth.user._id).length === 0 
                             ? <></> 
                             : (game.roomType === "onlineGame" || "study") && game.location === "Online" ? 
@@ -147,6 +194,7 @@ const GameRoom = ({ getGameChat, createGameChat, clearProfile, getGameById, auth
                             </div>
                         </div>
                     </div>
+                   
 
                     <div className="row">
                         <div className="col-sm-6 col-md-6">
