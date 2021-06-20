@@ -46,6 +46,36 @@ export default class Call extends Component {
         console.log("AgoraRTC client init failed", err);
       }
     );
+    this.subscribeToClient();
+  };
+
+  subscribeToClient = () => {
+    let me = this;
+    client.on("stream-added", me.onStreamAdded);
+    client.on("stream-subscribed", me.onRemoteClientAdded);
+  };
+
+  state = {
+    remoteStreams: {}
+  }
+
+  onStreamAdded = evt => {
+    let me = this;
+    let stream = evt.stream;
+    console.log("New stream added: " + stream.getId());
+    me.setState(
+      {
+        remoteStreams: {
+          ...me.state.remoteStream,
+          [stream.getId()]: stream
+        }
+      },
+      () => {
+        client.subscribe(stream, function(err) {
+          console.log("Subscribe stream failed", err);
+        });
+      }
+    );
   };
 
   joinChannel = () => {
@@ -70,10 +100,30 @@ export default class Call extends Component {
     );
   };
 
+  onRemoteClientAdded = evt => {
+    let me = this;
+    let remoteStream = evt.stream;
+    me.state.remoteStreams[remoteStream.getId()].play(
+      "agora_remote " + remoteStream.getId()
+    );
+  };
+
+
   render() {
     return (
       <div>
         <div id="agora_local" style={{ width: "400px", height: "400px" }} />
+        {Object.keys(this.state.remoteStreams).map(key => {
+          let stream = this.state.remoteStreams[key];
+          let streamId = stream.getId();
+          return (
+            <div
+              key={streamId}
+              id={`agora_remote ${streamId}`}
+              style={{ width: "400px", height: "400px" }}
+            />
+          );
+        })}
       </div>
     );
   }
