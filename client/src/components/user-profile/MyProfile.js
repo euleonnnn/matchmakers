@@ -13,7 +13,7 @@ const MyProfile = ({ getCurrentProfile, auth: { user }, profile : { profile, loa
   
     return (
       <Fragment>
-          { loading || profile.user._id !== user._id ? (
+          {loading || (profile && profile.user._id !== user._id) ? (
             <Spinner /> ):
         <Fragment> 
             <h1 className="large"> 
