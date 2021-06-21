@@ -78,7 +78,7 @@ const Dashboard = ({ getGames, getCurrentProfile, auth: { user }, profile : { pr
                  
               ))}
 
-              {joined_games.length > 0 && joined_games.map(game => (
+              {joined_games.length > 0 && joined_games.map(game => (convertTime(game.dateTime) < Date.now() ? <></>:
                  <div className="card mb-3">
                  <div className="card-body">
                  <h5 className="card-title">{game.sport}</h5>
