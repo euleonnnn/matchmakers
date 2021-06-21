@@ -37,7 +37,7 @@ const Games = ( {getCurrentProfile, deleteGame, clearGame, getGames, game: {game
                 <button type="button" class="btn btn-outline-primary">search</button>
             </div>
             <Link to="/create-game" className="btn btn-primary btn-block btn-lg my-4"> <i class="fas fa-football-ball"/> {" "} Host Your Game </Link>
-        {games.map(game => (convertTime(game.dateTime) < Date.now() ? <></> :
+        {games ? games.map(game => (convertTime(game.dateTime) < Date.now() ? <></> :
             <div className="card mb-3">
                 <div className="card-body">
                 <h5 className="card-title">{game.sport}</h5>
@@ -60,7 +60,7 @@ const Games = ( {getCurrentProfile, deleteGame, clearGame, getGames, game: {game
                  
                 </div>
             </div>
-        ))}
+        )) : <></>}
 
     </Fragment>
 }
