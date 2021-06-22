@@ -4,12 +4,12 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Spinner from '../layout/Spinner';
 import FriendList from './FriendList';
+import Request from './Request';
 import { getCurrentProfile } from '../../actions/profile';
 import { getGames } from '../../actions/game';
 import '../../css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 import bball from '../layout/bball.jpg';
-import bball2 from '../layout/bball2.jpg';
 import { logout } from '../../actions/auth';
 import dateformat from '../../utils/dateformat';
 
@@ -57,7 +57,12 @@ const Dashboard = ({ getGames, getCurrentProfile, auth: { user }, profile : { pr
                   })}
               </ul>
               
-              {my_games.length>0 && <h4 className="text-primary my-top"> Pending Games </h4>}
+              <h4 className="text-primary my-top"> Pending Games </h4>
+
+
+              {my_games.filter(game => (convertTime(game.dateTime) > Date.now())).length === 0 &&
+              joined_games.filter(game => (convertTime(game.dateTime) > Date.now())).length === 0 
+              && <h4 className = "my-top">You have no upcoming games</h4> }
               
               {my_games.length>0 && my_games.map(game => (convertTime(game.dateTime) < Date.now() ? <></>:
               
@@ -98,6 +103,8 @@ const Dashboard = ({ getGames, getCurrentProfile, auth: { user }, profile : { pr
           </div>
           
           <div className="col-sm-4 col-md-4">
+            <div className ="my-btm"><Request /></div>
+
             <FriendList />
 
             <Link to="/my-profile" className="btn btn-secondary btn-lg btn-block my-top"> <i class="fas fa-cog"/> Profile Settings </Link>

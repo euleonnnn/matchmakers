@@ -3831,18 +3831,18 @@ input[type='submit'].btn-block {
   display: flex;
   align-items: center;
   padding: 10px;
-  color:white;
+  color: white;
 }
 
 .conversation:hover {
   cursor: pointer;
   background-color: #f5d1ca;
-  color:black;
+  color: black;
 }
 
 .conversationName {
   font-weight: 500;
-  padding-left:10px;
+  padding-left: 10px;
 }
 
 .message {
@@ -3888,7 +3888,7 @@ input[type='submit'].btn-block {
 }
 
 .toptext {
-  margin-top:-10px;
+  margin-top: -10px;
   display: flex;
 }
 
@@ -3917,7 +3917,7 @@ input[type='submit'].btn-block {
 
 .chatdp {
   width: 30px;
-  height:30px;
+  height: 30px;
   border-radius: 50%;
   object-fit: cover;
 }
@@ -3925,7 +3925,7 @@ input[type='submit'].btn-block {
 .chatboxdp {
   float: right;
   width: 50px;
-  height:50px;
+  height: 50px;
   border-radius: 50%;
   object-fit: cover;
 }
@@ -3951,7 +3951,7 @@ input[type='submit'].btn-block {
 
 .gamechatdp {
   width: 50px;
-  height:50px;
+  height: 50px;
   margin-right: 10px;
   border-radius: 50%;
   object-fit: cover;
@@ -4410,10 +4410,10 @@ input[type='submit'].btn-block {
 
 .profiledp {
   width: 300px;
-  height:300px;
+  height: 300px;
   object-fit: cover;
   padding: 20px;
-  float:center;
+  float: center;
 }
 
 .card {
@@ -4468,6 +4468,15 @@ input[type='submit'].btn-block {
   border-bottom: 1px solid rgba(0, 0, 0, 0.125);
   color: white;
 }
+
+.card-header2 {
+  padding: 10px;
+  margin-bottom: 0;
+  background-color: #343a40;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+  color: white;
+}
+
 .card-header:first-child {
   border-radius: calc(0.25rem - 1px) calc(0.25rem - 1px) 0 0;
 }

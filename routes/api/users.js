@@ -209,6 +209,33 @@ router.get("/friends/:user_id", async (req, res) => {
 });
 
 
+/**
+ * @route GET api/users/friends/user_id is an @access 
+ * route that allows a user to get the friends of a 
+ * particular user_id as in the html param
+ */
+ router.get("/followers/:user_id", async (req, res) => {   
+  try {
+      const currUser = await User.findById(req.params.user_id);
+      const followers = currUser.followers;
+      const allFollowers = await Promise.all(
+          followers.map(id => {
+              return User.findById(id);
+          })
+      )
+      let followerList = [];
+      allFollowers.map(follower => {
+          const {_id, name, avatar} = follower;
+          followerList.push({ _id, name, avatar}); 
+      })
+      res.status(200).json(followerList);
+  } catch (error) {
+      console.error(error.message);
+      res.status(500).send('Server error');
+  }
+});
+
+
 
 
 module.exports = router;
