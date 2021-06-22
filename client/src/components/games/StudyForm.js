@@ -6,6 +6,8 @@ import { Link, withRouter } from 'react-router-dom';
 
 const StudyForm = ({ createGame, history }) => {
 
+    const [redirected, setRedirect] = useState(false);
+
     const [formData, setFormData] = useState({
         roomType: 'study',
         sport: '',
@@ -56,13 +58,11 @@ const StudyForm = ({ createGame, history }) => {
 
     const onChange = e => setFormData({...formData, [e.target.name]: e.target.value});
 
-    var redirected = false;
-
     const locationChange = e => {
         setFormData({...formData, [e.target.name]: e.target.value});
         if (e.target.value==="Others" && !redirected) {
             window.open("/book-facility");
-            redirected = true;
+            setRedirect(true);
         }
         if (e.target.value!=="Others" && formData.otherLoc!=='') {
             document.getElementById('otherLoc').value = '';
