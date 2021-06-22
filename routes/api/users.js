@@ -190,9 +190,10 @@ router.put("/:user_id/unfollow", async (req, res) => {
 router.get("/friends/:user_id", async (req, res) => {   
     try {
         const currUser = await User.findById(req.params.user_id);
+        const friends = currUser.followings.filter(id => currUser.followers.find(follower => id === follower) !== undefined);
         const allFriends = await Promise.all(
-            currUser.followings.map(id => {
-                return User.findById(id)
+            friends.map(id => {
+                return User.findById(id);
             })
         )
         let friendList = [];
