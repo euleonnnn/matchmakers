@@ -25,6 +25,7 @@ import AccountSettings from './components/auth/AccountSettings';
 import MessageBox from './components/chat/MessageBox';
 import PasswordChange from './components/auth/PasswordChange';
 import EnterCall from './components/video/EnterCall';
+import BookFacility from './components/games/BookFacility';
 
 if (localStorage.token) { 
   setAuthToken(localStorage.token);
@@ -66,6 +67,7 @@ const App = () => {
           <PrivateRoute exact path ="/messagebox" component = {MessageBox} />
           <PrivateRoute exact path ="/change-password" component = {PasswordChange} />
           <PrivateRoute exact path ="/entercall/:id" component = {EnterCall} />
+          <PrivateRoute exact path ="/book-facility" component = {BookFacility} />
         </Switch> 
       </section>
     </Fragment>
