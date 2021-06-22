@@ -2870,6 +2870,11 @@ fieldset:disabled a.btn {
   padding-left: 4px;
   padding-right: 4px;
 }
+.btn-full {
+  width: 100%;
+  margin-top: 2px;
+}
+
 input[type='button'].btn-block,
 input[type='reset'].btn-block,
 input[type='submit'].btn-block {
