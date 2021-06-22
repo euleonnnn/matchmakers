@@ -26,6 +26,8 @@ const SportsForm = ({ createGame, history }) => {
         dateTime,
     } = formData;
 
+    var redirected = false;
+
     const sports = [
         { sport: "Badminton", locations:["Kent Ridge - MPSH 5", "UTown - Sports Hall 1"], 
             maxPlayers:["2","3","4","5","6"] },
@@ -33,7 +35,7 @@ const SportsForm = ({ createGame, history }) => {
         maxPlayers:["4","6","8","9","10"] },
         { sport: "Frisbee", locations:["Kent Ridge - Multi-Purpose Fields","Utown - Open Field","Others"], 
         maxPlayers:["4","6","8","9","10"] },
-        { sport: "Running", locations:["Kent Ridge - Running Field", "West Coast Park","Others"], 
+        { sport: "Running", locations:["Others"], 
         maxPlayers:["2","3","4","5"] },
         { sport: "Squash", locations:["Kent Ridge - Squash Courts"], 
         maxPlayers:["2","3","4"] },
@@ -78,6 +80,10 @@ const SportsForm = ({ createGame, history }) => {
 
     const locationChange = e => {
         setFormData({...formData, [e.target.name]: e.target.value});
+        if(e.target.value!=="Others" && !redirected) {
+            window.open("/book-facility");
+            redirected = true;
+        }
         if (e.target.value!=="Others" && formData.otherLoc!=='') {
             document.getElementById('otherLoc').value = '';
         }
