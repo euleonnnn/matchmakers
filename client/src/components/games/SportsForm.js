@@ -6,6 +6,8 @@ import { Link, withRouter } from 'react-router-dom';
 
 const SportsForm = ({ createGame, history }) => {
 
+    const [redirected, setRedirect] = useState(false);
+
     const [formData, setFormData] = useState({
         roomType: 'sports',
         sport: '',
@@ -25,8 +27,6 @@ const SportsForm = ({ createGame, history }) => {
         maxPlayers,
         dateTime,
     } = formData;
-
-    var redirected = false;
 
     const sports = [
         { sport: "Badminton", locations:["Kent Ridge - MPSH 5", "UTown - Sports Hall 1"], 
@@ -82,7 +82,7 @@ const SportsForm = ({ createGame, history }) => {
         setFormData({...formData, [e.target.name]: e.target.value});
         if(e.target.value!=="Others" && !redirected) {
             window.open("/book-facility");
-            redirected = true;
+            setRedirect(true);
         }
         if (e.target.value!=="Others" && formData.otherLoc!=='') {
             document.getElementById('otherLoc').value = '';
