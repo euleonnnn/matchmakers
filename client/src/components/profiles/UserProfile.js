@@ -11,6 +11,7 @@ import {createChat} from '../../actions/chat';
 
 const UserProfile = ({ createChat, chat:{chats}, authUser, getProfilesById, profile: { profile, loading }, auth, match, history}) => {
 
+
   const chatID = [];
   if (chats.length > 0) {
     chats.map(chat => {
@@ -128,7 +129,9 @@ const UserProfile = ({ createChat, chat:{chats}, authUser, getProfilesById, prof
             <>  </>
             {auth.isAuthenticated &&
                 auth.loading === false &&
-                auth.user._id !== profile.user._id && (
+                auth.user._id !== profile.user._id && 
+                auth.user.followings.find(id => id === profile.user._id) !== undefined &&
+                auth.user.followers.find(id => id === profile.user._id) !== undefined &&(
                 <button onClick= {()=> {startNewConvo()}} type="button" className="btn btn-primary my-1"> <i class="fas fa-comment-dots"/>
                     {" "} Message
                  </button>
