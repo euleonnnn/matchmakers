@@ -8,6 +8,7 @@ import Message from './Message';
 import { getChats } from '../../actions/chat';
 import axios from 'axios';
 import ChatBG from '../../img/ChatBG.png'
+import {io} from "socket.io-client"
 
 //main page for display of all conversations and messages 
 const MessageBox = ({getChats, auth: { user }, chat : {chats}}) => {
@@ -15,7 +16,18 @@ const MessageBox = ({getChats, auth: { user }, chat : {chats}}) => {
     const [messages, setMessages] = useState([]);
     const [formData, setFormData] = useState("");
     const [friendImg, setImg] = useState(null);
+    const [socket, setSocket] = useState(null)
     const scroll = useRef();
+
+    useEffect(() => {
+      setSocket(io("ws://localhost:5000"))
+    }, [])
+
+    useEffect(() => {
+      socket?.on("welcome",message => {
+        console.log(message)
+      })
+    }, [socket])
 
     useEffect(() => {
         getChats();
