@@ -26,11 +26,11 @@ export default class Call extends Component {
   initLocalStream = () => {
     let me = this;
     me.localStream.init(
-      function() {
+      function () {
         console.log("getUserMedia successfully");
         me.localStream.play("agora_local");
       },
-      function(err) {
+      function (err) {
         console.log("getUserMedia failed", err);
       }
     );
@@ -38,11 +38,11 @@ export default class Call extends Component {
 
   initClient = () => {
     client.init(
-      "b231fb03c517418e9a0d4668c05592ed",
-      function() {
+      "1eb6cb9def814e4e96ac6afc003a47b0",
+      function () {
         console.log("AgoraRTC client initialized");
       },
-      function(err) {
+      function (err) {
         console.log("AgoraRTC client init failed", err);
       }
     );
@@ -73,7 +73,7 @@ export default class Call extends Component {
         }
       },
       () => {
-        client.subscribe(stream, function(err) {
+        client.subscribe(stream, function (err) {
           console.log("Subscribe stream failed", err);
         });
       }
@@ -83,20 +83,20 @@ export default class Call extends Component {
   joinChannel = () => {
     let me = this;
     client.join(
-      "0061eb6cb9def814e4e96ac6afc003a47b0IACZ25WcljhS8TJINRd2Divqqj49ZQJBWyrgPrj9wx+7bred2P0AAAAAEACX33iMxzLQYAEAAQDHMtBg",
+      "0061eb6cb9def814e4e96ac6afc003a47b0IABeE6ZXo9Y496ZfGWOI3PAFAMyATvEd7dCvVwrbIlvYeQ29DrUAAAAAEAAm+nFWriDUYAEAAQCvINRg",
       me.props.channel,
       USER_ID,
-      function(uid) {
+      function (uid) {
         console.log("User " + uid + " join channel successfully");
-        client.publish(me.localStream, function(err) {
+        client.publish(me.localStream, function (err) {
           console.log("Publish local stream error: " + err);
         });
 
-        client.on("stream-published", function(evt) {
+        client.on("stream-published", function (evt) {
           console.log("Publish local stream successfully");
         });
       },
-      function(err) {
+      function (err) {
         console.log("Join channel failed", err);
       }
     );
