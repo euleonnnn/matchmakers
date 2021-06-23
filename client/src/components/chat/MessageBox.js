@@ -16,18 +16,19 @@ const MessageBox = ({getChats, auth: { user }, chat : {chats}}) => {
     const [messages, setMessages] = useState([]);
     const [formData, setFormData] = useState("");
     const [friendImg, setImg] = useState(null);
-    const [socket, setSocket] = useState(null)
+    const [onlineUsers, setOnlineUsers] = useState([]);
     const scroll = useRef();
+    const socket = useRef(io.connect("ws://localhost:8900"));
 
     useEffect(() => {
-      setSocket(io("ws://localhost:5000"))
-    }, [])
-
-    useEffect(() => {
-      socket?.on("welcome",message => {
-        console.log(message)
-      })
-    }, [socket])
+      socket.current.emit("addUser", user._id);
+      socket.current.on("getUsers", users=>{
+        setOnlineUsers(
+          user.followings.filter((following) => user.followers.find(follower => following === follower) !== undefined)
+        );
+        console.log(users);
+      });
+    }, [user]);
 
     useEffect(() => {
         getChats();
@@ -49,8 +50,10 @@ const MessageBox = ({getChats, auth: { user }, chat : {chats}}) => {
     useEffect(() => {
         const getMessages = async () => {
           try {
+            if (currChat) {
             const res = await axios.get(`/api/message/${currChat._id}`);
             setMessages(res.data);
+            }
           } catch (err) {
             console.log(err);
           }
