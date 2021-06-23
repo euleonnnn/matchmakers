@@ -5,41 +5,41 @@ import { connect } from 'react-redux';
 import { createChat, getChats } from '../../actions/chat';
 
 
-const FriendItem = ({createChat, getChats, auth: { user }, friend, chat:{chats}, history}) => {
+const FriendItem = ({ createChat, getChats, auth: { user }, friend, chat: { chats }, history }) => {
     useEffect(() => {
         getChats();
-      }, [getChats]);
+    }, [getChats]);
 
     const chatID = [];
-    
+
     chats.map(chat => {
         chatID.push(chat.users.find(id => id !== user._id));
     })
 
-    const startNewConvo= () => {
+    const startNewConvo = () => {
         try {
-          if (!chatID.includes(friend._id)) {
-              const formData = {
-                  receiver: friend._id
-              }
-              createChat(formData, history)
-          } else {
-              history.push('/messagebox')
-          }
+            if (!chatID.includes(friend._id)) {
+                const formData = {
+                    receiver: friend._id
+                }
+                createChat(formData, history)
+            } else {
+                history.push('/messagebox')
+            }
         } catch (error) {
-          console.log(error)
+            console.log(error)
         }
     }
-  
+
 
     return (
         <Fragment>
-        <li className="list-group-item"> 
-                {friend.name}  
-                <button onClick= {()=> {startNewConvo()}} type="button" className="btn btn-dark join-all">
-                <i class="fas fa-comment-dots"/> 
+            <li className="list-group-item">
+                {friend.name}
+                <button onClick={() => { startNewConvo() }} type="button" className="btn btn-dark join-all my-right">
+                    <i class="fas fa-comment-dots" />
                 </button>
-            </li> 
+            </li>
         </Fragment>
     );
 }
@@ -52,10 +52,10 @@ FriendItem.propTypes = {
     createChat: PropTypes.func.isRequired
 };
 
-const mapStateToProps = (state) => ({ 
+const mapStateToProps = (state) => ({
     auth: state.auth,
     chat: state.chat
 });
 
-  
-export default connect(mapStateToProps, {getChats, createChat})(withRouter(FriendItem));
+
+export default connect(mapStateToProps, { getChats, createChat })(withRouter(FriendItem));

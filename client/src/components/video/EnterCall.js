@@ -6,20 +6,20 @@ class EnterCall extends Component {
     constructor(props) {
         super(props);
         this.state = {
-          channel: ''
+            channel: ''
         }
-      }
-    
+    }
+
     selectChannel = channel => {
         this.setState({ channel });
     };
-    
+
     render() {
         return (
-        <div>
-            <VideoCall channel={this.state.channel}/> 
-            <ChannelForm selectChannel={this.selectChannel}/>        
-        </div>
+            <div>
+                <VideoCall channel={this.state.channel} />
+                <ChannelForm selectChannel={this.selectChannel} />
+            </div>
         );
     }
 }

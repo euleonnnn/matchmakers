@@ -7,43 +7,43 @@ import axios from 'axios';
 
 const FollowerItem = ({ auth: { user }, follower }) => {
 
-    const [follow, toggle] = useState(false)
+  const [follow, toggle] = useState(false)
 
-    const followUnfollow = () => {
-        try {
-            toggle(!follow)
-            axios.put(`/api/users/${follower._id}/follow`, {
-              userId: user._id,
-            });
-        }catch (err) { 
-          console.log(err.status)
-        }
-      };
-    
-    return (
-        <Fragment>
-        <li className="list-group-item"> 
-                {follower.name} 
-                {!follow && <button onClick= {()=> {
-                  followUnfollow();
-                }} type="button" className="btn btn-dark join-all">
-                  <i class="fas fa-user-plus"/>   
-                </button> }
+  const followUnfollow = () => {
+    try {
+      toggle(!follow)
+      axios.put(`/api/users/${follower._id}/follow`, {
+        userId: user._id,
+      });
+    } catch (err) {
+      console.log(err.status)
+    }
+  };
 
-                {follow &&  <button className="btn btn-success join-all"><i class="fas fa-cog fa-spin"/></button>}
-            </li> 
-        </Fragment>
-    );
+  return (
+    <Fragment>
+      <li className="list-group-item">
+        {follower.name}
+        {!follow && <button onClick={() => {
+          followUnfollow();
+        }} type="button" className="btn btn-dark join-all">
+          <i class="fas fa-user-plus" />
+        </button>}
+
+        {follow && <button className="btn btn-success join-all"><i class="fas fa-cog fa-spin" /></button>}
+      </li>
+    </Fragment>
+  );
 }
 
 
 FollowerItem.propTypes = {
-    auth: PropTypes.object.isRequired
+  auth: PropTypes.object.isRequired
 };
 
-const mapStateToProps = (state) => ({ 
-    auth: state.auth
+const mapStateToProps = (state) => ({
+  auth: state.auth
 });
 
-  
+
 export default connect(mapStateToProps)(withRouter(FollowerItem));
