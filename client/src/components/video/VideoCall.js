@@ -102,6 +102,11 @@ export default class Call extends Component {
     );
   };
 
+  leaveChannel = () => {
+    client.leave();
+    window.location.replace("/all-games");
+  }
+
   onRemoteClientAdded = evt => {
     let me = this;
     let remoteStream = evt.stream;
@@ -158,6 +163,7 @@ export default class Call extends Component {
             />
           );
         })}
+        <button type="button" className="btn btn-primary my-right" onClick={() => this.leaveChannel()}> Leave </button>
       </div>
     );
   }
