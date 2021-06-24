@@ -83,7 +83,7 @@ export default class Call extends Component {
   joinChannel = () => {
     let me = this;
     client.join(
-      "0061eb6cb9def814e4e96ac6afc003a47b0IABeE6ZXo9Y496ZfGWOI3PAFAMyATvEd7dCvVwrbIlvYeQ29DrUAAAAAEAAm+nFWriDUYAEAAQCvINRg",
+      "0061eb6cb9def814e4e96ac6afc003a47b0IADQqOy6pmt2wbjOZfBlMMYq+OZsFma6KCbsYc0ija17cA29DrUAAAAAEACqPfBqitPVYAEAAQCL09Vg",
       me.props.channel,
       USER_ID,
       function (uid) {
@@ -151,19 +151,19 @@ export default class Call extends Component {
   render() {
     return (
       <div>
-        <div id="agora_local" style={{ width: "400px", height: "400px" }} />
+        <div className="col-sm-4 col-md-4" id="agora_local" style={{ width: "400px", height: "400px" }} />
         {Object.keys(this.state.remoteStreams).map(key => {
           let stream = this.state.remoteStreams[key];
           let streamId = stream.getId();
           return (
-            <div
+            <div className="col-sm-4 col-md-4"
               key={streamId}
               id={`agora_remote ${streamId}`}
               style={{ width: "400px", height: "400px" }}
             />
           );
         })}
-        <button type="button" className="btn btn-primary my-right" onClick={() => this.leaveChannel()}> Leave </button>
+        <button type="button" className="btn btn-primary my-left btn-full" onClick={() => this.leaveChannel()}> Leave </button>
       </div>
     );
   }
