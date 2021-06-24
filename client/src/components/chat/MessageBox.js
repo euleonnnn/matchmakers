@@ -16,17 +16,31 @@ const MessageBox = ({getChats, auth: { user }, chat : {chats}}) => {
     const [messages, setMessages] = useState([]);
     const [formData, setFormData] = useState("");
     const [friendImg, setImg] = useState(null);
-    const [onlineUsers, setOnlineUsers] = useState([]);
+    const [incomingMessage, setIncomingMessage] = useState(null);
     const scroll = useRef();
-    const socket = useRef(io.connect("ws://localhost:8900"));
+    const socket = useRef();
+
+    useEffect(() => {
+      socket.current = io.connect("ws://localhost:8900");
+      socket.current.on("getMessage", (data) => {
+        setIncomingMessage({
+          sender: data.senderId,
+          text: data.text,
+          createdAt: Date.now(),
+        });
+      });
+    }, []);
+
+    useEffect(() => {
+      incomingMessage &&
+        currChat?.users.includes(incomingMessage.sender) &&
+        setMessages((prev) => [...prev, incomingMessage]);
+    }, [incomingMessage, currChat]);
 
     useEffect(() => {
       socket.current.emit("addUser", user._id);
-      socket.current.on("getUsers", users=>{
-        setOnlineUsers(
-          user.followings.filter((following) => user.followers.find(follower => following === follower) !== undefined)
-        );
-        console.log(users);
+      socket.current.on("getUsers", (users) =>{
+        console.log(users); 
       });
     }, [user]);
 
@@ -65,6 +79,18 @@ const MessageBox = ({getChats, auth: { user }, chat : {chats}}) => {
       e.preventDefault();
       const message = {
         text: formData
+      }
+
+      if(currChat) {
+
+        const receiver = currChat.users.find(id => user._id !== id);
+
+        socket.current.emit("sendMessage", {
+          senderId: user._id,
+          receiverId: receiver,
+          text: formData,
+        });
+
       }
 
       try {
