@@ -22,9 +22,9 @@ export default class ChannelForm extends Component {
   render() {
     return (
       <Fragment>
-        <div className="my-top my-btm">
+        <div className="my-btm">
           <form onSubmit={this.onSubmit}>
-            <input type="submit" value="Join Channel" className="btn btn-primary my-left" />
+            <input type="submit" value="Join Channel" className="btn btn-primary my-left btn-full" />
           </form>
 
         </div>
