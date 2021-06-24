@@ -24,7 +24,7 @@ export default class ChannelForm extends Component {
       <Fragment>
         <div className="my-btm">
           <form onSubmit={this.onSubmit}>
-            <input type="submit" value="Join Channel" className="btn btn-primary my-left btn-full" />
+            <input type="submit" value="Join Channel" className="btn btn-success btn-full" />
           </form>
 
         </div>

@@ -1,10 +1,15 @@
 import React, { Component } from "react";
 import AgoraRTC from "agora-rtc-sdk";
+import { withRouter } from "react-router-dom";
 let client = AgoraRTC.createClient({ mode: "live", codec: "h264" });
 
 const USER_ID = Math.floor(Math.random() * 1000000001);
 
-export default class Call extends Component {
+class Call extends Component {
+  handleClick = () => {
+    this.props.history.push("/all-games");
+  }
+
   localStream = AgoraRTC.createStream({
     streamID: USER_ID,
     audio: true,
@@ -104,7 +109,7 @@ export default class Call extends Component {
 
   leaveChannel = () => {
     client.leave();
-    window.location.replace("/all-games");
+    this.handleClick();
   }
 
   onRemoteClientAdded = evt => {
@@ -150,7 +155,7 @@ export default class Call extends Component {
 
   render() {
     return (
-      <div>
+      <div className ="row">
         <div className="col-sm-4 col-md-4" id="agora_local" style={{ width: "400px", height: "400px" }} />
         {Object.keys(this.state.remoteStreams).map(key => {
           let stream = this.state.remoteStreams[key];
@@ -163,8 +168,11 @@ export default class Call extends Component {
             />
           );
         })}
-        <button type="button" className="btn btn-primary my-left btn-full" onClick={() => this.leaveChannel()}> Leave </button>
+        <button type="button" className="btn btn-primary btn-full" onClick={() => this.leaveChannel()}> Leave </button>
       </div>
     );
   }
 }
+
+
+export default withRouter(Call);
