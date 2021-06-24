@@ -2,10 +2,12 @@ import React, { Component, Fragment } from "react";
 
 
 export default class ChannelForm extends Component {
+
   constructor(props) {
     super(props);
     this.state = {
-      channel: ""
+      channel: "",
+      click: true
     };
   }
 
@@ -19,12 +21,17 @@ export default class ChannelForm extends Component {
     this.props.selectChannel("Matchmaker");
   };
 
+  click = () => {
+    this.state.click = false
+  }
+
   render() {
     return (
       <Fragment>
         <div className="my-btm">
           <form onSubmit={this.onSubmit}>
-            <input type="submit" value="Join Channel" className="btn btn-success btn-full" />
+            {this.state.click ? <input type="submit" value="Join Channel" onClick={this.click()} className="btn btn-success btn-full" /> 
+            : this.state.click === false && <button type="button" class="btn btn-secondary btn-full" disabled>Joined Channel</button>}
           </form>
 
         </div>
