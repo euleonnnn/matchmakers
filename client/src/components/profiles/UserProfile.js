@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import Spinner from '../layout/Spinner';
 import { getProfilesById } from '../../actions/profile';
 import { authUser } from '../../actions/auth'
-import { Link, withRouter } from 'react-router-dom';
+import { Link, withRouter, useHistory } from 'react-router-dom';
 import axios from 'axios';
 import {createChat} from '../../actions/chat';
 
@@ -51,6 +51,11 @@ const UserProfile = ({ createChat, chat:{chats}, authUser, getProfilesById, prof
       getProfilesById(match.params.id);
       // eslint-disable-next-line
     },[getProfilesById]);
+
+  let hist = useHistory();
+  const goToPreviousPath = () => {
+      hist.goBack()
+  }
 
 
   const followUnfollow = () => {
@@ -137,6 +142,7 @@ const UserProfile = ({ createChat, chat:{chats}, authUser, getProfilesById, prof
                  </button>
                 ) 
             }
+             <button onClick={goToPreviousPath} type="button" className="btn btn-dark join-all my-btm">Return</button>
         </Fragment>
       }
     }

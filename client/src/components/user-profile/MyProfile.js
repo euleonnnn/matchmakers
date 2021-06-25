@@ -4,6 +4,8 @@ import { connect } from 'react-redux'
 import { getCurrentProfile } from '../../actions/profile';
 import { Link } from 'react-router-dom';
 import Spinner from '../layout/Spinner';
+import FriendList from './FriendList';
+import Request from './Request';
 
 const MyProfile = ({ getCurrentProfile, auth: { user }, profile : { profile, loading } }) => {
     // eslint-disable-next-line
@@ -16,10 +18,12 @@ const MyProfile = ({ getCurrentProfile, auth: { user }, profile : { profile, loa
           {loading || (profile && profile.user._id !== user._id) ? (
             <Spinner /> ):
         <Fragment> 
-            <h1 className="large"> 
-              {user.name}'s Profile  
-              <br/> 
-              <img className="profiledp" src={user.avatar} alt=""/>
+          <h1 className="large"> 
+              {user.name}'s Profile  </h1>
+           <div className ="row">  
+            <br/> 
+              <div className="col-sm-6 col-md-6">
+             <h1> <img className="profiledp" src={user.avatar} alt=""/>
             </h1>
             <br></br>
             <p> <strong> School:  </strong>National University of Singapore</p>
@@ -27,11 +31,11 @@ const MyProfile = ({ getCurrentProfile, auth: { user }, profile : { profile, loa
             <p> <strong> Year: </strong> { profile.year }</p>
             <p> <strong> Bio: </strong> { profile.bio }</p>
           <p> <strong> Your Interests: </strong></p>
-        <ul>
-          {profile.interests.map(item => {
-              return <li>{item}</li>;
-            })}
-        </ul>
+            <ul>
+              {profile.interests.map(item => {
+                  return <li>{item}</li>;
+                })}
+            </ul>
 
         <div className ="my-2"> 
             <Link to ='/edit-profile' className="btn btn-primary my-1"> Update Profile </Link>
@@ -39,9 +43,13 @@ const MyProfile = ({ getCurrentProfile, auth: { user }, profile : { profile, loa
           <> </>
           <Link to="/dashboard" className="btn btn-dark join-all">
             Home
-          </Link>
-          
-         
+          </Link>         
+              </div>
+            </div>
+            <div className="col-sm-6 col-md-6">
+              <FriendList />
+              <div className ="my-top"> <Request /> </div>
+            </div>
           </div>
         </Fragment> 
     }

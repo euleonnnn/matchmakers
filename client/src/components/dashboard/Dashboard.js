@@ -103,9 +103,9 @@ const Dashboard = ({ getGames, getCurrentProfile, auth: { user }, profile: { pro
                 </div>
 
                 <div className="col-sm-4 col-md-4">
-                  <div className="my-btm"> <Request /></div>
+                  <div className="my-btm"> <FriendList /></div>
 
-                  <FriendList />
+                  <Request />
 
                   <Link to="/my-profile" className="btn btn-secondary btn-lg btn-block my-top"> <i class="fas fa-cog" /> Profile Settings </Link>
 
