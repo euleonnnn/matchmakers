@@ -21,7 +21,7 @@ const MessageBox = ({getChats, auth: { user }, chat : {chats}}) => {
     const socket = useRef();
 
     useEffect(() => {
-      socket.current = io.connect("http://floating-beach-29732.herokuapp.com/");
+      socket.current = io.connect("https://floating-beach-29732.herokuapp.com/");
       socket.current.on("getMessage", (data) => {
         setIncomingMessage({
           sender: data.senderId,
