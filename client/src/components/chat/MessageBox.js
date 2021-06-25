@@ -21,7 +21,7 @@ const MessageBox = ({getChats, auth: { user }, chat : {chats}}) => {
     const socket = useRef();
 
     useEffect(() => {
-      socket.current = io.connect("https://floating-beach-29732.herokuapp.com/");
+      socket.current = io.connect("ws://localhost:8900");
       socket.current.on("getMessage", (data) => {
         setIncomingMessage({
           sender: data.senderId,
@@ -141,7 +141,7 @@ const MessageBox = ({getChats, auth: { user }, chat : {chats}}) => {
                 onChange={(e)=>setFormData(e.target.value)}
                 value = {formData}
                 />
-            <button type="button" class="btn btn-outline-primary my-right" onClick={onSubmit}> <i class="fas fa-paper-plane" /> </button>
+            <input type="submit" className="btn btn-outline-primary my-right" onClick={onSubmit} value="Send" />
             </div>
         </div>
         </Fragment> : 
