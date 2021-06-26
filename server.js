@@ -3,7 +3,7 @@ const { reset } = require("nodemon");
 const mongoose = require('mongoose');
 const config = require('config');
 const db = config.get('mongoURI');
-const path = require('path');
+var path = require('path');
 
 const connectDB = async () => {
     try {
