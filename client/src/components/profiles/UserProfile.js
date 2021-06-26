@@ -79,9 +79,6 @@ const UserProfile = ({ createChat, chat:{chats}, authUser, getProfilesById, prof
     if (profile === null || loading) {
       return < Spinner />
     } else {
-      if (profile.user._id === auth.user._id) {
-        return <Spinner />
-      } else {
         return <Fragment>
             <h1> {profile.user.name}'s Profile  </h1>
             <br></br>
@@ -114,7 +111,7 @@ const UserProfile = ({ createChat, chat:{chats}, authUser, getProfilesById, prof
                 auth.user._id !== profile.user._id && (
                 <button onClick= {()=> {
                   followUnfollow();
-                }} type="button" className="btn btn-dark">
+                }} type="button" className="btn btn-success">
                   <i className="fas fa-user-plus"/>   Follow
                 </button>
                 ) 
@@ -125,7 +122,7 @@ const UserProfile = ({ createChat, chat:{chats}, authUser, getProfilesById, prof
                 auth.user._id !== profile.user._id && (
                 <button onClick= {()=> {
                   followUnfollow();
-                }} type="button" className="btn btn-success">
+                }} type="button" className="btn btn-danger">
                    <i class="fas fa-user-minus"/>   Unfollow
                 </button>
                 ) 
@@ -145,7 +142,6 @@ const UserProfile = ({ createChat, chat:{chats}, authUser, getProfilesById, prof
              <button onClick={goToPreviousPath} type="button" className="btn btn-dark join-all my-btm">Return</button>
         </Fragment>
       }
-    }
   };
 
 

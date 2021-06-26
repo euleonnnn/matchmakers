@@ -13,18 +13,17 @@ const Profiles = ({clearProfile, getProfiles, profile: { profiles, loading }, au
     //additional clear profile to clear out dashboard rerendering
     useEffect(()  => {
         clearProfile();
-    }, [clearProfile]);
+    });
 
 
-    const displayAll = profiles.length <= 0 ? <h4>No profiles found</h4> : 
-        profiles.map(profile => {
+    const displayAll = profiles.map(profile => {
             if (profile.user._id !== auth.user._id) {
                 return <ProfileItem key = {profile._id} profile ={profile} />
             }
         })
 
     return <Fragment> 
-        { loading ? <Spinner /> : <Fragment>
+        { loading || displayAll.length===0 ? <Spinner /> : <Fragment>
             <h1 className = "large text-dark big-header"> Friends in NUS </h1>
 
             <div className ="input-group my-3">
