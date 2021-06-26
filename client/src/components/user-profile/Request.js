@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { Link } from 'react-router-dom';
 import axios from "axios";
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -38,7 +37,7 @@ const Request = ({auth: { user }, chat:{chats}}) => {
     
       const idlist = []
       friends.map(friend => idlist.push(friend._id))
-
+      const req = followers.filter(follower => !idlist.includes(follower._id));
 
         return followers.length === 0 ? null:
       <div className="card">
@@ -46,9 +45,7 @@ const Request = ({auth: { user }, chat:{chats}}) => {
               <strong> Follow Requests </strong>
           </div>
           <ul className="list-group list-group-flush">
-            {followers.filter(follower => !idlist.includes(follower._id)).map(f => 
-                <FollowerItem follower = {f} key={f._id}/>
-                )}
+            {req.map(f => <FollowerItem follower = {f} key={f._id}/> )}
           </ul>
         </div>
        

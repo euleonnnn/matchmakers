@@ -13,7 +13,7 @@ const Profiles = ({clearProfile, getProfiles, profile: { profiles, loading }, au
     //additional clear profile to clear out dashboard rerendering
     useEffect(()  => {
         clearProfile();
-    });
+    }, [clearProfile]);
 
 
     const displayAll = profiles.map(profile => {

@@ -10,7 +10,7 @@ import { logout } from '../../actions/auth';
 const AccountSettings= ({ getCurrentProfile, logout}) => {
   useEffect(() => {
       getCurrentProfile();
-},[]);
+    },[getCurrentProfile]);
   
 
   return (

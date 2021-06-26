@@ -36,7 +36,7 @@ const Games = ( {getCurrentProfile, deleteGame, clearGame, getGames, game: {game
                     aria-describedby="search-addon" />
                 <button type="button" class="btn btn-outline-primary">search</button>
             </div>
-            <Link to="/create-game" className="btn btn-primary btn-block btn-lg my-4"> <i class="fas fa-football-ball"/> {" "} Create Your Room </Link>
+            <Link to="/create-game" className="btn btn-primary btn-block btn-lg my-4"> Create Your Room </Link>
         {games ? games.map(game => (convertTime(game.dateTime) < Date.now() ? <></> :
             <div className="card mb-3">
                 <div className="card-body">
