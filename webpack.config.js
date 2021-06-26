@@ -21,4 +21,8 @@ module.exports = {
         '/shared/vendor/modules',
       ],
     },
+    devServer: {
+      historyApiFallback: true,
+      contentBase: './'
+    }
   };
