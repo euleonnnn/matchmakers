@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "start": "node server",
-    "server": "nodemon server webpack-dev-server --inline --content-base . --history-api-fallback",
+    "server": "node server",
     "client": "npm start --prefix client",
     "socket": "cd socket && npm start",
     "dev": "concurrently \"npm run server\" \"npm run client\" \"npm run socket\"",
