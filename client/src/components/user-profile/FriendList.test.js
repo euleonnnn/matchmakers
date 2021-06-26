@@ -25,7 +25,7 @@ describe('FriendList', () => {
     var spyObj = {
         sport: Sinon.spy(),
       };
-    it("renders component", () => {
+    it("shallow render", () => {
         const wrapper = shallow(
             <Provider store={store}>
                 <FriendList auth={spyObj} chat={spyObj}/>

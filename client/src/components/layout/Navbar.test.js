@@ -25,7 +25,7 @@ describe('Navbar', () => {
     var spyObj = {
         sport: Sinon.spy(),
       };
-    it("renders component", () => {
+    it("shallow render", () => {
         const wrapper = shallow(
             <Provider store={store}>
                 <Navbar logout={Sinon.spy()} 

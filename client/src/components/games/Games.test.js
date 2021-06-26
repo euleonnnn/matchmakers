@@ -25,7 +25,7 @@ describe('Games', () => {
     var spyObj = {
         sport: Sinon.spy(),
       };
-    it("renders component", () => {
+    it("shallow render", () => {
         const wrapper = shallow(
             <Provider store={store}>
                 <Games auth={spyObj} game={spyObj} games={spyObj}/>

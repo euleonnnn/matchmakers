@@ -15,7 +15,7 @@ describe('Sports Form', () => {
     beforeEach(() => {
         store = mockStore({});
     });
-    it("renders component", () => {
+    it("shallow render", () => {
         const wrapper = shallow(
             <Provider store={store}>
                 <SportsForm createGame={Sinon.spy()}/>

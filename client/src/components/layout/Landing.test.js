@@ -15,7 +15,7 @@ describe('Landing', () => {
     beforeEach(() => {
         store = mockStore({});
     });
-    it("renders component", () => {
+    it("shallow render", () => {
         const wrapper = shallow(
             <Provider store={store}>
                 <Landing isAuthenticated={Sinon.spy()}/>
