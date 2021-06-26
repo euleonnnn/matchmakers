@@ -24,7 +24,7 @@ const ProfileItem = ({
               <p className="card-text"><strong>Interests:</strong></p>
               <ul>
                   {interests.map(item => {
-                    return <li>{item}</li>;
+                    return <li key={item._id}>{item}</li>;
                   })}
               </ul>
               <Link to={`/profile/${_id}`} className='btn btn-primary'>

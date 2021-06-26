@@ -53,7 +53,7 @@ const GameChat = ({gamechat : {gamechat} }) => {
                 }
                 {messages.length > 0 && messages.map((msg) => (
                     <div ref = {scroll}>
-                    < GameMessage message={msg} />
+                    < GameMessage message={msg} key ={msg._id} />
                     </div>
                   ))}
             <div className ="input-group my-top">
@@ -64,7 +64,7 @@ const GameChat = ({gamechat : {gamechat} }) => {
                 onChange={(e)=>setFormData(e.target.value)}
                 value = {formData}
                 />
-            <button type="button" class="btn btn-outline-primary my-right" onClick={onSubmit}> <i class="fas fa-paper-plane" /> </button>
+            <button type="button" className="btn btn-outline-primary my-right" onClick={onSubmit}> <i className="fas fa-paper-plane" /> </button>
             </div>
         </div>
       </Fragment>

@@ -77,7 +77,7 @@ const GameRoom = ({ getGameChat, createGameChat, clearProfile, getGameById, auth
                 <div className="card-body">
                 {!showTutorial && <button className="btn btn-success" onClick={()=>toggle(!showTutorial)}>Show Tutorial</button>}
                 {showTutorial && <button className="btn btn-danger" onClick={()=>toggle(!showTutorial)}>Hide Tutorial</button>}
-                <Link to="/all-games" className="btn btn-dark join-all"> <i class="fas fa-sign-out-alt" /> Leave Lobby </Link>
+                <Link to="/all-games" className="btn btn-dark join-all"> <i className="fas fa-sign-out-alt" /> Leave Lobby </Link>
                 </div>
                 </div>
                     <div className="row">
@@ -140,27 +140,27 @@ const GameRoom = ({ getGameChat, createGameChat, clearProfile, getGameById, auth
                             </div>
                         </div>
 
-                        <div class="col-sm-6 col-md-6">
+                        <div className="col-sm-6 col-md-6">
                             <div className="card mb-3">
                                 <div className="card-body">
                                 <h5 className="card-title my-3 host-title">Players In Waiting Room : {game.players.length} </h5>
                                 {game.players.length > 0 && game.players.map(player => { 
                                     if (player.user === auth.user._id) {
                                         return (
-                                            <Fragment>
+                                            <Fragment key={player._id}>
                                             <div className="card mb-3">
                                             <div className="card-body player-card">
                                                 {player.name}
                                                 <button onClick= {()=> {
                                                     quitGame();
-                                                }} type="button" className="btn btn-danger btn-round join-all"> <i class="far fa-times-circle"/> </button>
+                                                }} type="button" className="btn btn-danger btn-round join-all"> <i className="far fa-times-circle"/> </button>
                                             </div>
                                             </div>
                                             </Fragment>
                                         )
                                     } else {
                                         return (
-                                            <Fragment>
+                                            <Fragment key={player._id}>
                                             <div className="card mb-3">
                                             <div className="card-body player-card">
                                                 <Link to={`/profile/${player.user}`}> {player.name} </Link> 
@@ -177,7 +177,7 @@ const GameRoom = ({ getGameChat, createGameChat, clearProfile, getGameById, auth
                                     }} type="button" className="btn btn-primary join-all"> Join Game </button>}
                                 </p>
 
-                                <h5> { game.players.length >= game.maxPlayers && <span class="badge badge-light">
+                                <h5> { game.players.length >= game.maxPlayers && <span className="badge badge-light">
                                     Waiting Room is Currently Full</span>}</h5>
                              
                                 </div>
@@ -188,7 +188,7 @@ const GameRoom = ({ getGameChat, createGameChat, clearProfile, getGameById, auth
                             ? <></> 
                             : (game.roomType === "onlineGame" || "study") && game.location === "Online" ? 
                                     <Link to={`/entercall/${match.params.id}`} className="btn btn-secondary btn-lg btn-block"> 
-                                    Enter Video Chat  <i class="fas fa-video"/></Link> 
+                                    Enter Video Chat  <i className="fas fa-video"/></Link> 
                             : <></>}
                             <div>
                             </div>
@@ -211,7 +211,7 @@ const GameRoom = ({ getGameChat, createGameChat, clearProfile, getGameById, auth
                                 </div>
                             </div>
                                 {game.user !== auth.user._id &&  <Link to={`/profile/${game.user}`} className="btn btn-dark btn-lg btn-block"> View Host Profile </Link>}
-                                {game.user === auth.user._id &&  <Link to="#!" className="btn btn-dark btn-lg btn-block"> <i class="fas fa-cog"/> Game Settings </Link>}
+                                {game.user === auth.user._id &&  <Link to="#!" className="btn btn-dark btn-lg btn-block"> <i className="fas fa-cog"/> Game Settings </Link>}
                             </div>
                         </div>
                     </div>
@@ -254,7 +254,6 @@ GameRoom.propTypes = {
     clearProfile: PropTypes.func.isRequired,
     createGameChat: PropTypes.func.isRequired,
     getGameChat: PropTypes.func.isRequired,
-    getChats: PropTypes.func.isRequired,
     game: PropTypes.object.isRequired,
     auth: PropTypes.object.isRequired,
     gamechat: PropTypes.object.isRequired

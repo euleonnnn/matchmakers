@@ -39,21 +39,21 @@ const Dashboard = ({ getGames, getCurrentProfile, auth: { user }, profile: { pro
     const my_games = games.filter(game => game.user === user._id)
     const joined_games = games.filter(game => game.user !== user._id && game.players.filter(player => player.user === user._id).length > 0)
     return <Fragment>
-      <h1 className="large text-primary big-header"><i class="fas fa-dumbbell" /> {" "} Hello There, {user && user.name}</h1>
+      <h1 className="large text-primary big-header"><i className="fas fa-dumbbell" /> {" "} Hello There, {user && user.name}</h1>
       {profile !== null && user !== null ?
         (profile.user._id !== user._id ? <Spinner /> :
           <Fragment>
 
-            <div class="container">
-              <div class="row">
-                <div class="col-sm-8 col-md-8">
+            <div className="container">
+              <div className="row">
+                <div className="col-sm-8 col-md-8">
 
 
                   <h4 className="text-primary">  My Interests </h4>
 
                   <ul>
                     {profile.interests.map(item => {
-                      return <li><i class="fas fa-dot-circle" /> {item}</li>;
+                      return <li key={item._id}><i className="fas fa-dot-circle" /> {item}</li>;
                     })}
                   </ul>
 
@@ -66,7 +66,7 @@ const Dashboard = ({ getGames, getCurrentProfile, auth: { user }, profile: { pro
 
                   {my_games.length > 0 && my_games.map(game => (convertTime(game.dateTime) < Date.now() ? <></> :
 
-                    <div className="card mb-3">
+                    <div className="card mb-3" key={game._id}>
                       <i className="fas fa-crown my-left my-top-small"></i>
                       <div className="card-body">
                         <h5 className="card-title">{game.sport}</h5>
@@ -84,7 +84,7 @@ const Dashboard = ({ getGames, getCurrentProfile, auth: { user }, profile: { pro
                   ))}
 
                   {joined_games.length > 0 && joined_games.map(game => (convertTime(game.dateTime) < Date.now() ? <></> :
-                    <div className="card mb-3">
+                    <div className="card mb-3" key={game._id}>
                       <div className="card-body">
                         <h5 className="card-title">{game.sport}</h5>
                         <br></br>
@@ -107,7 +107,7 @@ const Dashboard = ({ getGames, getCurrentProfile, auth: { user }, profile: { pro
 
                   <Request />
 
-                  <Link to="/my-profile" className="btn btn-secondary btn-lg btn-block my-top"> <i class="fas fa-cog" /> Profile Settings </Link>
+                  <Link to="/my-profile" className="btn btn-secondary btn-lg btn-block my-top"> <i className="fas fa-cog" /> Profile Settings </Link>
 
 
                   <h4 className="text-primary my-top">  Suggested Games : </h4>

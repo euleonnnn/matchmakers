@@ -92,15 +92,15 @@ const UserProfile = ({ createChat, chat:{chats}, authUser, getProfilesById, prof
             <p> <strong> Your Interests: </strong></p>
                 <ul>
                 {profile.interests.map(item => {
-                    return <li>{item}</li>;
+                    return <li key={item._id}>{item}</li>;
                     })}
                 </ul>
             
             {profile.hasOwnProperty("social")  && <Fragment>
               <p> <strong> Social Media: </strong> </p>
                   <ul>
-                      {profile.social.hasOwnProperty("facebook") && <Fragment> <li><i class="fab fa-facebook"/> {" "} {profile.social.facebook}</li> </Fragment> }
-                      {profile.social.hasOwnProperty("instagram") && <Fragment> <li><i class="fab fa-instagram"/> {" "} {profile.social.instagram}</li> </Fragment> }
+                      {profile.social.hasOwnProperty("facebook") && <Fragment> <li><i className="fab fa-facebook"/> {" "} {profile.social.facebook}</li> </Fragment> }
+                      {profile.social.hasOwnProperty("instagram") && <Fragment> <li><i className="fab fa-instagram"/> {" "} {profile.social.instagram}</li> </Fragment> }
                   </ul>
             </Fragment>
             }
@@ -115,7 +115,7 @@ const UserProfile = ({ createChat, chat:{chats}, authUser, getProfilesById, prof
                 <button onClick= {()=> {
                   followUnfollow();
                 }} type="button" className="btn btn-dark">
-                  <i class="fas fa-user-plus"/>   Follow
+                  <i className="fas fa-user-plus"/>   Follow
                 </button>
                 ) 
             }
@@ -137,7 +137,7 @@ const UserProfile = ({ createChat, chat:{chats}, authUser, getProfilesById, prof
                 auth.user._id !== profile.user._id && 
                 auth.user.followings.find(id => id === profile.user._id) !== undefined &&
                 auth.user.followers.find(id => id === profile.user._id) !== undefined &&(
-                <button onClick= {()=> {startNewConvo()}} type="button" className="btn btn-primary my-1"> <i class="fas fa-comment-dots"/>
+                <button onClick= {()=> {startNewConvo()}} type="button" className="btn btn-primary my-1"> <i className="fas fa-comment-dots"/>
                     {" "} Message
                  </button>
                 ) 

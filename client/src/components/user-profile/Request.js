@@ -47,7 +47,7 @@ const Request = ({auth: { user }, chat:{chats}}) => {
           </div>
           <ul className="list-group list-group-flush">
             {followers.filter(follower => !idlist.includes(follower._id)).map(f => 
-                <FollowerItem follower = {f}/>
+                <FollowerItem follower = {f} key={f._id}/>
                 )}
           </ul>
         </div>

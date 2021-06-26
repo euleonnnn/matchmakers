@@ -30,7 +30,7 @@ const FollowerItem = ({ auth: { user }, follower }) => {
           <i class="fas fa-user-plus" />
         </button>}
 
-        {follow && <button className="btn btn-success join-all"><i class="fas fa-cog fa-spin" /></button>}
+        {follow && <button className="btn btn-success join-all"><i className="fas fa-cog fa-spin" /></button>}
       </li>
     </Fragment>
   );

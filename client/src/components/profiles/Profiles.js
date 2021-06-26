@@ -25,7 +25,7 @@ const Profiles = ({clearProfile, getProfiles, profile: { profiles, loading }, au
 
     return <Fragment> 
         { loading ? <Spinner /> : <Fragment>
-            <h1 className = "large text-dark big-header"> Sports Enthusiasts of NUS </h1>
+            <h1 className = "large text-dark big-header"> Friends in NUS </h1>
 
             <div className ="input-group my-3">
                 <input type="search" className ="form-control rounded" placeholder="Search" aria-label="Search"

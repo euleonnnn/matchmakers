@@ -8,7 +8,7 @@ import dateformat from '../../utils/dateformat';
 import { getCurrentProfile } from '../../actions/profile';
 
 
-const Games = ( {getCurrentProfile, deleteGame, clearGame, getGames, game: {games, loading}, auth}) => {
+const Games = ( {getCurrentProfile, deleteGame, clearGame, getGames, game: {games, game, loading}, auth}) => {
 
     // eslint-disable-next-line
     useEffect(() => {
@@ -17,7 +17,7 @@ const Games = ( {getCurrentProfile, deleteGame, clearGame, getGames, game: {game
 
     useEffect(() => {
         clearGame();
-    });
+    },[game]);
 
     useEffect(() => {
         getCurrentProfile();
@@ -29,14 +29,14 @@ const Games = ( {getCurrentProfile, deleteGame, clearGame, getGames, game: {game
     }
 
     return loading ? <Spinner /> : <Fragment>
-          <h1 className = "large big-header text-dark"> Available Game Rooms </h1>
+          <h1 className = "large big-header text-dark"> Available Rooms </h1>
 
             <div className ="input-group my-3">
                 <input type="search" className ="form-control rounded" placeholder="Search" aria-label="Search"
                     aria-describedby="search-addon" />
                 <button type="button" class="btn btn-outline-primary">search</button>
             </div>
-            <Link to="/create-game" className="btn btn-primary btn-block btn-lg my-4"> <i class="fas fa-football-ball"/> {" "} Host Your Game </Link>
+            <Link to="/create-game" className="btn btn-primary btn-block btn-lg my-4"> <i class="fas fa-football-ball"/> {" "} Create Your Room </Link>
         {games ? games.map(game => (convertTime(game.dateTime) < Date.now() ? <></> :
             <div className="card mb-3">
                 <div className="card-body">
@@ -47,14 +47,14 @@ const Games = ( {getCurrentProfile, deleteGame, clearGame, getGames, game: {game
                 <p className="card-text"> <span className='text-primary'> Time: </span> {dateformat(game.dateTime)} </p>
                 <p className="card-text">
                     <br></br>
-                    <small className="text-muted"> Game Host: {game.name} </small>
+                    <small className="text-muted"> Host: {game.name} </small>
                     <br></br>
                     <small className="text-muted"> Created on: {dateformat(game.createTime)} </small>
                 </p>
                 {auth.user._id !== game.user ? <Link to={`/games/${game._id}`} className="btn btn-dark join-all"> Enter Room</Link> :
                 <Fragment>
                  <Link to={`/games/${game._id}`} className="btn btn-dark join-all "> Enter Room </Link>
-                 <button onClick={()=>deleteGame(game._id)} type ="button" className="btn btn-danger join-all my-right"> Cancel Game </button>
+                 <button onClick={()=>deleteGame(game._id)} type ="button" className="btn btn-danger join-all my-right"> Cancel Room </button>
                  </Fragment>
                  }
                  

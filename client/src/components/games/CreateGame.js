@@ -11,7 +11,7 @@ const CreateGame = () => {
         <Fragment>
             <div className ="container">
             <h1 className="large my-btm"> <i class="fas fa-football-ball"/> {" "}
-                Host Your Own Game
+                Host Your Room 
             </h1>
             <h5>Select Category:</h5>
                 {formType === "sport" ? <button type="button" className="btn btn-primary my-right">Sports</button> :

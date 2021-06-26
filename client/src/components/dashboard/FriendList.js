@@ -34,7 +34,7 @@ const FriendList = ({auth: { user }, chat:{chats}}) => {
         
           <ul className="list-group list-group-flush">
             {friends.map((friend) => (
-                <FriendItem friend ={friend}/>
+                <FriendItem friend ={friend} key={friend._id}/>
            ))}
           </ul>
         </div>
