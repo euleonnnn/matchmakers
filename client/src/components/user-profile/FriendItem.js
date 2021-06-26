@@ -37,8 +37,8 @@ const FriendItem = ({ createChat, getChats, auth: { user }, friend, chat: { chat
         <Fragment>
             <li className="list-group-item">
                 <Link to={`/profile/${friend._id}`}> {friend.name} </Link>
-                <button onClick={() => { startNewConvo() }} type="button" className="btn btn-dark join-all my-right">
-                    <i class="fas fa-comment-dots" />
+                <button onClick={() => { startNewConvo() }} type="button" className="btn btn-dark join-all">
+                    <i className="fas fa-comment-dots" />
                 </button>
             </li>
         </Fragment>

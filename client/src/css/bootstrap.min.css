@@ -7558,6 +7558,11 @@ button.bg-dark:hover {
   margin-bottom: 3rem !important;
 }
 
+.my-btm-small {
+  margin-bottom: 1.5rem !important;
+}
+
+
 .my-right {
   margin-right: 1rem !important;
 }

@@ -1,10 +1,8 @@
-import React, { Fragment, useEffect, useState } from 'react';
-import { withRouter } from 'react-router-dom';
+import React, { Fragment, useState } from 'react';
+import { Link, withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
-
 
 const FollowerItem = ({ auth: { user }, follower }) => {
 
@@ -28,10 +26,10 @@ const FollowerItem = ({ auth: { user }, follower }) => {
         {!follow && <button onClick={() => {
           followUnfollow();
         }} type="button" className="btn btn-dark join-all">
-          <i class="fas fa-user-plus" />
+          <i className="fas fa-user-plus" />
         </button>}
 
-        {follow && <button className="btn btn-success join-all"><i class="fas fa-cog fa-spin" /></button>}
+        {follow && <button className="btn btn-success join-all"><i className="fas fa-cog fa-spin" /></button>}
       </li>
     </Fragment>
   );

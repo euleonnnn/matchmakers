@@ -21,8 +21,7 @@ const Dashboard = ({ getGames, getCurrentProfile, auth: { user }, profile: { pro
     getGames();
   }, [games]);
 
-  //Necessary to rerender 
-  // eslint-disable-next-line
+
   useEffect(() => {
     getCurrentProfile();
   });
@@ -57,7 +56,7 @@ const Dashboard = ({ getGames, getCurrentProfile, auth: { user }, profile: { pro
                     })}
                   </ul>
 
-                  <h4 className="text-primary my-top"> Pending Games </h4>
+                  <h4 className="text-primary my-top my-btm-small"> Pending Games </h4>
 
 
                   {my_games.filter(game => (convertTime(game.dateTime) > Date.now())).length === 0 &&
