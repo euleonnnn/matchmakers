@@ -218,12 +218,12 @@ const GameRoom = ({ getGameChat, createGameChat, clearProfile, getGameById, auth
                         <div className="col-sm-12 col-md-12">
                             <div className="card mb-3">
                                 <div className="card-body">
-                                    <h5 className="card-title my-3 host-title "> Game Chat</h5>
+                                    <h5 className="card-title my-3 host-title "> Room Chat</h5>
                                 </div>
 
                                 { gamechat.length === 0 && game.user !== auth.user._id &&
                                     <Fragment>
-                                        <h1 className ="badge badge-danger"> Game Chat has not been enabled </h1>
+                                        <h1 className ="badge badge-danger"> Room Chat has not been enabled </h1>
                                     </Fragment>
                                 }
 

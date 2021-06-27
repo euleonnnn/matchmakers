@@ -46,8 +46,6 @@ const EditProfile = ({profile : {profile, loading},
 
     const onChange = e => setFormData({...formData, [e.target.name]: e.target.value});
 
-    const imgChange = e => setFormData({...formData, [e.target.name]: URL.createObjectURL(e.target.files[0])});
-
     const onSubmit = e => {
         e.preventDefault();
         createProfile(formData, history, true);
@@ -64,17 +62,6 @@ const EditProfile = ({profile : {profile, loading},
             </p>
             <small>* = required field</small>
             <form className="form" onSubmit = {data => onSubmit(data)}>
-                <div>
-                    <h4 className="text-primary">Change Profile Picture</h4>
-                    <img className="profiledp" src={avatar} alt=""/>
-                    <br/>
-                    <input 
-                        className="" type="file"
-                        name="avatar" 
-                        accept="image/png, image/jpeg"
-                        onChange={e=> imgChange(e)}
-                    />
-                </div>
                 <div className="form-group">
                 <input type="text" placeholder="* Faculty" name="faculty" value={faculty}
                 onChange = {e=> onChange(e)} />

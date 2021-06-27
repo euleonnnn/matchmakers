@@ -72,7 +72,7 @@ const Navbar = ({getCurrentProfile, auth, profile: {profile}, logout}) => {
               keepMounted
               open={Boolean(anchorEl)}
               onClose={handleClose}>
-              <MenuItem onClick={handleClose} component={Link} to="/all-games">All Games</MenuItem>
+              <MenuItem onClick={handleClose} component={Link} to="/all-games">All Rooms</MenuItem>
               <MenuItem onClick={handleClose} component={Link} to="/profiles">Find Friends</MenuItem>
               <MenuItem onClick={handleClose} component={Link} to="/messagebox">My Messages</MenuItem>
               <MenuItem onClick={handleClose} component={Link} to="/account"> Account Settings </MenuItem>
