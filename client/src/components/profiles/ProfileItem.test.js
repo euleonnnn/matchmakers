@@ -1,5 +1,5 @@
 import React from 'react';
-import MyProfile from './MyProfile';
+import ProfileItem from './ProfileItem';
 import Adapter from "enzyme-adapter-react-16";
 import Enzyme, { shallow} from "enzyme";
 import { Provider } from 'react-redux'
@@ -10,13 +10,10 @@ import Sinon from 'sinon';
 const mockStore = configureMockStore([thunk]);
 Enzyme.configure({ adapter: new Adapter() });
 
-describe('My Profile', () => {
+describe('Profile Item', () => {
     let store;
     beforeEach(() => {
         store = mockStore({
-            auth: {
-                sport: 'BASKETBALL',
-            },
             profile: {
                 sport: 'BASKETBALL',
             },
@@ -28,7 +25,7 @@ describe('My Profile', () => {
     it("shallow render", () => {
         const wrapper = shallow(
             <Provider store={store}>
-                <MyProfile auth={spyObj} profile={spyObj}/>
+                <ProfileItem profile={spyObj}/>
             </Provider>
         );
         expect(wrapper).toMatchSnapshot();

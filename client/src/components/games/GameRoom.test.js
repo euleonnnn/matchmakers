@@ -1,5 +1,5 @@
 import React from 'react';
-import MyProfile from './MyProfile';
+import GameRoom from './GameRoom';
 import Adapter from "enzyme-adapter-react-16";
 import Enzyme, { shallow} from "enzyme";
 import { Provider } from 'react-redux'
@@ -10,16 +10,19 @@ import Sinon from 'sinon';
 const mockStore = configureMockStore([thunk]);
 Enzyme.configure({ adapter: new Adapter() });
 
-describe('My Profile', () => {
+describe('Game Room', () => {
     let store;
     beforeEach(() => {
         store = mockStore({
             auth: {
                 sport: 'BASKETBALL',
             },
-            profile: {
+            game: {
                 sport: 'BASKETBALL',
             },
+            gamechat: {
+                sport: 'BASKETBALL',
+            }
         });
     });
     var spyObj = {
@@ -28,7 +31,15 @@ describe('My Profile', () => {
     it("shallow render", () => {
         const wrapper = shallow(
             <Provider store={store}>
-                <MyProfile auth={spyObj} profile={spyObj}/>
+                <GameRoom getGameById={Sinon.spy()} 
+                    authUser={Sinon.spy()} 
+                    clearProfile={Sinon.spy()}
+                    createGameChat={Sinon.spy()}
+                    getGameChat={Sinon.spy()}
+                    game={spyObj}
+                    gamechat={spyObj}
+                    auth={spyObj}
+                />
             </Provider>
         );
         expect(wrapper).toMatchSnapshot();
