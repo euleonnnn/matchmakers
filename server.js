@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const config = require('config');
 const db = config.get('mongoURI');
 var path = require('path');
+const socketIO = require('socket.io');
 
 const connectDB = async () => {
     try {
@@ -48,11 +49,11 @@ const PORT = process.env.PORT || 5000;
 
 const server = app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
 
-const io = require("socket.io")(server, {
+const io = socketIO(server, {
     cors: {
-        origin: "http://localhost:3000",
-    }
-});
+      origin: "http://localhost:3000",
+    },
+  });
 
 let users = [];
 
