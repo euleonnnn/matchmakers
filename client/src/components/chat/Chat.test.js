@@ -1,7 +1,7 @@
 import React from 'react';
 import Chat from './Chat';
 import Adapter from "enzyme-adapter-react-16";
-import Enzyme, { render } from "enzyme";
+import Enzyme, { shallow, render } from "enzyme";
 import { Provider } from 'react-redux'
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
@@ -25,6 +25,14 @@ describe('Chat', () => {
     var spyObj = {
         sport: Sinon.spy(),
       };
+      it("shallow render", () => {
+        const wrapper = shallow(
+            <Provider store={store}>
+                <Chat auth={spyObj} chat={spyObj}/>
+            </Provider>
+        );
+        expect(wrapper).toMatchSnapshot();
+    });
     it("renders component", () => {
         const wrapper = render(
             <Provider store={store}>

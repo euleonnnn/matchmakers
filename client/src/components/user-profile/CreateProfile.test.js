@@ -15,7 +15,7 @@ describe('Create Profile', () => {
     beforeEach(() => {
         store = mockStore({});
     });
-    it("renders component", () => {
+    it("shallow render", () => {
         const wrapper = shallow(
             <Provider store={store}>
                 <CreateProfile createProfile={Sinon.spy()}/>

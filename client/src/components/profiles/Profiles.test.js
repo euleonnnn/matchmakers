@@ -25,7 +25,7 @@ describe('Profiles', () => {
     var spyObj = {
         sport: Sinon.spy(),
       };
-    it("renders component", () => {
+    it("shallow render", () => {
         const wrapper = shallow(
             <Provider store={store}>
                 <Profiles getProfiles={Sinon.spy()} 
