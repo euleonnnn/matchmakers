@@ -46,13 +46,9 @@ if (process.env.NODE_ENV == 'production') {
 
 const PORT = process.env.PORT || 5000;
 
-app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
+const server = app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
 
-const io = require("socket.io")(8900, {
-    cors: {
-        origin:"http://localhost:3000"
-    },
-})
+const io = require("socket.io")(server);
 
 let users = [];
 
