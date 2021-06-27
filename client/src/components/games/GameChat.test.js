@@ -19,13 +19,13 @@ describe('Game Chat', () => {
             },
         });
     });
-    var spyObj = {
-        sport: Sinon.spy(),
+    var stubObj = {
+        sport: Sinon.stub(),
       };
       it("shallow render", () => {
         const wrapper = shallow(
             <Provider store={store}>
-                <GameChat gamechat={spyObj}/>
+                <GameChat gamechat={stubObj}/>
             </Provider>
         );
         expect(wrapper).toMatchSnapshot();

@@ -18,7 +18,7 @@ describe('Landing', () => {
     it("shallow render", () => {
         const wrapper = shallow(
             <Provider store={store}>
-                <Landing isAuthenticated={Sinon.spy()}/>
+                <Landing isAuthenticated={Sinon.stub()}/>
             </Provider>
         );
         expect(wrapper).toMatchSnapshot();

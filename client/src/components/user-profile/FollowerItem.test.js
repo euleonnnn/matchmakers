@@ -19,13 +19,13 @@ describe('Follower Item', () => {
             }
         });
     });
-    var spyObj = {
-        sport: Sinon.spy(),
+    var stubObj = {
+        sport: Sinon.stub(),
       };
     it("shallow render", () => {
         const wrapper = shallow(
             <Provider store={store}>
-                <FollowerItem  auth={spyObj}/>
+                <FollowerItem  auth={stubObj}/>
             </Provider>
         );
         expect(wrapper).toMatchSnapshot();

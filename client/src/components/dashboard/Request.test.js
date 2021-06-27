@@ -22,15 +22,15 @@ describe('Request', () => {
             }
         });
     });
-    var spyObj = {
-        sport: Sinon.spy(),
+    var stubObj = {
+        sport: Sinon.stub(),
       };
     it("shallow render", () => {
         const wrapper = shallow(
             <Provider store={store}>
                 <Request  
-                    auth={spyObj}
-                    chat={spyObj}
+                    auth={stubObj}
+                    chat={stubObj}
                 />
             </Provider>
         );

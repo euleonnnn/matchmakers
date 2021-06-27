@@ -22,13 +22,13 @@ describe('Chat', () => {
             },
         });
     });
-    var spyObj = {
-        sport: Sinon.spy(),
+    var stubObj = {
+        sport: Sinon.stub(),
       };
       it("shallow render", () => {
         const wrapper = shallow(
             <Provider store={store}>
-                <Chat auth={spyObj} chat={spyObj}/>
+                <Chat auth={stubObj} chat={stubObj}/>
             </Provider>
         );
         expect(wrapper).toMatchSnapshot();
@@ -36,7 +36,7 @@ describe('Chat', () => {
     it("renders component", () => {
         const wrapper = render(
             <Provider store={store}>
-                <Chat auth={spyObj} chat={spyObj}/>
+                <Chat auth={stubObj} chat={stubObj}/>
             </Provider>
         );
         expect(wrapper).toMatchSnapshot();

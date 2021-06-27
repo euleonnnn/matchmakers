@@ -22,16 +22,16 @@ describe('Profiles', () => {
             }
         });
     });
-    var spyObj = {
-        sport: Sinon.spy(),
+    var stubObj = {
+        sport: Sinon.stub(),
       };
     it("shallow render", () => {
         const wrapper = shallow(
             <Provider store={store}>
-                <Profiles getProfiles={Sinon.spy()} 
-                    clearProfiles={Sinon.spy()} 
-                    auth={spyObj}
-                    profile={spyObj}
+                <Profiles getProfiles={Sinon.stub()} 
+                    clearProfiles={Sinon.stub()} 
+                    auth={stubObj}
+                    profile={stubObj}
                 />
             </Provider>
         );

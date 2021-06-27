@@ -16,12 +16,12 @@ describe('Password Change', () => {
         store = mockStore({});
     });
     var spyObj = {
-        sport: Sinon.spy(),
+        sport: Sinon.stub(),
       };
       it("shallow render", () => {
         const wrapper = shallow(
             <Provider store={store}>
-                <PasswordChange isAuthenticated={spyObj} changePassword={Sinon.spy()} setAlert={Sinon.spy()}/>
+                <PasswordChange isAuthenticated={spyObj} changePassword={Sinon.stub()} setAlert={Sinon.stub()}/>
             </Provider>
         );
         expect(wrapper).toMatchSnapshot();

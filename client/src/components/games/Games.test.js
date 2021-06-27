@@ -22,13 +22,13 @@ describe('Games', () => {
             },
         });
     });
-    var spyObj = {
-        sport: Sinon.spy(),
+    var stubObj = {
+        sport: Sinon.stub(),
       };
     it("shallow render", () => {
         const wrapper = shallow(
             <Provider store={store}>
-                <Games auth={spyObj} game={spyObj} games={spyObj}/>
+                <Games auth={stubObj} game={stubObj} games={stubObj}/>
             </Provider>
         );
         expect(wrapper).toMatchSnapshot();

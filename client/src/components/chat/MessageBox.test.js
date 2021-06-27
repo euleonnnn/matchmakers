@@ -22,13 +22,13 @@ describe('MessageBox', () => {
             },
         });
     });
-    var spyObj = {
-        sport: Sinon.spy(),
+    var stubObj = {
+        sport: Sinon.stub(),
       };
       it("shallow render", () => {
         const wrapper = shallow(
             <Provider store={store}>
-                <MessageBox auth={spyObj} chat={spyObj} getChats={Sinon.spy()}/>
+                <MessageBox auth={stubObj} chat={stubObj} getChats={Sinon.stub()}/>
             </Provider>
         );
         expect(wrapper).toMatchSnapshot();

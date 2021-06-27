@@ -18,7 +18,7 @@ describe('Create Profile', () => {
     it("shallow render", () => {
         const wrapper = shallow(
             <Provider store={store}>
-                <CreateProfile createProfile={Sinon.spy()}/>
+                <CreateProfile createProfile={Sinon.stub()}/>
             </Provider>
         );
         expect(wrapper).toMatchSnapshot();

@@ -15,13 +15,10 @@ describe('Account Settings', () => {
     beforeEach(() => {
         store = mockStore({});
     });
-    var spyObj = {
-        sport: Sinon.spy(),
-      };
       it("shallow render", () => {
         const wrapper = shallow(
             <Provider store={store}>
-                <AccountSettings getCurrentProfile={Sinon.spy()} logout={Sinon.spy()}/>
+                <AccountSettings getCurrentProfile={Sinon.stub()} logout={Sinon.stub()}/>
             </Provider>
         );
         expect(wrapper).toMatchSnapshot();

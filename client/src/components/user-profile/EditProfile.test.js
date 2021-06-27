@@ -19,13 +19,13 @@ describe('Edit Profile', () => {
             }
         });
     });
-    var spyObj = {
-        sport: Sinon.spy(),
+    var stubObj = {
+        sport: Sinon.stub(),
       };
     it("shallow render", () => {
         const wrapper = shallow(
             <Provider store={store}>
-                <EditProfile createProfile={Sinon.spy()} getCurrentProfile={Sinon.spy()} profile={spyObj}/>
+                <EditProfile createProfile={Sinon.stub()} getCurrentProfile={Sinon.stub()} profile={stubObj}/>
             </Provider>
         );
         expect(wrapper).toMatchSnapshot();

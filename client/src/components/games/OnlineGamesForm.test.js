@@ -18,7 +18,7 @@ describe('Online Games Form', () => {
     it("shallow render", () => {
         const wrapper = shallow(
             <Provider store={store}>
-                <OnlineGamesForm createGame={Sinon.spy()}/>
+                <OnlineGamesForm createGame={Sinon.stub()}/>
             </Provider>
         );
         expect(wrapper).toMatchSnapshot();

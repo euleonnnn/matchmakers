@@ -22,13 +22,13 @@ describe('FriendList', () => {
             },
         });
     });
-    var spyObj = {
-        sport: Sinon.spy(),
+    var stubObj = {
+        sport: Sinon.stub(),
       };
     it("shallow render", () => {
         const wrapper = shallow(
             <Provider store={store}>
-                <FriendList auth={spyObj} chat={spyObj}/>
+                <FriendList auth={stubObj} chat={stubObj}/>
             </Provider>
         );
         expect(wrapper).toMatchSnapshot();

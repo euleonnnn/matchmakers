@@ -25,20 +25,20 @@ describe('Game Room', () => {
             }
         });
     });
-    var spyObj = {
-        sport: Sinon.spy(),
+    var stubObj = {
+        sport: Sinon.stub(),
       };
     it("shallow render", () => {
         const wrapper = shallow(
             <Provider store={store}>
-                <GameRoom getGameById={Sinon.spy()} 
-                    authUser={Sinon.spy()} 
-                    clearProfile={Sinon.spy()}
-                    createGameChat={Sinon.spy()}
-                    getGameChat={Sinon.spy()}
-                    game={spyObj}
-                    gamechat={spyObj}
-                    auth={spyObj}
+                <GameRoom getGameById={Sinon.stub()} 
+                    authUser={Sinon.stub()} 
+                    clearProfile={Sinon.stub()}
+                    createGameChat={Sinon.stub()}
+                    getGameChat={Sinon.stub()}
+                    game={stubObj}
+                    gamechat={stubObj}
+                    auth={stubObj}
                 />
             </Provider>
         );

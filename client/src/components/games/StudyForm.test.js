@@ -18,7 +18,7 @@ describe('Study Form', () => {
     it("shallow render", () => {
         const wrapper = shallow(
             <Provider store={store}>
-                <StudyForm createGame={Sinon.spy()}/>
+                <StudyForm createGame={Sinon.stub()}/>
             </Provider>
         );
         expect(wrapper).toMatchSnapshot();
