@@ -10,7 +10,7 @@ import Sinon from 'sinon';
 const mockStore = configureMockStore([thunk]);
 Enzyme.configure({ adapter: new Adapter() });
 
-describe('Chat', () => {
+describe('My Profile', () => {
     let store;
     beforeEach(() => {
         store = mockStore({
@@ -22,13 +22,13 @@ describe('Chat', () => {
             },
         });
     });
-    var spyObj = {
-        sport: Sinon.spy(),
+    var stubObj = {
+        sport: Sinon.stub(),
       };
     it("shallow render", () => {
         const wrapper = shallow(
             <Provider store={store}>
-                <MyProfile auth={spyObj} profile={spyObj}/>
+                <MyProfile auth={stubObj} profile={stubObj}/>
             </Provider>
         );
         expect(wrapper).toMatchSnapshot();

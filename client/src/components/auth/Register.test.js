@@ -25,15 +25,12 @@ describe('Register', () => {
             }
         });
     });
-    var spyObj = {
-        sport: Sinon.spy(),
-      };
     it("shallow render", () => {
         const wrapper = shallow(
             <Provider store={store}>
-                <Register setAlert={Sinon.spy()} 
-                    register={Sinon.spy()} 
-                    isAuthenticated={Sinon.spy()}
+                <Register setAlert={Sinon.stub()} 
+                    register={Sinon.stub()} 
+                    isAuthenticated={Sinon.stub()}
                 />
             </Provider>
         );

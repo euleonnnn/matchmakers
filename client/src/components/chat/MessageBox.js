@@ -21,7 +21,7 @@ const MessageBox = ({getChats, auth: { user }, chat : {chats}}) => {
     const socket = useRef();
 
     useEffect(() => {
-      socket.current = io.connect("ws://localhost:8900");
+      socket.current = io();
       socket.current.on("getMessage", (data) => {
         setIncomingMessage({
           sender: data.senderId,

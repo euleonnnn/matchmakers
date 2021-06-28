@@ -1,5 +1,5 @@
 import React from 'react';
-import Landing from './Landing';
+import OnlineGamesForm from './OnlineGamesForm';
 import Adapter from "enzyme-adapter-react-16";
 import Enzyme, { shallow} from "enzyme";
 import { Provider } from 'react-redux'
@@ -10,7 +10,7 @@ import Sinon from 'sinon';
 const mockStore = configureMockStore([thunk]);
 Enzyme.configure({ adapter: new Adapter() });
 
-describe('Landing', () => {
+describe('Online Games Form', () => {
     let store;
     beforeEach(() => {
         store = mockStore({});
@@ -18,7 +18,7 @@ describe('Landing', () => {
     it("shallow render", () => {
         const wrapper = shallow(
             <Provider store={store}>
-                <Landing isAuthenticated={Sinon.stub()}/>
+                <OnlineGamesForm createGame={Sinon.stub()}/>
             </Provider>
         );
         expect(wrapper).toMatchSnapshot();

@@ -1,7 +1,7 @@
 import React from 'react';
-import Landing from './Landing';
+import GameMessage from './GameMessage';
 import Adapter from "enzyme-adapter-react-16";
-import Enzyme, { shallow} from "enzyme";
+import Enzyme, { shallow } from "enzyme";
 import { Provider } from 'react-redux'
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
@@ -10,18 +10,25 @@ import Sinon from 'sinon';
 const mockStore = configureMockStore([thunk]);
 Enzyme.configure({ adapter: new Adapter() });
 
-describe('Landing', () => {
+describe('Game Message', () => {
     let store;
     beforeEach(() => {
-        store = mockStore({});
+        store = mockStore({
+            auth: {
+                sport: 'BASKETBALL',
+            },
+        });
     });
-    it("shallow render", () => {
+    var stubObj = {
+        sport: Sinon.stub(),
+      };
+      it("shallow render", () => {
         const wrapper = shallow(
             <Provider store={store}>
-                <Landing isAuthenticated={Sinon.stub()}/>
+                <GameMessage auth={stubObj}/>
             </Provider>
         );
         expect(wrapper).toMatchSnapshot();
     });
-    
+
 })

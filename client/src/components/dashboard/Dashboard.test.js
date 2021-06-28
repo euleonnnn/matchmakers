@@ -25,18 +25,18 @@ describe('Dashboard', () => {
             }
         });
     });
-    var spyObj = {
-        sport: Sinon.spy(),
+    var stubObj = {
+        sport: Sinon.stub(),
       };
     it("shallow render", () => {
         const wrapper = shallow(
             <Provider store={store}>
-                <Dashboard getCurrentProfile={Sinon.spy()} 
-                    getGames={Sinon.spy()} 
-                    logout={Sinon.spy()}
-                    auth={spyObj}
-                    game={spyObj}
-                    profile={spyObj}
+                <Dashboard getCurrentProfile={Sinon.stub()} 
+                    getGames={Sinon.stub()} 
+                    logout={Sinon.stub()}
+                    auth={stubObj}
+                    game={stubObj}
+                    profile={stubObj}
                 />
             </Provider>
         );

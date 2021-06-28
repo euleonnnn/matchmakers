@@ -25,18 +25,18 @@ describe('UserProfiles', () => {
             }
         });
     });
-    var spyObj = {
-        sport: Sinon.spy(),
+    var stubObj = {
+        sport: Sinon.stub(),
       };
     it("shallow render", () => {
         const wrapper = shallow(
             <Provider store={store}>
-                <UserProfile getProfilesById={Sinon.spy()} 
-                    authUser={Sinon.spy()} 
-                    createChat={Sinon.spy()}
-                    auth={spyObj}
-                    chat={spyObj}
-                    profile={spyObj}
+                <UserProfile getProfilesById={Sinon.stub()} 
+                    authUser={Sinon.stub()} 
+                    createChat={Sinon.stub()}
+                    auth={stubObj}
+                    chat={stubObj}
+                    profile={stubObj}
                 />
             </Provider>
         );

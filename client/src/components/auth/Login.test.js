@@ -19,13 +19,13 @@ describe('Login', () => {
             },
         });
     });
-    var spyObj = {
-        sport: Sinon.spy(),
+    var stubObj = {
+        sport: Sinon.stub(),
       };
       it("shallow render", () => {
         const wrapper = shallow(
             <Provider store={store}>
-                <Login isAuthenticated={true} profile={spyObj} login={() => {}}/>
+                <Login isAuthenticated={true} profile={stubObj} login={Sinon.stub()}/>
             </Provider>
         );
         expect(wrapper).toMatchSnapshot();
@@ -33,7 +33,7 @@ describe('Login', () => {
     it("renders component", () => {
         const wrapper = render(
             <Provider store={store}>
-                <Login isAuthenticated={true} profile={spyObj} login={() => {}}/>
+                <Login isAuthenticated={true} profile={stubObj} login={Sinon.stub()}/>
             </Provider>
         );
         expect(wrapper).toMatchSnapshot();

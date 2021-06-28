@@ -1,5 +1,5 @@
 import React from 'react';
-import Landing from './Landing';
+import FollowerItem from './FollowerItem';
 import Adapter from "enzyme-adapter-react-16";
 import Enzyme, { shallow} from "enzyme";
 import { Provider } from 'react-redux'
@@ -10,15 +10,22 @@ import Sinon from 'sinon';
 const mockStore = configureMockStore([thunk]);
 Enzyme.configure({ adapter: new Adapter() });
 
-describe('Landing', () => {
+describe('Follower Item', () => {
     let store;
     beforeEach(() => {
-        store = mockStore({});
+        store = mockStore({
+            auth: {
+                sport: 'BASKETBALL',
+            }
+        });
     });
+    var stubObj = {
+        sport: Sinon.stub(),
+      };
     it("shallow render", () => {
         const wrapper = shallow(
             <Provider store={store}>
-                <Landing isAuthenticated={Sinon.stub()}/>
+                <FollowerItem  auth={stubObj}/>
             </Provider>
         );
         expect(wrapper).toMatchSnapshot();
