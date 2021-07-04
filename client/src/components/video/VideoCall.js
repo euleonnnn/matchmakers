@@ -8,6 +8,7 @@ let client = AgoraRTC.createClient({ mode: "live", codec: "h264" });
 const USER_ID = Math.floor(Math.random() * 1000000001);
 
 class Call extends Component {
+  
 
   handleClick = () => {
     this.props.history.push("/all-games");
@@ -177,6 +178,9 @@ class Call extends Component {
                 id={`agora_remote ${streamId}`}
                 style={{ width: "300px", height: "400px" }}
               />
+              <div class="card-body">
+              <h5 class="card-title"> {streamId} </h5>
+            </div>
             </div>
             </Fragment>
           );
