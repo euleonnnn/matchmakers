@@ -8,14 +8,13 @@ let client = AgoraRTC.createClient({ mode: "live", codec: "h264" });
 const USER_ID = Math.floor(Math.random() * 1000000001);
 
 class Call extends Component {
-  
 
   handleClick = () => {
     this.props.history.push("/all-games");
   }
 
   localStream = AgoraRTC.createStream({
-    streamID: USER_ID,
+    streamID: this.props.auth.user.name,
     audio: true,
     video: true,
     screen: false
@@ -94,7 +93,7 @@ class Call extends Component {
     client.join(
       "0061eb6cb9def814e4e96ac6afc003a47b0IABNO5Pc/tU7NUtvmSzKVcpK5niBKwXzKGqh0cdORN+LLA29DrUAAAAAEACqPfBqaGniYAEAAQBqaeJg",
       me.props.channel,
-      USER_ID,
+      this.props.auth.user.name,
       function (uid) {
         console.log("User " + uid + " join channel successfully");
         client.publish(me.localStream, function (err) {
@@ -179,7 +178,7 @@ class Call extends Component {
                 style={{ width: "300px", height: "400px" }}
               />
               <div class="card-body">
-              <h5 class="card-title"> {streamId} </h5>
+              <h5 class="card-title">{streamId} </h5>
             </div>
             </div>
             </Fragment>
