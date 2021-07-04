@@ -7,6 +7,7 @@ import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import Sinon from 'sinon';
 
+
 const mockStore = configureMockStore([thunk]);
 Enzyme.configure({ adapter: new Adapter() });
 
