@@ -35,7 +35,10 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
     a.preventDefault();
     if (password !== passwordcfm) {
       setAlert('Passwords do not match. Please retype.', 'danger');
-    } else {
+    } else if (!email.includes("u.nus.edu")) {
+      setAlert('Please use a proper NUS email', 'danger');
+    }    
+    else {
       register({ name, email, password });
     }
   };

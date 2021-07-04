@@ -1,11 +1,14 @@
-import React, { Component } from "react";
+import React, { Fragment, Component } from "react";
 import AgoraRTC from "agora-rtc-sdk";
 import { withRouter } from "react-router-dom";
+import { connect } from 'react-redux';
+
 let client = AgoraRTC.createClient({ mode: "live", codec: "h264" });
 
 const USER_ID = Math.floor(Math.random() * 1000000001);
 
 class Call extends Component {
+
   handleClick = () => {
     this.props.history.push("/all-games");
   }
@@ -155,24 +158,42 @@ class Call extends Component {
 
   render() {
     return (
-      <div className ="row">
-        <div className="col-sm-4 col-md-4" id="agora_local" style={{ width: "400px", height: "400px" }} />
+      <Fragment>
+      <div className ="row my-btm">
+        <div className="card col-sm-4 col-md-4" style={{ width: "400px", height: "400px" }}>
+          <div id="agora_local" style={{ width: "300px", height: "400px" }} />
+          <div class="card-body">
+            <h5 class="card-title">{this.props.auth.user.name} (Me) </h5>
+          </div>
+        </div>
         {Object.keys(this.state.remoteStreams).map(key => {
           let stream = this.state.remoteStreams[key];
           let streamId = stream.getId();
           return (
-            <div className="col-sm-4 col-md-4"
-              key={streamId}
-              id={`agora_remote ${streamId}`}
-              style={{ width: "400px", height: "400px" }}
-            />
+            <Fragment>
+            <div className="card col-sm-4 col-md-4" style={{ width: "400px", height: "400px" }}>
+              <div 
+                key={streamId}
+                id={`agora_remote ${streamId}`}
+                style={{ width: "300px", height: "400px" }}
+              />
+            </div>
+            </Fragment>
           );
         })}
-        <button type="button" className="btn btn-primary btn-full" onClick={() => this.leaveChannel()}> Leave </button>
       </div>
+      <button type="button" className="btn btn-primary btn-full" onClick={() => this.leaveChannel()}> Leave </button>
+      </Fragment>
+
     );
   }
 }
 
 
-export default withRouter(Call);
+function mapStateToProps(state){
+  return {
+      auth: state.auth,
+  }
+}
+
+export default connect(mapStateToProps)(withRouter(Call));

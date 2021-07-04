@@ -4428,6 +4428,12 @@ input[type='submit'].btn-block {
   border: 1px solid rgba(0, 0, 0, 0.125);
   border-radius: 0.25rem;
 }
+
+.video-card {
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  border-radius: 0.25rem;
+}
+
 .card > hr {
   margin-right: 0;
   margin-left: 0;
