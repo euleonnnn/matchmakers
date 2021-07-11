@@ -25,12 +25,9 @@ const MessageBox = ({getChats, auth: { user }, chat : {chats}}) => {
 
     useEffect(() => {
       const loadModel = async () => {
-        // Loading model
         model = await window.toxicity.load(0.8);
-        // Display chat
         setLoading(false);
       };
-      // Load model on component mount
       loadModel();
     });
 
