@@ -4999,7 +4999,7 @@ a.badge-dark:focus {
 }
 .alert-danger {
   color: #721c24;
-  background-color: #f8d7da;
+  background-color: #b44f58;
   border-color: #f5c6cb;
 }
 .alert-danger hr {
@@ -7572,7 +7572,6 @@ button.bg-dark:hover {
 .my-btm-small {
   margin-bottom: 1.5rem !important;
 }
-
 
 .my-right {
   margin-right: 1rem !important;

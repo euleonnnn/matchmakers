@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { Link } from 'react-router-dom';
 import axios from "axios";
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';

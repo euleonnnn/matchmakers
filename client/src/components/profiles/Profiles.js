@@ -33,7 +33,7 @@ const Profiles = ({clearProfile, getProfiles, profile: { profiles, loading }, au
          
             <div className="profiles">
                 {profiles.filter( p => {
-                    if (searchterm == "") {
+                    if (searchterm === "") {
                         return p
                     } 
                     if (p.user.name.toLowerCase().includes(searchterm.toLowerCase())) {

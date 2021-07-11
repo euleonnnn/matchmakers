@@ -5,7 +5,6 @@ import axios from 'axios';
 
 const Chat = ({auth : {user} , chat , loading }) => {
   const [otherUser, setUser] = useState(null);
-  const [friendImg, setImg] = useState(null);
   
   useEffect(() => {
     const friendName = chat.names.find((name)=> name !== user.name);
@@ -16,8 +15,6 @@ const Chat = ({auth : {user} , chat , loading }) => {
     try {
     const friendId = chat.users.find((u)=> u !== user._id);
       const res = await axios.get(`/api/profile/user/${friendId}`);
-      const img = res.data.user.avatar;
-      setImg(img);
     } catch (error) {
       console.log(error);
     }
@@ -29,7 +26,6 @@ const Chat = ({auth : {user} , chat , loading }) => {
     else {
       return <Fragment>
         <div className="conversation my-top-small">
-          <img className="chatdp" src={friendImg} alt=""/>
           <span className="conversationName">{otherUser}</span>
         </div>
       </Fragment>

@@ -35,7 +35,6 @@ const EditProfile = ({profile : {profile, loading},
     }, [loading, getCurrentProfile]);
 
     const {
-        avatar,
         faculty, 
         year,
         interests,

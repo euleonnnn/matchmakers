@@ -2,13 +2,14 @@ import React, { Fragment, useEffect, useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import Spinner from '../layout/Spinner';
 import Chat from './Chat';
 import Message from './Message';
 import { getChats } from '../../actions/chat';
 import axios from 'axios';
 import ChatBG from '../../img/ChatBG.png';
 import {io} from "socket.io-client";
+import Spinner from '../layout/Spinner';
+
 
 let model;
 
@@ -20,8 +21,12 @@ const MessageBox = ({getChats, auth: { user }, chat : {chats}}) => {
     const [friendImg, setImg] = useState(null);
     const [incomingMessage, setIncomingMessage] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [toxicloading, setLoadingToxic] = useState(false);
+
     const scroll = useRef();
     const socket = useRef();
+
+    const [toxic, setToxic] = React.useState();
 
     useEffect(() => {
       const loadModel = async () => {
@@ -29,7 +34,25 @@ const MessageBox = ({getChats, auth: { user }, chat : {chats}}) => {
         setLoading(false);
       };
       loadModel();
-    });
+    },[]);
+
+  
+    const isToxic = async (model, message) => {
+      const predictions = await model.classify(message);
+      const toxicPredictions = predictions.filter((p) => p.results[0].match);
+      return toxicPredictions.length > 0;
+    };
+  
+    useEffect(() => {
+      const getToxic = async () => {
+        if (model) {
+          const textToxicity = await isToxic(model, formData); 
+          setToxic(textToxicity);
+          setLoadingToxic(false);
+        }
+      };
+      getToxic();
+    }, [formData]);
 
     useEffect(() => {
       socket.current = io();
@@ -59,15 +82,15 @@ const MessageBox = ({getChats, auth: { user }, chat : {chats}}) => {
         getChats();
       }, [getChats]);
 
-      useEffect(() => async () => {
-        try {
-          if (currChat !== null) {
+    useEffect(() => async () => {
+      try {
+        if (currChat !== null) {
           const friendId = currChat.users.find((u)=> u !== user._id);
           const res = await axios.get(`/api/profile/user/${friendId}`);
           const img = res.data.user.avatar;
           setImg(img);
           } 
-        } catch (error) {
+      } catch (error) {
           console.log(error);
         }
       });
@@ -93,7 +116,6 @@ const MessageBox = ({getChats, auth: { user }, chat : {chats}}) => {
       }
 
       if(currChat) {
-
         const receiver = currChat.users.find(id => user._id !== id);
 
         socket.current.emit("sendMessage", {
@@ -126,7 +148,7 @@ const MessageBox = ({getChats, auth: { user }, chat : {chats}}) => {
         <Link to ='/profiles' className="btn btn-outline-primary my-top"> Find More Friends <i class="fas fa-plus"/> </Link>
             {chats.map((chat=> (
                 <div onClick ={()=> setChat(chat)}>
-                    <Chat chat = {chat}/> 
+                    <Chat key ={chat._id} chat = {chat} /> 
                 </div>
             )))}
         </div>
@@ -138,12 +160,13 @@ const MessageBox = ({getChats, auth: { user }, chat : {chats}}) => {
           <img className="chatboxdp" src={friendImg} alt=""/>      
         </h4>     
             <div className="chatbox chatbg">
-                {loading ? <Spinner/> : messages.map((msg) => (
+                {loading ? <></> : messages.map((msg) => (
                     <div ref = {scroll}>
-                      <Message message={msg} sent={msg.sender === user._id} model={model}/>
+                      <Message message={msg} sent={msg.sender === user._id}/>
                     </div>
                   ))}
             </div>
+            {!toxicloading && toxic ? <div className="badge bg-danger"  role="alert">Warning: Please chat politely or actions will be taken against you </div> : null}
             <div className ="input-group my-top">
             <textarea 
                 type="text" 
