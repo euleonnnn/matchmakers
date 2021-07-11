@@ -7,8 +7,10 @@ import Chat from './Chat';
 import Message from './Message';
 import { getChats } from '../../actions/chat';
 import axios from 'axios';
-import ChatBG from '../../img/ChatBG.png'
-import {io} from "socket.io-client"
+import ChatBG from '../../img/ChatBG.png';
+import {io} from "socket.io-client";
+
+let model;
 
 //main page for display of all conversations and messages 
 const MessageBox = ({getChats, auth: { user }, chat : {chats}}) => {
@@ -17,8 +19,20 @@ const MessageBox = ({getChats, auth: { user }, chat : {chats}}) => {
     const [formData, setFormData] = useState("");
     const [friendImg, setImg] = useState(null);
     const [incomingMessage, setIncomingMessage] = useState(null);
+    const [loading, setLoading] = useState(true);
     const scroll = useRef();
     const socket = useRef();
+
+    useEffect(() => {
+      const loadModel = async () => {
+        // Loading model
+        model = await window.toxicity.load(0.8);
+        // Display chat
+        setLoading(false);
+      };
+      // Load model on component mount
+      loadModel();
+    });
 
     useEffect(() => {
       socket.current = io();
@@ -127,9 +141,9 @@ const MessageBox = ({getChats, auth: { user }, chat : {chats}}) => {
           <img className="chatboxdp" src={friendImg} alt=""/>      
         </h4>     
             <div className="chatbox chatbg">
-                {messages.map((msg) => (
+                {loading ? <Spinner/> : messages.map((msg) => (
                     <div ref = {scroll}>
-                      <Message message={msg} sent={msg.sender === user._id} />
+                      <Message message={msg} sent={msg.sender === user._id} model={model}/>
                     </div>
                   ))}
             </div>
