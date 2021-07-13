@@ -8,8 +8,6 @@ import { getChats } from '../../actions/chat';
 import axios from 'axios';
 import ChatBG from '../../img/ChatBG.png';
 import {io} from "socket.io-client";
-import Spinner from '../layout/Spinner';
-
 
 let model;
 
@@ -93,7 +91,7 @@ const MessageBox = ({getChats, auth: { user }, chat : {chats}}) => {
       } catch (error) {
           console.log(error);
         }
-      });
+      }, []);
 
     useEffect(() => {
         const getMessages = async () => {
@@ -166,7 +164,8 @@ const MessageBox = ({getChats, auth: { user }, chat : {chats}}) => {
                     </div>
                   ))}
             </div>
-            {!toxicloading && toxic ? <div className="badge bg-danger"  role="alert">Warning: Please chat politely or actions will be taken against you </div> : null}
+            {!toxicloading && toxic ? <div className="badge bg-danger flexi"  role="alert">
+                Warning: Please chat politely or actions will be taken against you </div> : null}
             <div className ="input-group my-top">
             <textarea 
                 type="text" 
@@ -175,7 +174,7 @@ const MessageBox = ({getChats, auth: { user }, chat : {chats}}) => {
                 onChange={(e)=>setFormData(e.target.value)}
                 value = {formData}
                 />
-            <input type="submit" className="btn btn-outline-primary my-right" onClick={onSubmit} value="Send" />
+            <input type="submit" className="btn btn-outline-primary" onClick={onSubmit} value="Send" />
             </div>
         </div>
         </Fragment> : 

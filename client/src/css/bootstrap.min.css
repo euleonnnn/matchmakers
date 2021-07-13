@@ -4766,10 +4766,12 @@ input[type='submit'].btn-block {
   text-align: center;
   white-space: nowrap;
   vertical-align: baseline;
+  width: 100%;
   border-radius: 0.25rem;
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
     border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
+
 @media (prefers-reduced-motion: reduce) {
   .badge {
     transition: none;
@@ -4999,7 +5001,7 @@ a.badge-dark:focus {
 }
 .alert-danger {
   color: #721c24;
-  background-color: #b44f58;
+  background-color: #f1a5ab;
   border-color: #f5c6cb;
 }
 .alert-danger hr {
