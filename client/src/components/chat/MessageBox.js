@@ -16,7 +16,6 @@ const MessageBox = ({getChats, auth: { user }, chat : {chats}}) => {
     const [currChat, setChat] = useState(null);
     const [messages, setMessages] = useState([]);
     const [formData, setFormData] = useState("");
-    const [friendImg, setImg] = useState(null);
     const [incomingMessage, setIncomingMessage] = useState(null);
     const [loading, setLoading] = useState(true);
     const [toxicloading, setLoadingToxic] = useState(false);
@@ -86,8 +85,6 @@ const MessageBox = ({getChats, auth: { user }, chat : {chats}}) => {
         if (currChat !== null) {
           const friendId = currChat.users.find((u)=> u !== user._id);
           const res = await axios.get(`/api/profile/user/${friendId}`);
-          const img = res.data.user.avatar;
-          setImg(img);
           } 
       } catch (error) {
           console.log(error);
@@ -152,9 +149,8 @@ const MessageBox = ({getChats, auth: { user }, chat : {chats}}) => {
         {currChat ? 
         <Fragment>             
         <div className="col-sm-8 col-md-8 namebox chatbg-dark">
-        <h4 className="nametext my-btm"> 
+        <h4 className="nametext my-btm my-top"> 
           {currChat === null ? <></> : currChat.names.find(name => name !== user.name)} 
-          <img className="chatboxdp" src={friendImg} alt=""/>      
         </h4>     
             <div className="chatbox chatbg">
                 {loading ? <></> : messages.map((msg) => (
@@ -165,16 +161,15 @@ const MessageBox = ({getChats, auth: { user }, chat : {chats}}) => {
             </div>
             {!toxicloading && toxic ? <div className="badge bg-danger flexi"  role="alert">
                 Warning: Please chat politely </div> : null}
-            <div className ="input-group my-top">
-            <textarea 
+            <form className ="input-group my-top" onSubmit={e => e.preventDefault()}> 
+              <input  
                 type="text" 
                 className ="form-control rounded" 
-                placeholder="Type Something" 
-                onChange={(e)=>setFormData(e.target.value)}
-                value = {formData}
-                />
+                placeholder="Type Something"  
+                aria-label="Search" value={formData}
+                onChange={(e)=>setFormData(e.target.value)}/>   
             <input type="submit" className="btn btn-outline-primary" onClick={onSubmit} value="Send" />
-            </div>
+            </form>
         </div>
         </Fragment> : 
         <div className="col-sm-8 col-md-8 emptychat">
