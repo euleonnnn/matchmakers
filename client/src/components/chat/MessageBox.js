@@ -30,6 +30,7 @@ const MessageBox = ({getChats, auth: { user }, chat : {chats}}) => {
       const loadModel = async () => {
         model = await window.toxicity.load(0.8);
         setLoading(false);
+        console.log("Model loaded")
       };
       loadModel();
     },[]);
@@ -112,7 +113,6 @@ const MessageBox = ({getChats, auth: { user }, chat : {chats}}) => {
       const message = {
         text: formData
       }
-
       if(currChat) {
         const receiver = currChat.users.find(id => user._id !== id);
 
@@ -123,7 +123,6 @@ const MessageBox = ({getChats, auth: { user }, chat : {chats}}) => {
         });
 
       }
-
       try {
         if (message.text !== ""){
           const res = await axios.post(`/api/message/${currChat._id}`, message);
@@ -165,7 +164,7 @@ const MessageBox = ({getChats, auth: { user }, chat : {chats}}) => {
                   ))}
             </div>
             {!toxicloading && toxic ? <div className="badge bg-danger flexi"  role="alert">
-                Warning: Please chat politely or actions will be taken against you </div> : null}
+                Warning: Please chat politely </div> : null}
             <div className ="input-group my-top">
             <textarea 
                 type="text" 
