@@ -96,7 +96,7 @@ const Games = ( {getCurrentProfile, deleteGame, clearGame, getGames, game: {game
         if (getSecondPart(filters[0]) === ""){
             return g
         }
-        if (g.location.toLowerCase().includes(getSecondPart(filters[0]).toLowerCase())) {
+        if (g.location.toLowerCase().includes(getSecondPart(filters[0]).toLowerCase()) || g.otherLoc.toLowerCase().includes(getSecondPart(filters[0]).toLowerCase())) {
             return g
         }
     })
@@ -173,7 +173,7 @@ const Games = ( {getCurrentProfile, deleteGame, clearGame, getGames, game: {game
             if (getSecondPart(filters[1]) === ""){
                 return g
             }
-            if (g.location.toLowerCase().includes(getSecondPart(filters[1]).toLowerCase())) {
+            if (g.location.toLowerCase().includes(getSecondPart(filters[1]).toLowerCase()) || g.otherLoc.toLowerCase().includes(getSecondPart(filters[1]).toLowerCase())) {
                 return g
             }
         })
@@ -253,7 +253,7 @@ const Games = ( {getCurrentProfile, deleteGame, clearGame, getGames, game: {game
             if (getSecondPart(filters[0]) === ""){
                 return g
             }
-            if (g.location.toLowerCase().includes(getSecondPart(filters[0]).toLowerCase())) {
+            if (g.location.toLowerCase().includes(getSecondPart(filters[0]).toLowerCase()) || g.otherLoc.toLowerCase().includes(getSecondPart(filters[0]).toLowerCase())) {
                 return g
             }
         })
@@ -330,7 +330,7 @@ const Games = ( {getCurrentProfile, deleteGame, clearGame, getGames, game: {game
             if (getSecondPart(filters[1]) === ""){
                 return g
             }
-            if (g.location.toLowerCase().includes(getSecondPart(filters[1]).toLowerCase())) {
+            if (g.location.toLowerCase().includes(getSecondPart(filters[1]).toLowerCase()) || g.otherLoc.toLowerCase().includes(getSecondPart(filters[1]).toLowerCase())) {
                 return g
             }
         })
