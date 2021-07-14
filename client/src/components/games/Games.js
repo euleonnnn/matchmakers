@@ -392,8 +392,8 @@ const Games = ( {getCurrentProfile, deleteGame, clearGame, getGames, game: {game
                     disabledName }      
                 
                 <form className ="input-group my-3" onSubmit={e => e.preventDefault()}>
-                    <input type="search" className ="form-control rounded" placeholder= {formType} aria-label="Search" value={searchdata}
-                    onChange={(e) => setSearchData(e.target.value)}/> 
+                    {formType === "" ? <input className ="form-control rounded" disabled={true}/>:<input type="search" className ="form-control rounded" placeholder= {formType} aria-label="Search" value={searchdata}
+                    onChange={(e) => setSearchData(e.target.value)}/> }
                     <input type="submit" className="btn btn-outline-primary" onClick={()=>{onSubmit(); setSearch(searchdata)}} value="Filter" />
                 </form>
 
