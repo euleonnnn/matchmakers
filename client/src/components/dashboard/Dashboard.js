@@ -5,15 +5,13 @@ import { connect } from 'react-redux';
 import Spinner from '../layout/Spinner';
 import FriendList from './FriendList';
 import Request from './Request';
+import GameItem from './GameItem';
 import { getCurrentProfile } from '../../actions/profile';
 import { getGames } from '../../actions/game';
 import '../../css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 import bball from '../layout/bball.jpg';
 import { logout } from '../../actions/auth';
-import dateformat from '../../utils/dateformat';
-
-
 
 const Dashboard = ({ getGames, getCurrentProfile, auth: { user }, profile: { profile, loading }, game: { games }, logout }) => {
 
@@ -64,38 +62,11 @@ const Dashboard = ({ getGames, getCurrentProfile, auth: { user }, profile: { pro
                     && <h4 className="my-top">You have no upcoming games</h4>}
 
                   {my_games.length > 0 && my_games.map(game => (convertTime(game.dateTime) < Date.now() ? <></> :
-
-                    <div className="card mb-3" key={game._id}>
-                      <i className="fas fa-crown my-left my-top-small"></i>
-                      <div className="card-body">
-                        <h5 className="card-title">{game.sport}</h5>
-                        <br></br>
-                        <p className="card-text"> <span className='text-primary'> Location: </span> {game.location === "Others" ? game.otherLoc : game.location}</p>
-                        <p className="card-text"> <span className='text-primary'> Waiting Room: </span> {game.players.length} players out of {game.maxPlayers}</p>
-                        <p className="card-text"> <span className='text-primary'> Game Day: </span> {dateformat(game.dateTime)} </p>
-                        <Link to={`/games/${game._id}`} className="btn btn-dark join-all"> Enter Room</Link>
-                        <p className="card-text">
-
-                        </p>
-                      </div>
-                    </div>
-
+                      <GameItem game={game}/>
                   ))}
 
                   {joined_games.length > 0 && joined_games.map(game => (convertTime(game.dateTime) < Date.now() ? <></> :
-                    <div className="card mb-3" key={game._id}>
-                      <div className="card-body">
-                        <h5 className="card-title">{game.sport}</h5>
-                        <br></br>
-                        <p className="card-text"> <span className='text-primary'> Location: </span> {game.location === "Others" ? game.otherLoc : game.location}</p>
-                        <p className="card-text"> <span className='text-primary'> Waiting Room: </span> {game.players.length} players out of {game.maxPlayers}</p>
-                        <p className="card-text"> <span className='text-primary'> Game Day: </span> {dateformat(game.dateTime)} </p>
-                        <Link to={`/games/${game._id}`} className="btn btn-dark join-all"> Enter Room</Link>
-                        <p className="card-text">
-
-                        </p>
-                      </div>
-                    </div>
+                      <GameItem game={game}/>
                   ))}
 
 
