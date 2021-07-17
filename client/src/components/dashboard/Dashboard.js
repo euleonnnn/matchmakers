@@ -59,18 +59,14 @@ const Dashboard = ({ getGames, getCurrentProfile, auth: { user }, profile: { pro
     const my_games = games.filter(game => game.user === user._id)
     const joined_games = games.filter(game => game.user !== user._id && game.players.filter(player => player.user === user._id).length > 0)
     return <Fragment>
-      <div className="card mb-3">
       <h1 className="large big-header my-top"><i className="fas fa-dumbbell" /> {" "} Hello There, {user && user.name}</h1>
-      </div>
       {profile !== null && user !== null ?
         (profile.user._id !== user._id ? <Spinner /> :
           <Fragment>
 
             <div className="container">
-              <div className="row">
+              <div className="  row">
                 <div className="col-sm-8 col-md-8">
-
-
                   <h4 className="text-primary">  My Interests </h4>
 
                   <ul>
@@ -82,7 +78,7 @@ const Dashboard = ({ getGames, getCurrentProfile, auth: { user }, profile: { pro
                       {item}</li>;
                     })}
                   </ul>
-
+                      
                   <h4 className="text-primary my-top my-btm-small"> Pending Games </h4>
 
 

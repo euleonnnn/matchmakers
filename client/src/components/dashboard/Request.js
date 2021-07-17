@@ -18,7 +18,6 @@ const Request = ({auth: { user }, chat:{chats}}) => {
           try {
             const friendList = await axios.get("/api/users/friends/" + user._id);
             setFriends(friendList.data);
-            setLength(friendList.data.length)
           } catch (err) {
             console.log(err);
           }
@@ -32,6 +31,7 @@ const Request = ({auth: { user }, chat:{chats}}) => {
           try {
             const followerList = await axios.get("/api/users/followers/" + user._id);
             setFollowers(followerList.data);
+            setLength(followerList.data.length)
           } catch (err) {
             console.log(err);
           }
@@ -48,10 +48,12 @@ const Request = ({auth: { user }, chat:{chats}}) => {
       <div className="card">
           <div className="card-header2">
               <strong> Follow Requests </strong>
+              {followers.length > friends.length && <span className="position-absolute top-0 start-100 translate-middle p-2 bg-danger rounded-circle">
+              </span>}
           </div>
           <ul className="list-group list-group-flush">
             {reqlength === " " && <Loading/>}
-            {reqlength === 0 && 
+            {followers.filter(follower => !idlist.includes(follower._id)) === 0 && 
             <li className="list-group-item"> No Incoming Requests <span role="img"> 😞 </span></li>}
             {followers.filter(follower => !idlist.includes(follower._id)).map(f => 
                 <FollowerItem follower = {f}  key={f._id}/>

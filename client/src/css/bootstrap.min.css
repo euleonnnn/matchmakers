@@ -106,6 +106,10 @@ p {
   text-align: center !important;
 }
 
+.start-100 {
+  left: 100% !important;
+}
+
 abbr[data-original-title],
 abbr[title] {
   text-decoration: underline;
@@ -3593,6 +3597,11 @@ input[type='submit'].btn-block {
   -webkit-transform: translateX(0.75rem);
   transform: translateX(0.75rem);
 }
+
+.translate-middle {
+  transform: translate(-50%, -50%) !important;
+}
+
 .custom-switch
   .custom-control-input:disabled:checked
   ~ .custom-control-label::before {
@@ -6324,6 +6333,11 @@ button.bg-dark:hover {
 .border-top-0 {
   border-top: 0 !important;
 }
+
+.top-0 {
+  top: 0 !important;
+}
+
 .border-right-0 {
   border-right: 0 !important;
 }
