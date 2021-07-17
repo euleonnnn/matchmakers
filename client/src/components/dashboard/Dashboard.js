@@ -27,12 +27,16 @@ const Dashboard = ({ getGames, getCurrentProfile, auth: { user }, profile: { pro
     "volleyball" : <span role="img">🏐</span>,
     "softball" : <span role="img">🥎</span>,
     "cycling" : <span role="img">🚴</span>,
+    "lifting" :  <span role="img">🏋️</span>,
     "gym" :  <span role="img">🏋️</span>,
     "swimming" : <span role="img">🏊</span>,
     "study": <span role ="img">📖</span>,
+    "studying": <span role ="img">📖</span>,
     "MLBB": <span role ="img">🎮</span>,
     "game": <span role ="img">🎮</span>,
-    "tennis" : <span role="img">🎾</span>
+    "gaming": <span role ="img">🎮</span>,
+    "tennis" : <span role="img">🎾</span>,
+    "boxing" : <span role="img">🥊</span>
   }
 
   useEffect(() => {
