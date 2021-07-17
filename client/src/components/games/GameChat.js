@@ -56,16 +56,15 @@ const GameChat = ({gamechat : {gamechat} }) => {
                     < GameMessage message={msg} key ={msg._id} />
                     </div>
                   ))}
-            <div className ="input-group my-top">
-            <textarea 
+            <form className ="input-group my-top" onSubmit={e => e.preventDefault()}> 
+              <input  
                 type="text" 
                 className ="form-control rounded" 
-                placeholder="Type Something" 
-                onChange={(e)=>setFormData(e.target.value)}
-                value = {formData}
-                />
-            <button type="button" className="btn btn-outline-primary my-right" onClick={onSubmit}> <i className="fas fa-paper-plane" /> </button>
-            </div>
+                placeholder="Type Something"  
+                value={formData}
+                onChange={(e)=>setFormData(e.target.value)}/> 
+                <input type="submit" className="btn btn-outline-primary" onClick={onSubmit} value="Send" />            
+            </form>
         </div>
       </Fragment>
 

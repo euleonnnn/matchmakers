@@ -16,22 +16,23 @@ import { logout } from '../../actions/auth';
 const Dashboard = ({ getGames, getCurrentProfile, auth: { user }, profile: { profile, loading }, game: { games }, logout }) => {
 
   const icon_dict = {
-    "basketball" : <i class="fas fa-basketball-ball"></i>,
-    "soccer" : <i class="fas fa-futbol"></i>,
-    "football" : <i class="fas fa-futbol"></i>,
-    "rugby" : <i class="fas fa-football-ball"></i>,
-    "running" : <i class="fas fa-running"></i>,
-    "jogging" : <i class="fas fa-running"></i>,
-    "table tennis": <i class="fas fa-table-tennis"></i>,
-    "ping pong" : <i class="fas fa-table-tennis"></i>,
-    "volleyball" : <i class="fas fa-volleyball-ball"></i>,
-    "softball" : <i class="fas fa-baseball-ball"></i>,
-    "cycling" : <i class="fas fa-biking"></i>,
-    "gym" : <i class="fas fa-dumbbell"></i>,
-    "swimming" : <i class="fas fa-swimmer"></i>,
-    "study": <i class="fas fa-book-reader"></i>,
-    "MLBB": <i class="fas fa-gamepad"></i>,
-    "game": <i class="fas fa-gamepad"></i>,
+    "basketball" : <span role="img">🏀</span>,
+    "soccer" : <span role="img">⚽</span>,
+    "football" : <span role ="img">⚽</span>,
+    "rugby" : <span role="img">🏉</span>,
+    "running" : <span role ="img">🏃</span>,
+    "jogging" : <span role ="img">🏃</span>,
+    "table tennis": <span role="img">🏓</span>,
+    "ping pong" : <span role="img">🏓</span>,
+    "volleyball" : <span role="img">🏐</span>,
+    "softball" : <span role="img">🥎</span>,
+    "cycling" : <span role="img">🚴</span>,
+    "gym" :  <span role="img">🏋️</span>,
+    "swimming" : <span role="img">🏊</span>,
+    "study": <span role ="img">📖</span>,
+    "MLBB": <span role ="img">🎮</span>,
+    "game": <span role ="img">🎮</span>,
+    "tennis" : <span role="img">🎾</span>
   }
 
   useEffect(() => {
@@ -54,7 +55,9 @@ const Dashboard = ({ getGames, getCurrentProfile, auth: { user }, profile: { pro
     const my_games = games.filter(game => game.user === user._id)
     const joined_games = games.filter(game => game.user !== user._id && game.players.filter(player => player.user === user._id).length > 0)
     return <Fragment>
-      <h1 className="large text-primary big-header"><i className="fas fa-dumbbell" /> {" "} Hello There, {user && user.name}</h1>
+      <div className="card mb-3">
+      <h1 className="large big-header my-top"><i className="fas fa-dumbbell" /> {" "} Hello There, {user && user.name}</h1>
+      </div>
       {profile !== null && user !== null ?
         (profile.user._id !== user._id ? <Spinner /> :
           <Fragment>
@@ -70,7 +73,7 @@ const Dashboard = ({ getGames, getCurrentProfile, auth: { user }, profile: { pro
                     {profile.interests.map(item => {
                       return <li key={item._id}> 
                       {icon_dict[item.toLowerCase()] !== undefined && icon_dict[item.toLowerCase()]} 
-                      {icon_dict[item.toLowerCase()] === undefined && <i class="fas fa-icons"></i>}
+                      {icon_dict[item.toLowerCase()] === undefined && <i className="fas fa-icons"></i>}
                       {" "}
                       {item}</li>;
                     })}

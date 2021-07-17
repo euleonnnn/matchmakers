@@ -56,9 +56,9 @@ const GameItem = ({ game }) => {
                 <p className="card-text"> <span className='text-primary'> Waiting Room: </span> {game.players.length} players out of {game.maxPlayers}</p>
                 <p className="card-text"> <span className='text-primary'> Game Day: </span> {dateformat(game.dateTime)} </p>
                 <Link to={`/games/${game._id}`} className="btn btn-dark join-all my-left my-top"> Enter Room</Link>
-                  <div className="card mb-3" >
+                  <div className="icon-box mb-3" >
                     <div className="card-body">
-                    <p className="card-text"> <h6> Chat Notification: </h6> </p>
+                    <h6 className="card-text"> Latest Messages </h6>
                       {secondsender !== "" && 
                       <p className="my-top-small"> {secondsender} : <span className="messagetext"> {secondtext}
                       <span className="text-muted btmtext"> {" "}{secondtimeago}</span> </span> </p> }
