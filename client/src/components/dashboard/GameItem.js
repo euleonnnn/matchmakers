@@ -55,16 +55,17 @@ const GameItem = ({ game }) => {
                 <p className="card-text"> <span className='text-primary'> Location: </span> {game.location === "Others" ? game.otherLoc : game.location}</p>
                 <p className="card-text"> <span className='text-primary'> Waiting Room: </span> {game.players.length} players out of {game.maxPlayers}</p>
                 <p className="card-text"> <span className='text-primary'> Game Day: </span> {dateformat(game.dateTime)} </p>
-                <Link to={`/games/${game._id}`} className="btn btn-dark join-all my-left"> Enter Room</Link>
+                <Link to={`/games/${game._id}`} className="btn btn-dark join-all my-left my-top"> Enter Room</Link>
                   <div className="card mb-3" >
                     <div className="card-body">
                     <p className="card-text"> <h6> Chat Notification: </h6> </p>
-                    {secondsender !== "" && 
-                      <p> {secondsender} : {secondtext} 
-                      <span className="text-muted btmtext"> {" "}{secondtimeago}</span> </p> }
-                    {latestsender !== "" &&  
-                      <p> {latestsender} : {latesttext} 
-                      <span className="text-muted btmtext"> {" "}{timeago}</span> </p> }
+                      {secondsender !== "" && 
+                      <p className="my-top-small"> {secondsender} : <span className="messagetext"> {secondtext}
+                      <span className="text-muted btmtext"> {" "}{secondtimeago}</span> </span> </p> }
+                      <br></br>
+                      {latestsender !== "" &&  
+                      <p> {latestsender} : <span className="messagetext"> {latesttext} 
+                      <span className="text-muted btmtext"> {" "}{timeago}</span> </span> </p> }
                       </div>
                   </div>
                 </div>

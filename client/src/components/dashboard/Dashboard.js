@@ -15,13 +15,32 @@ import { logout } from '../../actions/auth';
 
 const Dashboard = ({ getGames, getCurrentProfile, auth: { user }, profile: { profile, loading }, game: { games }, logout }) => {
 
+  const icon_dict = {
+    "basketball" : <i class="fas fa-basketball-ball"></i>,
+    "soccer" : <i class="fas fa-futbol"></i>,
+    "football" : <i class="fas fa-futbol"></i>,
+    "rugby" : <i class="fas fa-football-ball"></i>,
+    "running" : <i class="fas fa-running"></i>,
+    "jogging" : <i class="fas fa-running"></i>,
+    "table tennis": <i class="fas fa-table-tennis"></i>,
+    "ping pong" : <i class="fas fa-table-tennis"></i>,
+    "volleyball" : <i class="fas fa-volleyball-ball"></i>,
+    "softball" : <i class="fas fa-baseball-ball"></i>,
+    "cycling" : <i class="fas fa-biking"></i>,
+    "gym" : <i class="fas fa-dumbbell"></i>,
+    "swimming" : <i class="fas fa-swimmer"></i>,
+    "study": <i class="fas fa-book-reader"></i>,
+    "MLBB": <i class="fas fa-gamepad"></i>,
+    "game": <i class="fas fa-gamepad"></i>,
+  }
+
   useEffect(() => {
     getGames();
   }, [games]);
 
   useEffect(() => {
     getCurrentProfile();
-  }, []);
+  }, [profile]);
 
   const convertTime = e => {
     var d1 = new Date(e);
@@ -49,7 +68,11 @@ const Dashboard = ({ getGames, getCurrentProfile, auth: { user }, profile: { pro
 
                   <ul>
                     {profile.interests.map(item => {
-                      return <li key={item._id}><i className="fas fa-dot-circle" /> {item}</li>;
+                      return <li key={item._id}> 
+                      {icon_dict[item.toLowerCase()] !== undefined && icon_dict[item.toLowerCase()]} 
+                      {icon_dict[item.toLowerCase()] === undefined && <i class="fas fa-icons"></i>}
+                      {" "}
+                      {item}</li>;
                     })}
                   </ul>
 
