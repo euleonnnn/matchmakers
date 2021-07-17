@@ -19,10 +19,9 @@ const Dashboard = ({ getGames, getCurrentProfile, auth: { user }, profile: { pro
     getGames();
   }, [games]);
 
-
   useEffect(() => {
     getCurrentProfile();
-  });
+  }, []);
 
   const convertTime = e => {
     var d1 = new Date(e);
@@ -62,11 +61,11 @@ const Dashboard = ({ getGames, getCurrentProfile, auth: { user }, profile: { pro
                     && <h4 className="my-top">You have no upcoming games</h4>}
 
                   {my_games.length > 0 && my_games.map(game => (convertTime(game.dateTime) < Date.now() ? <></> :
-                      <GameItem game={game}/>
+                      <GameItem game={game} key={game._id}/>
                   ))}
 
                   {joined_games.length > 0 && joined_games.map(game => (convertTime(game.dateTime) < Date.now() ? <></> :
-                      <GameItem game={game}/>
+                      <GameItem game={game} key={game._id}/>
                   ))}
 
 
