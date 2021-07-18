@@ -417,8 +417,14 @@ const Games = ( {getCurrentProfile, deleteGame, clearGame, getGames, game: {game
 
     return loading ? <Spinner /> : <Fragment>
           <h1 className = "large big-header text-dark"> Available Rooms </h1>
-
-          <Link to="/create-game" className="btn btn-primary btn-block btn-lg my-2">  <i class="fas fa-icons"/> Create Your Activity</Link>
+          <div className="icon-box" >
+            <h1 className="big-description"> Join an activity or create your own, with a few clicks. </h1>
+                <div className="vertical-center">
+                <Link to="/create-game" className="btn btn-primary my-2"> Create Your Activity</Link>
+                </div>
+            </div>
+            
+    
 
             <h5 className="my-top"> Search By : </h5>
                 { filters.filter(f => f.charAt(0) === "a").length === 0 ? 
@@ -438,10 +444,13 @@ const Games = ( {getCurrentProfile, deleteGame, clearGame, getGames, game: {game
                     disabledName }      
                 
                 <form className ="input-group my-3" onSubmit={e => e.preventDefault()}>
-                    {formType === "" ? <input className ="form-control rounded" value="Too many results? Add more filters" disabled={true}/>:
-                    <div className="col-md-10">
+                    {formType === "" ? 
+                        <input className ="form-control rounded" value="Too many results? Add more filters" disabled={true}/> :
                         <input type="search" className ="form-control rounded" placeholder= {formType} aria-label="Search" value={searchdata}
                         onChange={(e) => onChange(e)}/> 
+                    }
+                    <input type="submit" className="btn btn-outline-primary" onClick={()=>{onSubmit(); setSearch(searchdata)}} value="Filter" />
+                </form>
                         {
                             suggestions && formType ==="activity" && suggestions.map(suggestion => 
                             <div className="suggestion justify-content-md-center" onClick={() => onSuggestion(suggestion)}>{suggestion}</div>
@@ -454,9 +463,6 @@ const Games = ( {getCurrentProfile, deleteGame, clearGame, getGames, game: {game
                             friends && suggestions && formType ==="name" && suggestions.map(suggestion => 
                             <div className="suggestion justify-content-md-center" onClick={() => onSuggestion(suggestion.name)}>{suggestion.name}</div>
                         )}
-                    </div>}
-                    <input type="submit" className="btn btn-outline-primary" onClick={()=>{onSubmit(); setSearch(searchdata)}} value="Filter" />
-                </form>
 
             { filters.length> 0 && filters.map(f => 
                 <div className="bdg bg-dark my-right"> <p className="filter"> "{f}" </p>  <button type="button" onClick={

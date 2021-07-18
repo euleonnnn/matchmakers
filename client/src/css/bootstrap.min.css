@@ -211,8 +211,20 @@ figure {
   margin: 0 0 1rem;
 }
 
+.big-description {
+  color: #5e5e5e !important;
+  margin: 10px 0 0 0 !important;
+  font-size: 22px !important;
+}
+
 .player-card {
   height: 70px;
+}
+
+.vertical-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 img {
@@ -3921,8 +3933,8 @@ input[type='submit'].btn-block {
 }
 
 .suggestion {
-  cursor:pointer;
-  color:#495057;
+  cursor: pointer;
+  color: #495057;
   padding: 0.375rem 0.75rem;
   font-size: 1rem;
   font-weight: 400;
