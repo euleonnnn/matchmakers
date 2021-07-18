@@ -6,21 +6,25 @@ import { getGames, clearGame, deleteGame } from '../../actions/game';
 import Spinner from '../layout/Spinner';
 import dateformat from '../../utils/dateformat';
 import { getCurrentProfile } from '../../actions/profile';
+import {activities} from './SearchDict';
+import { locations } from './SearchDict';
+import axios from "axios";
 
 
-const Games = ( {getCurrentProfile, deleteGame, clearGame, getGames, game: {games, game, loading}, auth}) => {
+const Games = ( {getCurrentProfile, deleteGame, clearGame, getGames, game: {games, game, loading}, auth, auth: { user }}) => {
 
+    const [friends, setFriends] = useState([]);
     const [filters, setFilters] = useState([]);
     //Search term for UI filter handling
     const [searchterm, setSearch] = useState('');
     //searchdata for backend filtering of games
     const [searchdata, setSearchData] = useState('');
     const [formType, setFormType] = useState("");
+    const [suggestions, setSuggestions] = useState("");
 
     const disabledActivity = <button type="button" className="btn btn-secondary my-right" disabled={true}>Activity</button>
     const disabledLoc = <button type="button" className="btn btn-secondary my-right" disabled={true}>Location</button>
     const disabledName = <button type="button" className="btn btn-secondary my-right" disabled={true}>Host Name</button>
-
 
     // eslint-disable-next-line
     useEffect(() => {
@@ -35,6 +39,18 @@ const Games = ( {getCurrentProfile, deleteGame, clearGame, getGames, game: {game
         getCurrentProfile();
       }, [getCurrentProfile]);
 
+    useEffect(() => {
+    const getFriends = async () => {
+        try {
+        const friendList = await axios.get("/api/users/friends/" + user._id);
+        setFriends(friendList.data);
+        } catch (err) {
+        console.log(err);
+        }
+    };
+    getFriends()
+    }, []);
+
     const convertTime = e => {
         var d1 = new Date(e);
         return d1.getTime();
@@ -43,6 +59,36 @@ const Games = ( {getCurrentProfile, deleteGame, clearGame, getGames, game: {game
     const changefilters = (cancel) => {
         setFilters(filters.filter(item => item !== cancel.f).sort());
         console.log(filters)
+    }
+
+    const onChange = e => {
+        let matches = [];
+        if (e.target.value.length > 0 && formType==="activity") {
+            matches = activities.filter(activity => {
+                const regex = new RegExp(`${e.target.value}`, "gi");
+                return activity.match(regex);
+            })
+        } 
+        if (e.target.value.length > 0 && formType==="location") {
+            matches = locations.filter(location => {
+                const regex = new RegExp(`${e.target.value}`, "gi");
+                return location.match(regex);
+            })
+        }
+        if (e.target.value.length > 0 && formType==="name") {
+            matches = friends.filter(friend => {
+                const regex = new RegExp(`${e.target.value}`, "gi");
+                return friend.name.match(regex);
+            })
+        }
+        console.log(matches);
+        setSuggestions(matches);
+        setSearchData(e.target.value);
+    }
+
+    const onSuggestion = e => {
+        setSearchData(e);
+        setSuggestions([]);
     }
 
     const onSubmit = () => {
@@ -393,8 +439,22 @@ const Games = ( {getCurrentProfile, deleteGame, clearGame, getGames, game: {game
                 
                 <form className ="input-group my-3" onSubmit={e => e.preventDefault()}>
                     {formType === "" ? <input className ="form-control rounded" value="Too many results? Add more filters" disabled={true}/>:
-                    <input type="search" className ="form-control rounded" placeholder= {formType} aria-label="Search" value={searchdata}
-                    onChange={(e) => setSearchData(e.target.value)}/> }
+                    <div className="col-md-10">
+                        <input type="search" className ="form-control rounded" placeholder= {formType} aria-label="Search" value={searchdata}
+                        onChange={(e) => onChange(e)}/> 
+                        {
+                            suggestions && formType ==="activity" && suggestions.map(suggestion => 
+                            <div className="suggestion justify-content-md-center" onClick={() => onSuggestion(suggestion)}>{suggestion}</div>
+                        )}
+                        {
+                            suggestions && formType ==="location" && suggestions.map(suggestion => 
+                            <div className="suggestion justify-content-md-center" onClick={() => onSuggestion(suggestion)}>{suggestion}</div>
+                        )}
+                        {
+                            friends && suggestions && formType ==="name" && suggestions.map(suggestion => 
+                            <div className="suggestion justify-content-md-center" onClick={() => onSuggestion(suggestion.name)}>{suggestion.name}</div>
+                        )}
+                    </div>}
                     <input type="submit" className="btn btn-outline-primary" onClick={()=>{onSubmit(); setSearch(searchdata)}} value="Filter" />
                 </form>
 

@@ -3920,6 +3920,22 @@ input[type='submit'].btn-block {
   opacity: 0.5;
 }
 
+.suggestion {
+  cursor:pointer;
+  color:#495057;
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  border-right: 1px solid #ced4da;
+  border-left: 1px solid #ced4da;
+  border-bottom: 1px solid #ced4da;
+  margin-right: 2rem;
+}
+.suggestion:hover {
+  background-color: #fff5f5;
+}
+
 .nametext {
   color: white;
   text-align: center;
