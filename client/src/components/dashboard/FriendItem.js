@@ -14,8 +14,8 @@ const FriendItem = ({ createChat, getChats, auth: { user }, friend, chat: { chat
     
     useEffect(() => {
         let cancel = false;
+        if (cancel) return;
         const loadchat = async() => {
-            if (cancel) return;
             chats.map(chat => {
                 chatID.push(chat.users.find(id => id !== user._id));
             })
@@ -24,7 +24,7 @@ const FriendItem = ({ createChat, getChats, auth: { user }, friend, chat: { chat
         return () => { 
             cancel = true;
         }
-    }, [])
+    })
 
     const startNewConvo = () => {
         try {

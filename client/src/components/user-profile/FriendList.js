@@ -15,6 +15,7 @@ const FriendList = ({auth: { user }, chat:{chats}}) => {
           try {
             const friendList = await axios.get("/api/users/friends/" + user._id);
             setFriends(friendList.data);
+            console.log("Getting friends")
           } catch (err) {
             console.log(err);
           }

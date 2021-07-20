@@ -159,13 +159,13 @@ class Call extends Component {
   render() {
     return (
       <Fragment>
-            <h1 className="large big-header my-btm"> {this.props.auth.user.name}'s Video Chat Room </h1>
+            <h1 className="large big-header my-btm"> Video Chat Room </h1>
 
       <div className ="row my-btm">
         <div className="icon-box2 col-sm-4 col-md-4" style={{ width: "400px", height: "400px" }}>
           <div id="agora_local" style={{ width: "100%", height: "80%" }} className="my-top-small"/>
           <div className="card-body">
-            <h5 className="card-title">{this.props.auth.user.name} (Me) </h5>
+            <h5 className="card-title whiten">{this.props.auth.user.name} (Me) </h5>
           </div>
         </div>
         {Object.keys(this.state.remoteStreams).map(key => {
@@ -180,7 +180,7 @@ class Call extends Component {
                 style={{ width: "100%", height: "90%" }} className="my-top-small"
               />
               <div class="card-body">
-              <h5 class="card-title">{streamId} </h5>
+              <h5 class="card-title whiten">{streamId} </h5>
             </div>
             </div>
             </Fragment>

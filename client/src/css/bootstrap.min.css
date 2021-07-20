@@ -7708,7 +7708,7 @@ button.bg-dark:hover {
   padding: 10px 10px;
   position: relative;
   overflow: hidden;
-  background: hsla(0, 0%, 85%, 0.794);
+  background: #343a40;
   box-shadow: 0 0 29px 0 rgba(18, 66, 101, 0.08);
   transition: all 0.3s ease-in-out;
   border-radius: 8px;
@@ -7744,6 +7744,10 @@ button.bg-dark:hover {
 
 .icon-box2:hover {
   transform: scale(1.08);
+}
+
+.whiten {
+  color: white !important;
 }
 
 .my-top-small {

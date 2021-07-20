@@ -7,16 +7,30 @@ const Chat = ({auth : {user} , chat , loading }) => {
   const [otherUser, setUser] = useState(null);
   
   useEffect(() => {
-    const friendName = chat.names.find((name)=> name !== user.name);
-    setUser(friendName);
+    let cancel = false;
+    if (cancel) return;
+    try {
+      const friendName = chat.names.find((name)=> name !== user.name);
+      setUser(friendName);
+    } catch (error) {
+      console.log(error);
+    }
+    return () => { 
+      cancel = true;
+    }
   });
 
   useEffect(() => async () => {
+    let cancel = false;
+    if (cancel) return;
     try {
-    const friendId = chat.users.find((u)=> u !== user._id);
+      const friendId = chat.users.find((u)=> u !== user._id);
       const res = await axios.get(`/api/profile/user/${friendId}`);
     } catch (error) {
       console.log(error);
+    }
+    return () => { 
+      cancel = true;
     }
   });
 
