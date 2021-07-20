@@ -55,19 +55,19 @@ const GameItem = ({ game }) => {
                 <p className="card-text"> <span className='text-primary'> Location: </span> {game.location === "Others" ? game.otherLoc : game.location}</p>
                 <p className="card-text"> <span className='text-primary'> Waiting Room: </span> {game.players.length} players out of {game.maxPlayers}</p>
                 <p className="card-text"> <span className='text-primary'> Game Day: </span> {dateformat(game.dateTime)} </p>
-                <Link to={`/games/${game._id}`} className="btn btn-dark join-all my-left my-top"> Enter Room</Link>
                   <div className="icon-box mb-3" >
                     <div className="card-body">
                     <h6 className="card-text"> Latest Messages </h6>
                       {secondsender !== "" && 
-                      <p className="my-top-small"> {secondsender} : <span className="messagetext"> {secondtext}
-                      <span className="text-muted btmtext"> {" "}{secondtimeago}</span> </span> </p> }
+                      <div className="my-top-small flexi"> {secondsender} : <div className="messagetext flexi"> {secondtext}
+                      <span className="text-muted btmtext"> {" "}{secondtimeago}</span> </div> </div> }
                       <br></br>
                       {latestsender !== "" &&  
-                      <p> {latestsender} : <span className="messagetext"> {latesttext} 
-                      <span className="text-muted btmtext"> {" "}{timeago}</span> </span> </p> }
+                      <div className="my-top-small flexi"> {latestsender} : <div className="messagetext flexi"> {latesttext}
+                      <span className="text-muted btmtext"> {" "}{timeago}</span> </div> </div> }
                       </div>
                   </div>
+                  <Link to={`/games/${game._id}`} className="btn btn-dark join-all my-right"> Enter Room</Link>
                 </div>
             </div>
         </Fragment>

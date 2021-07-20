@@ -10,9 +10,8 @@ const GameMessage = ({auth: { user }, message}) => {
 
   return <Fragment>
        <div className={sent ? "message sent" : "message"}>
-        <p>{message.name}</p> 
+        <p> <strong>{message.name}</strong></p> 
         <div className="toptext">
-          {sent ? <></> : <img className="gamechatdp" src={message.avatar} alt=""/>}
           <p className="messagetext">{message.text}</p>
         </div>
         <div className="text-muted btmtext">{format(message.createdAt)}</div>

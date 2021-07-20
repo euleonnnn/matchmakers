@@ -17,40 +17,9 @@ const MessageBox = ({getChats, auth: { user }, chat : {chats}}) => {
     const [messages, setMessages] = useState([]);
     const [formData, setFormData] = useState("");
     const [incomingMessage, setIncomingMessage] = useState(null);
-    const [loading, setLoading] = useState(true);
-    const [toxicloading, setLoadingToxic] = useState(false);
 
     const scroll = useRef();
     const socket = useRef();
-
-    const [toxic, setToxic] = React.useState();
-
-    useEffect(() => {
-      const loadModel = async () => {
-        model = await window.toxicity.load(0.8);
-        setLoading(false);
-        console.log("Model loaded")
-      };
-      loadModel();
-    },[]);
-
-  
-    const isToxic = async (model, message) => {
-      const predictions = await model.classify(message);
-      const toxicPredictions = predictions.filter((p) => p.results[0].match);
-      return toxicPredictions.length > 0;
-    };
-  
-    useEffect(() => {
-      const getToxic = async () => {
-        if (model) {
-          const textToxicity = await isToxic(model, formData); 
-          setToxic(textToxicity);
-          setLoadingToxic(false);
-        }
-      };
-      getToxic();
-    }, [formData]);
 
     useEffect(() => {
       socket.current = io();
@@ -153,14 +122,12 @@ const MessageBox = ({getChats, auth: { user }, chat : {chats}}) => {
           {currChat === null ? <></> : currChat.names.find(name => name !== user.name)} 
         </h4>     
             <div className="chatbox chatbg">
-                {loading ? <></> : messages.map((msg) => (
+                {messages.length>0 && messages.map((msg) => (
                     <div ref = {scroll}>
-                      <Message message={msg} sent={msg.sender === user._id}/>
+                      <Message message={msg} sent={msg.sender === user._id} key= {msg._id}/>
                     </div>
                   ))}
             </div>
-            {!toxicloading && toxic ? <div className="badge bg-danger flexi"  role="alert">
-                Warning: Please chat politely </div> : null}
             <form className ="input-group my-top" onSubmit={e => e.preventDefault()}> 
               <input  
                 type="text" 

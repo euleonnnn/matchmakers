@@ -4,18 +4,52 @@ import { connect } from 'react-redux';
 import axios from 'axios';
 import GameMessage from './GameMessage';
 
+let model;
 
 const GameChat = ({gamechat : {gamechat} }) => {
     const [messages, setMessages] = useState([]);
     const [formData, setFormData] = useState("");
-    
+    const [loading, setLoading] = useState(true);
+    const [toxicloading, setLoadingToxic] = useState(false);
+    const [toxic, setToxic] = useState();
+
     const scroll = useRef();
 
     useEffect(() => {
         scroll.current?.scrollIntoView({ behavior: "smooth" });
       }, [messages]);
     
+    useEffect(() => {
+      let cancel = false;
+      const loadModel = async () => {
+        if (cancel) return;
+        model = await window.toxicity.load(0.8);
+        setLoadingToxic(false);        
+        console.log("Model loaded")
+      };
+      loadModel();
+      return () => {
+        cancel = true;
+      }
+    },[]);
 
+    const isToxic = async (model, message) => {
+      const predictions = await model.classify(message);
+      const toxicPredictions = predictions.filter((p) => p.results[0].match);
+      return toxicPredictions.length > 0;
+    };
+  
+    useEffect(() => {
+      const getToxic = async () => {
+        if (model) {
+          const textToxicity = await isToxic(model, formData); 
+          setToxic(textToxicity);
+          setLoadingToxic(false);
+        }
+      };
+      getToxic();
+    }, [formData]);
+ 
     useEffect(() => {
         const getMessages = async () => {
           try {
@@ -66,6 +100,8 @@ const GameChat = ({gamechat : {gamechat} }) => {
                 <input type="submit" className="btn btn-outline-primary" onClick={onSubmit} value="Send" />            
             </form>
         </div>
+        {!toxicloading && toxic ? <div className="badge bg-danger flexi"  role="alert">
+                Warning: Please chat politely </div> : null}
       </Fragment>
 
 }
