@@ -47,7 +47,12 @@ const GameRoom = ({ getGameChat, createGameChat, clearProfile, getGameById, auth
     },[]);
 
     useEffect(() => {
+        let cancel = false;
+        if (cancel) return;
         getGameById(match.params.id);
+        return () => {
+            cancel = true;
+        }
     });
     
     useEffect(() => {

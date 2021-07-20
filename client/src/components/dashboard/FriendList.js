@@ -13,7 +13,9 @@ const FriendList = ({auth: { user }, chat:{chats}}) => {
 
 
     useEffect(() => {
+        let cancel = false;
         const getFriends = async () => {
+          if (cancel) return;
           try {
             const friendList = await axios.get("/api/users/friends/" + user._id);
             setFriends(friendList.data);
@@ -23,12 +25,13 @@ const FriendList = ({auth: { user }, chat:{chats}}) => {
           }
         };
         getFriends()
+        return () => { 
+          cancel = true;
+        }
       }, []);
     
-    console.log(friends)
 
     return (
-      
       <div className="card">
           <div className="card-header">
               <strong> My Friends ({friends.length}) </strong>

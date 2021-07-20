@@ -9,7 +9,6 @@ let model;
 const GameChat = ({gamechat : {gamechat} }) => {
     const [messages, setMessages] = useState([]);
     const [formData, setFormData] = useState("");
-    const [loading, setLoading] = useState(true);
     const [toxicloading, setLoadingToxic] = useState(false);
     const [toxic, setToxic] = useState();
 
@@ -40,7 +39,9 @@ const GameChat = ({gamechat : {gamechat} }) => {
     };
   
     useEffect(() => {
+      let cancel = false;
       const getToxic = async () => {
+        if (cancel) return;
         if (model) {
           const textToxicity = await isToxic(model, formData); 
           setToxic(textToxicity);
@@ -48,10 +49,15 @@ const GameChat = ({gamechat : {gamechat} }) => {
         }
       };
       getToxic();
+      return () => { 
+        cancel = true;
+      }
     }, [formData]);
  
     useEffect(() => {
+        let cancel = false;
         const getMessages = async () => {
+          if (cancel) return;
           try {
             const res = await axios.get(`/api/message/${gamechat[0]._id}`);
             setMessages(res.data);
@@ -60,6 +66,9 @@ const GameChat = ({gamechat : {gamechat} }) => {
           }
         };
         getMessages();
+        return () => { 
+          cancel = true;
+        }
       }, [gamechat]);
 
     const onSubmit = async (e) => {

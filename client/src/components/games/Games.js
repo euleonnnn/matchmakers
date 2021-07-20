@@ -40,15 +40,20 @@ const Games = ( {getCurrentProfile, deleteGame, clearGame, getGames, game: {game
       }, [getCurrentProfile]);
 
     useEffect(() => {
-    const getFriends = async () => {
-        try {
-        const friendList = await axios.get("/api/users/friends/" + user._id);
-        setFriends(friendList.data);
-        } catch (err) {
-        console.log(err);
+        let cancel = false;
+        const getFriends = async () => {
+            if (cancel) return;
+            try {
+            const friendList = await axios.get("/api/users/friends/" + user._id);
+            setFriends(friendList.data);
+            } catch (err) {
+            console.log(err);
+            }
+        };
+        getFriends()
+        return () => { 
+            cancel = true;
         }
-    };
-    getFriends()
     }, []);
 
     const convertTime = e => {
@@ -58,7 +63,6 @@ const Games = ( {getCurrentProfile, deleteGame, clearGame, getGames, game: {game
 
     const changefilters = (cancel) => {
         setFilters(filters.filter(item => item !== cancel.f).sort());
-        console.log(filters)
     }
 
     const onChange = e => {

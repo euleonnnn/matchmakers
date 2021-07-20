@@ -30,8 +30,8 @@ export default class ChannelForm extends Component {
       <Fragment>
         <div className="my-btm">
           <form onSubmit={this.onSubmit}>
-            {this.state.click ? <input type="submit" value="Join Channel" onClick={this.click()} className="btn btn-success btn-full" /> 
-            : this.state.click === false && <button type="button" class="btn btn-secondary btn-full" disabled>Joined Channel</button>}
+            {this.state.click ? <input type="submit" value="Join Call" onClick={this.click()} className="btn btn-success btn-full" /> 
+            : this.state.click === false && <button type="button" class="btn btn-secondary btn-full" disabled>Joined Call</button>}
           </form>
 
         </div>

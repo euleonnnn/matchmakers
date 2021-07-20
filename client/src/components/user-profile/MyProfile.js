@@ -48,7 +48,6 @@ const MyProfile = ({ getCurrentProfile, auth: { user }, profile : { profile, loa
             </div>
             <div className="col-sm-6 col-md-6">
               <FriendList />
-              <div className ="my-top"> <Request /> </div>
             </div>
           </div>
         </Fragment> 

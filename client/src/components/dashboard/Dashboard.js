@@ -73,7 +73,7 @@ const Dashboard = ({ getGames, getCurrentProfile, auth: { user }, profile: { pro
                     {profile.interests.map(item => {
                       return <li key={item._id}> 
                       {icon_dict[item.toLowerCase()] !== undefined && icon_dict[item.toLowerCase()]} 
-                      {icon_dict[item.toLowerCase()] === undefined && <i className="fas fa-icons"></i>}
+                      {icon_dict[item.toLowerCase()] === undefined && <span role="img">🎲</span>}
                       {" "}
                       {item}</li>;
                     })}
@@ -87,11 +87,11 @@ const Dashboard = ({ getGames, getCurrentProfile, auth: { user }, profile: { pro
                     && <h4 className="my-top">You have no upcoming games</h4>}
 
                   {my_games.length > 0 && my_games.map(game => (convertTime(game.dateTime) < Date.now() ? <></> :
-                      <GameItem game={game} key={game._id}/>
+                      <GameItem game={game} key={game._id} mine={true}/>
                   ))}
 
                   {joined_games.length > 0 && joined_games.map(game => (convertTime(game.dateTime) < Date.now() ? <></> :
-                      <GameItem game={game} key={game._id}/>
+                      <GameItem game={game} key={game._id} mine={false}/>
                   ))}
 
 

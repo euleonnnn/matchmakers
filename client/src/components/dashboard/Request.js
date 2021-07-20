@@ -14,8 +14,10 @@ const Request = ({auth: { user }, chat:{chats}}) => {
 
 
     useEffect(() => {
+        let cancel = false;
         const getFriends = async () => {
           try {
+            if (cancel) return;
             const friendList = await axios.get("/api/users/friends/" + user._id);
             setFriends(friendList.data);
           } catch (err) {
@@ -23,12 +25,17 @@ const Request = ({auth: { user }, chat:{chats}}) => {
           }
         };
         getFriends()
-      });
+        return () => { 
+          cancel = true;
+        }
+      }, []);
 
 
       useEffect(() => {
+        let cancel = false;
         const getFollowers = async () => {
           try {
+            if (cancel) return;
             const followerList = await axios.get("/api/users/followers/" + user._id);
             setFollowers(followerList.data);
             setLength(followerList.data.length)
@@ -37,7 +44,10 @@ const Request = ({auth: { user }, chat:{chats}}) => {
           }
         };
         getFollowers()
-      });
+        return () => { 
+          cancel = true;
+        }
+      }, []);
     
     
       const idlist = []

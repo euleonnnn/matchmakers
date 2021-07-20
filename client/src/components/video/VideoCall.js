@@ -159,11 +159,13 @@ class Call extends Component {
   render() {
     return (
       <Fragment>
+            <h1 className="large big-header my-btm"> {this.props.auth.user.name}'s Video Chat Room </h1>
+
       <div className ="row my-btm">
-        <div className="card col-sm-4 col-md-4" style={{ width: "400px", height: "400px" }}>
-          <div id="agora_local" style={{ width: "300px", height: "400px" }} />
-          <div class="card-body">
-            <h5 class="card-title">{this.props.auth.user.name} (Me) </h5>
+        <div className="icon-box2 col-sm-4 col-md-4" style={{ width: "400px", height: "400px" }}>
+          <div id="agora_local" style={{ width: "100%", height: "80%" }} className="my-top-small"/>
+          <div className="card-body">
+            <h5 className="card-title">{this.props.auth.user.name} (Me) </h5>
           </div>
         </div>
         {Object.keys(this.state.remoteStreams).map(key => {
@@ -171,11 +173,11 @@ class Call extends Component {
           let streamId = stream.getId();
           return (
             <Fragment>
-            <div className="card col-sm-4 col-md-4" style={{ width: "400px", height: "400px" }}>
+            <div className="icon-box2 col-sm-4 col-md-4" style={{ width: "400px", height: "400px" }}>
               <div 
                 key={streamId}
                 id={`agora_remote ${streamId}`}
-                style={{ width: "300px", height: "400px" }}
+                style={{ width: "100%", height: "90%" }} className="my-top-small"
               />
               <div class="card-body">
               <h5 class="card-title">{streamId} </h5>
