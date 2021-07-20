@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -11,7 +11,9 @@ import { getGames } from '../../actions/game';
 import '../../css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 import bball from '../layout/bball.jpg';
+import axios from "axios";
 import { logout } from '../../actions/auth';
+import SuggestedGames from './SuggestedGames';
 
 const Dashboard = ({ getGames, getCurrentProfile, auth: { user }, profile: { profile, loading }, game: { games }, logout }) => {
 
@@ -39,6 +41,8 @@ const Dashboard = ({ getGames, getCurrentProfile, auth: { user }, profile: { pro
     "boxing" : <span role="img">🥊</span>
   }
 
+  const [friends, setFriends] = useState([]);
+
   useEffect(() => {
     getGames();
   }, [games]);
@@ -47,9 +51,47 @@ const Dashboard = ({ getGames, getCurrentProfile, auth: { user }, profile: { pro
     getCurrentProfile();
   }, [profile]);
 
+  useEffect(() => {
+    let cancel = false;
+    const getFriends = async () => {
+      try {
+        if (cancel) return;
+        const friendList = await axios.get("/api/users/friends/" + user._id);
+        setFriends(friendList.data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    getFriends()
+    return () => { 
+      cancel = true;
+    }
+  }, [user]);
+
+  var suggestLim = 0;
+
   const convertTime = e => {
     var d1 = new Date(e);
     return d1.getTime();
+  }
+
+  const suggestGames = (game) => {
+    if (suggestLim === 3) {
+      return false;
+    }
+    if (profile.interests.includes(game.sport)) {
+      suggestLim++;
+      return true;
+    }
+    if (friends.filter(friend => friend._id === game.user).length > 0) {
+      suggestLim++;
+      return true;
+    }
+    if (friends.filter(friend => game.players.includes(friend._id)).length > 0) {
+      suggestLim++;
+      return true;
+    }
+    return false;
   }
 
 
@@ -58,6 +100,7 @@ const Dashboard = ({ getGames, getCurrentProfile, auth: { user }, profile: { pro
   } else {
     const my_games = games.filter(game => game.user === user._id)
     const joined_games = games.filter(game => game.user !== user._id && game.players.filter(player => player.user === user._id).length > 0)
+    const not_joined = games.filter(game => game.user !== user._id && game.players.filter(player => player.user === user._id).length === 0)
     return <Fragment>
       <h1 className="large big-header my-top"><i className="fas fa-dumbbell" /> {" "} Hello There, {user && user.name}</h1>
       {profile !== null && user !== null ?
@@ -106,18 +149,9 @@ const Dashboard = ({ getGames, getCurrentProfile, auth: { user }, profile: { pro
 
 
                   <h4 className="text-primary my-top">  Suggested Games : </h4>
-                  <div className="card mb-3">
-                    <div className="row g-0">
-                      <div className="col-md-4">
-                        <img height="100" width="195" src={bball} alt="Eusoff" />
-                      </div>
-                      <div className="col-md-8">
-                        <div className="card-body">
-                          <h5 className="card-title">Placeholder</h5>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                  {not_joined.length > 0 && not_joined.map(game => suggestGames(game) ? <SuggestedGames game={game}/> : <></>)}
+
+
                 </div>
               </div>
             </div>
