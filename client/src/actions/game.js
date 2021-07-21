@@ -113,6 +113,7 @@ export const createGame = (formData, hist) => async dispatch => {
             'Content-Type': 'application/json'
         }
     }
+
     try {
         const res = await axios.post('/api/games', formData, config);
         dispatch({
@@ -120,7 +121,7 @@ export const createGame = (formData, hist) => async dispatch => {
             payload: res.data
         });
         dispatch(setAlert('Created Game', 'success'));
-
+        axios.put(`/api/games/join/${res.data._id}`);
         hist.push('/all-games')
 
     } catch (error) {
