@@ -17,6 +17,7 @@ const GameItem = ({ game }) => {
                     <p className="card-text"> <span className='text-primary'> Location: </span> {game.location === "Others" ? game.otherLoc : game.location}</p>
                     <p className="card-text"> <span className='text-primary'> Waiting Room: </span> {game.players.length} players out of {game.maxPlayers}</p>
                     <p className="card-text"> <span className='text-primary'> Day: </span> {dateformat(game.dateTime)} </p>
+                    <p className="card-text"> <span className='text-primary'> Host: </span> {game.name} </p>
                     <Link to={`/games/${game._id}`} className="btn btn-dark join-all my-right"> Enter Room</Link>
                     </div>
                 </div>

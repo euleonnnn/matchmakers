@@ -45,11 +45,11 @@ const Dashboard = ({ getGames, getCurrentProfile, auth: { user }, profile: { pro
 
   useEffect(() => {
     getGames();
-  }, [games]);
+  }, [games, getGames]);
 
   useEffect(() => {
     getCurrentProfile();
-  }, [profile]);
+  }, [profile, getCurrentProfile]);
 
   useEffect(() => {
     let cancel = false;
@@ -80,9 +80,13 @@ const Dashboard = ({ getGames, getCurrentProfile, auth: { user }, profile: { pro
     const joined_games = games.filter(game => game.user !== user._id && game.players.filter(player => player.user === user._id).length > 0);
     const not_joined = games.filter(game => game.user !== user._id && game.players.filter(player => player.user === user._id).length === 0 && convertTime(game.dateTime) > Date.now());
     var suggestedGames = new Array(4);
+    var friendGames = new Array(2);
   
     for (let i = 0; i < 4; i++) {
       suggestedGames[i] = [];
+    }
+    for (let i = 0; i < 2; i++) {
+      friendGames[i] = [];
     }
 
     const suggestGames = (game) => { 
@@ -104,14 +108,14 @@ const Dashboard = ({ getGames, getCurrentProfile, auth: { user }, profile: { pro
       }
       if (friends.filter(friend => friend._id === game.user).length > 0) {
         if (friends.filter(friend => game.players.includes(friend._id)).length > 0) {
-          suggestedGames[2].push(game);
+          friendGames[1].push(game);
           return;
         }
-        suggestedGames[1].push(game);
+        friendGames[0].push(game);
         return;
       }
       if (friends.filter(friend => game.players.includes(friend._id)).length > 0) {
-        suggestedGames[1].push(game);
+        friendGames[0].push(game);
         return;
       }
       suggestedGames[0].push(game);
@@ -122,10 +126,11 @@ const Dashboard = ({ getGames, getCurrentProfile, auth: { user }, profile: { pro
       not_joined.map(game => suggestGames(game));
     }
 
-    var suggestions = new Array(3);
+    var suggestions = new Array(2);
+    var withfriends = new Array(2);
     if (suggestedGames[0].length > 0 || suggestedGames[1].length > 0 || suggestedGames[2].length > 0 || suggestedGames[3].length > 0) {
       let i = 0;
-      for (i; i <= 2; i++) {
+      for (i; i <= 1; i++) {
         if(suggestedGames[3].length > 0) {
           suggestions.push(suggestedGames[3].pop());
         } else if(suggestedGames[2].length > 0) {
@@ -137,6 +142,18 @@ const Dashboard = ({ getGames, getCurrentProfile, auth: { user }, profile: { pro
         }
       }
    }
+
+   if (friendGames[0].length > 0 || friendGames[1].length > 0) {
+    let i = 0;
+    for (i; i <= 1; i++) {
+      if(friendGames[1].length > 0) {
+        withfriends.push(friendGames[1].pop());
+      } else {
+        withfriends.push(friendGames[0].pop());
+      } 
+    }
+    console.log(withfriends);
+ }
     
     return <Fragment>
       <h1 className="large big-header my-top"><i className="fas fa-dumbbell" /> {" "} Hello There, {user && user.name}</h1>
@@ -186,7 +203,10 @@ const Dashboard = ({ getGames, getCurrentProfile, auth: { user }, profile: { pro
 
 
                   <h4 className="text-primary my-top">  Suggested Games : </h4>
-                  {suggestions.length > 0 && suggestions.map(game => <SuggestedGames game={game}/>)}
+                  <h6 className="text-primary my-top">  Games That Might Interest You: </h6>
+                  {suggestions.length > 0 && suggestions.map(game => game ? <SuggestedGames game={game}/> : <></>)}
+                  <h6 className="text-primary my-top">  Join Your Friends: </h6>
+                  {withfriends.length > 0 && withfriends.map(game =>  game ? <SuggestedGames game={game}/> : <></>)}
 
                 </div>
               </div>
