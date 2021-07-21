@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { createGame } from '../../actions/game';
 import { Link, withRouter } from 'react-router-dom';
+import {sports} from './SearchDict';
 
 const SportsForm = ({ createGame, history }) => {
 
@@ -27,25 +28,6 @@ const SportsForm = ({ createGame, history }) => {
         maxPlayers,
         dateTime,
     } = formData;
-
-    const sports = [
-        { sport: "Badminton", locations:["Kent Ridge - MPSH 5", "UTown - Sports Hall 1"], 
-            maxPlayers:["2","3","4","5","6"] },
-        { sport: "Basketball", locations:["Eusoff Hall", "NUS Sports & Recreation Centre","Temasek Hall","Others"], 
-        maxPlayers:["4","6","8","9","10"] },
-        { sport: "Frisbee", locations:["Kent Ridge - Multi-Purpose Fields","Utown - Open Field","Others"], 
-        maxPlayers:["4","6","8","9","10"] },
-        { sport: "Running", locations:["Others"], 
-        maxPlayers:["2","3","4","5"] },
-        { sport: "Squash", locations:["Kent Ridge - Squash Courts"], 
-        maxPlayers:["2","3","4"] },
-        { sport: "Swimming", locations:["NUS Sports & Recreation Centre"], 
-        maxPlayers:["2","3","4","5"] },
-        { sport: "Table Tennis", locations:["Kent Ridge - MPSH 2"], 
-        maxPlayers:["2","3","4","5","6"] },
-        { sport: "Tennis", locations:["Kent Ridge - Outdoor Tennis Courts"], 
-        maxPlayers:["2","3","4","5","6"] },
-      ];
 
     const setToday = () => {
         var today = new Date();
