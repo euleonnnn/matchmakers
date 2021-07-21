@@ -68,39 +68,76 @@ const Dashboard = ({ getGames, getCurrentProfile, auth: { user }, profile: { pro
     }
   }, [user]);
 
-  var suggestLim = 0;
-
   const convertTime = e => {
     var d1 = new Date(e);
     return d1.getTime();
   }
 
-  const suggestGames = (game) => {
-    if (suggestLim === 3) {
-      return false;
-    }
-    if (profile.interests.includes(game.sport)) {
-      suggestLim++;
-      return true;
-    }
-    if (friends.filter(friend => friend._id === game.user).length > 0) {
-      suggestLim++;
-      return true;
-    }
-    if (friends.filter(friend => game.players.includes(friend._id)).length > 0) {
-      suggestLim++;
-      return true;
-    }
-    return false;
-  }
-
-
   if (loading || user === null) {
     return <Spinner />;
   } else {
-    const my_games = games.filter(game => game.user === user._id)
-    const joined_games = games.filter(game => game.user !== user._id && game.players.filter(player => player.user === user._id).length > 0)
-    const not_joined = games.filter(game => game.user !== user._id && game.players.filter(player => player.user === user._id).length === 0)
+    const my_games = games.filter(game => game.user === user._id);
+    const joined_games = games.filter(game => game.user !== user._id && game.players.filter(player => player.user === user._id).length > 0);
+    const not_joined = games.filter(game => game.user !== user._id && game.players.filter(player => player.user === user._id).length === 0 && convertTime(game.dateTime) > Date.now());
+    var suggestedGames = new Array(4);
+  
+    for (let i = 0; i < 4; i++) {
+      suggestedGames[i] = [];
+    }
+
+    const suggestGames = (game) => { 
+      if (profile.interests.includes(game.sport)) {
+        if (friends.filter(friend => friend._id === game.user).length > 0) {
+          if (friends.filter(friend => game.players.includes(friend._id)).length > 0) {
+            suggestedGames[3].push(game);
+            return;
+          }
+          suggestedGames[2].push(game);
+          return;
+        }
+        if (friends.filter(friend => game.players.includes(friend._id)).length > 0) {
+          suggestedGames[2].push(game);
+          return;
+        }
+        suggestedGames[1].push(game);
+        return;
+      }
+      if (friends.filter(friend => friend._id === game.user).length > 0) {
+        if (friends.filter(friend => game.players.includes(friend._id)).length > 0) {
+          suggestedGames[2].push(game);
+          return;
+        }
+        suggestedGames[1].push(game);
+        return;
+      }
+      if (friends.filter(friend => game.players.includes(friend._id)).length > 0) {
+        suggestedGames[1].push(game);
+        return;
+      }
+      suggestedGames[0].push(game);
+      return;
+    }
+
+    if (not_joined.length > 0 && profile) {
+      not_joined.map(game => suggestGames(game));
+    }
+
+    var suggestions = new Array(3);
+    if (suggestedGames[0].length > 0 || suggestedGames[1].length > 0 || suggestedGames[2].length > 0 || suggestedGames[3].length > 0) {
+      let i = 0;
+      for (i; i <= 2; i++) {
+        if(suggestedGames[3].length > 0) {
+          suggestions.push(suggestedGames[3].pop());
+        } else if(suggestedGames[2].length > 0) {
+          suggestions.push(suggestedGames[2].pop());
+        } else if(suggestedGames[1].length > 0) {
+          suggestions.push(suggestedGames[1].pop());
+        } else {
+          suggestions.push(suggestedGames[0].pop());
+        }
+      }
+   }
+    
     return <Fragment>
       <h1 className="large big-header my-top"><i className="fas fa-dumbbell" /> {" "} Hello There, {user && user.name}</h1>
       {profile !== null && user !== null ?
@@ -149,8 +186,7 @@ const Dashboard = ({ getGames, getCurrentProfile, auth: { user }, profile: { pro
 
 
                   <h4 className="text-primary my-top">  Suggested Games : </h4>
-                  {not_joined.length > 0 && not_joined.map(game => suggestGames(game) ? <SuggestedGames game={game}/> : <></>)}
-
+                  {suggestions.length > 0 && suggestions.map(game => <SuggestedGames game={game}/>)}
 
                 </div>
               </div>
