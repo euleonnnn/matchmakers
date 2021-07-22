@@ -139,14 +139,14 @@ const Notifications = ({getGames, getCurrentProfile, auth: { user }, chat:{chats
                 
                 <div className="card-header">
      
-                <strong> Games That Might Interest You: </strong>
+                <div className="centralize"><strong> Games That Might Interest You </strong> </div>
                 </div>
                 {showing ? (suggestions.length > 0 && 
                     suggestions.map(game => game ? <SuggestedGames game={game}/> : <></>)) : 
                     <li className="list-group-item"> <h2 className="centralize"> . . . </h2> </li>}
                 
                 <div className="card-header my-top">
-                    <strong> Join Your Friends: </strong>
+                <div className="centralize"><strong> Join Your Friends </strong> </div>
                 </div>
                 {showing ? (withfriends.length > 0 && 
                     withfriends.map(game =>  game ? <SuggestedGames game={game}/> : <></>)) : 

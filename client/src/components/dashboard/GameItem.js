@@ -81,6 +81,8 @@ const GameItem = ({ game, auth, mine }) => {
                       <div className="flexi my-top-small"> {latestsender == auth.user.name && latestsender+ " (Me)"}
                       {latestsender !== auth.user.name && latestsender} : <div className="messagetext flexi"> {latesttext}
                       </div> </div> <span className="text-muted btmtext"> {" "}{timeago}</span> </Fragment> }
+                      {latestsender === "" &&  <Fragment>
+                      <div className="flexi"> It is really quiet here <span role="img"> 🤫 </span></div> </Fragment>}
                       </div>
                   </div>
                   <Link to={`/games/${game._id}`} className="btn btn-dark join-all my-right"> Enter Room</Link>

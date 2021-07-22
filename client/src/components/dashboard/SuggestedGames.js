@@ -4,21 +4,22 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import dateformat from '../../utils/dateformat';
 
-const GameItem = ({ game }) => {
+const GameItem = ({ game, history }) => {
     
-
     return (
         <Fragment>
-            <div className="card mb-3" >
-                <div className="row g-0">
-                    <div className="card-body">
-                    <h5 className="card-title">{game.sport}</h5>
-                    <br></br>
-                    <p className="card-text"> <span className='text-primary'> Location: </span> {game.location === "Others" ? game.otherLoc : game.location}</p>
-                    <p className="card-text"> <span className='text-primary'> Waiting Room: </span> {game.players.length} players out of {game.maxPlayers}</p>
-                    <p className="card-text"> <span className='text-primary'> Day: </span> {dateformat(game.dateTime)} </p>
-                    <p className="card-text"> <span className='text-primary'> Host: </span> {game.name} </p>
-                    <Link to={`/games/${game._id}`} className="btn btn-dark join-all my-right"> Enter Room</Link>
+            <div className="icon-box3 mb-3">
+                <div className="card-body" >
+                    <div className="row g-0">
+                        <div className="card-body">
+                        <h5 className="card-title">{game.sport}</h5>
+                        <br></br>
+                        <p className="card-text"> <span className='text-primary'> Location: </span> {game.location === "Others" ? game.otherLoc : game.location}</p>
+                        <p className="card-text"> <span className='text-primary'> Waiting Room: </span> {game.players.length} players out of {game.maxPlayers}</p>
+                        <p className="card-text"> <span className='text-primary'> Day: </span> {dateformat(game.dateTime)} </p>
+                        <p className="card-text"> <span className='text-primary'> Host: </span> {game.name} </p>
+                        <Link to={`/games/${game._id}`} className="btn btn-gray btn-lg btn-block"> Join Now </Link>
+                        </div>
                     </div>
                 </div>
             </div>

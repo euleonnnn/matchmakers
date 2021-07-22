@@ -2361,7 +2361,7 @@ textarea.form-control.is-invalid {
   }
 }
 .btn:hover {
-  color: #212529;
+  color: #808080;
   text-decoration: none;
 }
 
@@ -4845,10 +4845,9 @@ input[type='submit'].btn-block {
     border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 
-.centralize{
+.centralize {
   text-align: center;
 }
-
 
 .bdg {
   display: inline-block;
@@ -7749,6 +7748,47 @@ button.bg-dark:hover {
 }
 
 .icon-box2:hover {
+  transform: scale(1.08);
+}
+
+.icon-box3 {
+  position: relative;
+  overflow: hidden;
+  background: hsla(0, 0%, 96%, 0.911);
+  box-shadow: 0 0 29px 0 rgba(18, 66, 101, 0.08);
+  transition: all 0.3s ease-in-out;
+  border-radius: 8px;
+  z-index: 1;
+}
+
+.icon-box3 .title {
+  font-weight: 700;
+  margin-bottom: 15px;
+  font-size: 18px;
+}
+
+.icon-box3 .title a {
+  color: #124265;
+  transition: 0.3s;
+}
+
+.icon-box3 .description {
+  font-size: 15px;
+  line-height: 28px;
+  margin-bottom: 0;
+}
+
+.icon-box3 .icon {
+  margin-bottom: 20px;
+  padding-top: 10px;
+  display: inline-block;
+  transition: all 0.3s ease-in-out;
+  font-size: 36px;
+  line-height: 1;
+  color: #2487ce;
+}
+
+.icon-box3:hover {
   transform: scale(1.08);
 }
 
