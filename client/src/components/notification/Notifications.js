@@ -139,7 +139,7 @@ const Notifications = ({getGames, getCurrentProfile, auth: { user }, chat:{chats
                 
                 <div className="card-header">
      
-                <div className="centralize"><strong> Games That Might Interest You </strong> </div>
+                <div className="centralize"><strong> Based on your interests </strong> </div>
                 </div>
                 {showing ? (suggestions.length > 0 && 
                     suggestions.map(game => game ? <SuggestedGames game={game}/> : <></>)) : 

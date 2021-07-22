@@ -422,7 +422,7 @@ const Games = ( {getCurrentProfile, deleteGame, clearGame, getGames, game: {game
     return loading ? <Spinner /> : <Fragment>
           <h1 className = "large big-header text-dark"> Available Rooms </h1>
           <div className="icon-box" >
-            <h1 className="big-description"> Join an activity or create your own, with a few clicks. </h1>
+            <h1 className="big-description"> Join an activity or create your own, with just a few clicks. </h1>
                 <div className="vertical-center">
                 <Link to="/create-game" className="btn btn-primary my-2"> Create Your Activity</Link>
                 </div>

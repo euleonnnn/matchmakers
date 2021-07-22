@@ -11,9 +11,8 @@ import '../../css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 import axios from "axios";
 import { logout } from '../../actions/auth';
-import SuggestedGames from './SuggestedGames';
 
-const Dashboard = ({ getGames, getCurrentProfile, auth: { user }, profile: { profile, loading }, game: { games }, logout }) => {
+const Dashboard = ({getGames, getCurrentProfile, auth: { user }, profile: { profile, loading }, game: { games }, logout }) => {
 
   const icon_dict = {
     "basketball" : <span role="img">🏀</span>,
@@ -42,12 +41,25 @@ const Dashboard = ({ getGames, getCurrentProfile, auth: { user }, profile: { pro
   const [friends, setFriends] = useState([]);
 
   useEffect(() => {
-    getGames();
+    let cancel = false;
+    try {
+      if (cancel) return;
+      getGames();
+    } catch (err) {
+      console.log(err);
+    }
   }, [games, getGames]);
 
   useEffect(() => {
-    getCurrentProfile();
+    let cancel = false;
+    try {
+      if (cancel) return;
+      getCurrentProfile();
+    } catch (err) {
+      console.log(err);
+    }
   }, [profile, getCurrentProfile]);
+
 
   useEffect(() => {
     let cancel = false;
@@ -98,7 +110,7 @@ const Dashboard = ({ getGames, getCurrentProfile, auth: { user }, profile: { pro
                     })}
                   </ul>
                       
-                  <h4 className="text-primary my-top my-btm-small"> Pending Games </h4>
+                  <h4 className="text-primary my-top my-btm-small"> Your Upcoming Activities </h4>
 
 
                   {my_games.filter(game => (convertTime(game.dateTime) > Date.now())).length === 0 &&

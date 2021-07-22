@@ -3,10 +3,12 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import GameMessage from './GameMessage';
+import {format} from 'timeago.js'
+
 
 let model;
 
-const GameChat = ({gamechat : {gamechat} }) => {
+const GameChat = ({gamechat : {gamechat}, game : {game, loading} }) => {
     const [messages, setMessages] = useState([]);
     const [formData, setFormData] = useState("");
     const [toxicloading, setLoadingToxic] = useState(false);
@@ -88,12 +90,16 @@ const GameChat = ({gamechat : {gamechat} }) => {
       }
     }
 
+
       return <Fragment>
           <div className="chatbox chatbg">
                 {messages.length === 0 &&
-                 <div ref = {scroll}>
-                  </div>
+                 <div ref = {scroll}> 
+                    <div className="messagetext flexi"> {game.name} has created the ChatRoom</div>
+                    </div>
                 }
+                {messages.length >= 1 && 
+                <div className="messagetext flexi"> {game.name} has created the ChatRoom</div>}
                 {messages.length > 0 && messages.map((msg) => (
                     <div ref = {scroll}>
                     < GameMessage message={msg} key ={msg._id} />
@@ -118,12 +124,14 @@ const GameChat = ({gamechat : {gamechat} }) => {
 
 
 GameChat.propTypes = {
-    gamechat: PropTypes.object.isRequired
+    gamechat: PropTypes.object.isRequired,
+    game: PropTypes.object.isRequired
 };
 
 
 const mapStateToProps = (state) => ({ 
-    gamechat: state.gamechat
+    gamechat: state.gamechat,
+    game: state.game
 });
 
   
