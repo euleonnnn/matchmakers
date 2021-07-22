@@ -4,13 +4,11 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Spinner from '../layout/Spinner';
 import FriendList from './FriendList';
-import Request from './Request';
 import GameItem from './GameItem';
 import { getCurrentProfile } from '../../actions/profile';
 import { getGames } from '../../actions/game';
 import '../../css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
-import bball from '../layout/bball.jpg';
 import axios from "axios";
 import { logout } from '../../actions/auth';
 import SuggestedGames from './SuggestedGames';
@@ -78,83 +76,7 @@ const Dashboard = ({ getGames, getCurrentProfile, auth: { user }, profile: { pro
   } else {
     const my_games = games.filter(game => game.user === user._id);
     const joined_games = games.filter(game => game.user !== user._id && game.players.filter(player => player.user === user._id).length > 0);
-    const not_joined = games.filter(game => game.user !== user._id && game.players.filter(player => player.user === user._id).length === 0 && convertTime(game.dateTime) > Date.now());
-    var suggestedGames = new Array(4);
-    var friendGames = new Array(2);
-  
-    for (let i = 0; i < 4; i++) {
-      suggestedGames[i] = [];
-    }
-    for (let i = 0; i < 2; i++) {
-      friendGames[i] = [];
-    }
 
-    const suggestGames = (game) => { 
-      if (profile.interests.includes(game.sport)) {
-        if (friends.filter(friend => friend._id === game.user).length > 0) {
-          if (friends.filter(friend => game.players.includes(friend._id)).length > 0) {
-            suggestedGames[3].push(game);
-            return;
-          }
-          suggestedGames[2].push(game);
-          return;
-        }
-        if (friends.filter(friend => game.players.includes(friend._id)).length > 0) {
-          suggestedGames[2].push(game);
-          return;
-        }
-        suggestedGames[1].push(game);
-        return;
-      }
-      if (friends.filter(friend => friend._id === game.user).length > 0) {
-        if (friends.filter(friend => game.players.includes(friend._id)).length > 0) {
-          friendGames[1].push(game);
-          return;
-        }
-        friendGames[0].push(game);
-        return;
-      }
-      if (friends.filter(friend => game.players.includes(friend._id)).length > 0) {
-        friendGames[0].push(game);
-        return;
-      }
-      suggestedGames[0].push(game);
-      return;
-    }
-
-    if (not_joined.length > 0 && profile) {
-      not_joined.map(game => suggestGames(game));
-    }
-
-    var suggestions = new Array(2);
-    var withfriends = new Array(2);
-    if (suggestedGames[0].length > 0 || suggestedGames[1].length > 0 || suggestedGames[2].length > 0 || suggestedGames[3].length > 0) {
-      let i = 0;
-      for (i; i <= 1; i++) {
-        if(suggestedGames[3].length > 0) {
-          suggestions.push(suggestedGames[3].pop());
-        } else if(suggestedGames[2].length > 0) {
-          suggestions.push(suggestedGames[2].pop());
-        } else if(suggestedGames[1].length > 0) {
-          suggestions.push(suggestedGames[1].pop());
-        } else {
-          suggestions.push(suggestedGames[0].pop());
-        }
-      }
-   }
-
-   if (friendGames[0].length > 0 || friendGames[1].length > 0) {
-    let i = 0;
-    for (i; i <= 1; i++) {
-      if(friendGames[1].length > 0) {
-        withfriends.push(friendGames[1].pop());
-      } else {
-        withfriends.push(friendGames[0].pop());
-      } 
-    }
-    console.log(withfriends);
- }
-    
     return <Fragment>
       <h1 className="large big-header my-top"><i className="fas fa-dumbbell" /> {" "} Hello There, {user && user.name}</h1>
       {profile !== null && user !== null ?
@@ -197,16 +119,7 @@ const Dashboard = ({ getGames, getCurrentProfile, auth: { user }, profile: { pro
                 <div className="col-sm-4 col-md-4">
                   <div className="my-btm"> <FriendList /></div>
 
-                  <Request />
-
                   <Link to="/my-profile" className="btn btn-secondary btn-lg btn-block my-top"> <i className="fas fa-cog" /> Profile Settings </Link>
-
-
-                  <h4 className="text-primary my-top">  Suggested Games : </h4>
-                  <h6 className="text-primary my-top">  Games That Might Interest You: </h6>
-                  {suggestions.length > 0 && suggestions.map(game => game ? <SuggestedGames game={game}/> : <></>)}
-                  <h6 className="text-primary my-top">  Join Your Friends: </h6>
-                  {withfriends.length > 0 && withfriends.map(game =>  game ? <SuggestedGames game={game}/> : <></>)}
 
                 </div>
               </div>

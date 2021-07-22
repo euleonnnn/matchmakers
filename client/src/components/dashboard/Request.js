@@ -3,14 +3,15 @@ import axios from "axios";
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import FollowerItem from "./FollowerItem";
-import Loading from '../layout/Loading';
+import Spinner from '../layout/Spinner';
+import { Fragment } from "react";
 
 
 const Request = ({auth: { user }, chat:{chats}}) => {
 
     const [friends, setFriends] = useState([]);
     const [followers, setFollowers] = useState([]);
-    const [reqlength, setLength] = useState(" ");
+    const [setup, toggleSetUp] = useState(false);
 
 
     useEffect(() => {
@@ -28,7 +29,7 @@ const Request = ({auth: { user }, chat:{chats}}) => {
         return () => { 
           cancel = true;
         }
-      }, []);
+      });
 
 
       useEffect(() => {
@@ -38,7 +39,7 @@ const Request = ({auth: { user }, chat:{chats}}) => {
             if (cancel) return;
             const followerList = await axios.get("/api/users/followers/" + user._id);
             setFollowers(followerList.data);
-            setLength(followerList.data.length)
+            toggleSetUp(!setup)
           } catch (err) {
             console.log(err);
           }
@@ -47,14 +48,14 @@ const Request = ({auth: { user }, chat:{chats}}) => {
         return () => { 
           cancel = true;
         }
-      }, []);
+      });
     
     
       const idlist = []
       friends.map(friend => idlist.push(friend._id))
 
 
-        return followers.length === 0 ? null:
+      return <Fragment>
       <div className="card">
           <div className="card-header2">
               <strong> Follow Requests </strong>
@@ -62,16 +63,14 @@ const Request = ({auth: { user }, chat:{chats}}) => {
               </span>}
           </div>
           <ul className="list-group list-group-flush">
-            {reqlength === " " && <Loading/>}
-            {followers.filter(follower => !idlist.includes(follower._id)) === 0 && 
-            <li className="list-group-item"> No Incoming Requests <span role="img"> 😞 </span></li>}
+            {followers.filter(follower => !idlist.includes(follower._id)).length === 0 && 
+            <li className="list-group-item"> No New Requests <span role="img"> 😞 </span></li>}
             {followers.filter(follower => !idlist.includes(follower._id)).map(f => 
                 <FollowerItem follower = {f}  key={f._id}/>
                 )}
           </ul>
         </div>
-       
-    
+        </Fragment>    
 }
 
 

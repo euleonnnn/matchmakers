@@ -4545,6 +4545,7 @@ input[type='submit'].btn-block {
   margin-left: 1.25rem;
 }
 .card-header {
+  padding: 10px;
   margin-bottom: 0;
   background-color: #f58f7c;
   border-bottom: 1px solid rgba(0, 0, 0, 0.125);
@@ -4843,6 +4844,11 @@ input[type='submit'].btn-block {
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
     border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
+
+.centralize{
+  text-align: center;
+}
+
 
 .bdg {
   display: inline-block;
