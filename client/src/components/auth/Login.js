@@ -1,5 +1,5 @@
 import React, { Fragment, useState } from 'react';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { login } from '../../actions/auth';
@@ -64,7 +64,7 @@ const Login = ({ login, isAuthenticated }) => {
                 </div>
                 <input type="submit" className="btn btn-primary my-1" value="Login" />
               </form>
-             
+             <p className="text-secondary my-3">Don't have an account? Sign up <Link to='/register'>here</Link>!</p>
             </div>
     </Fragment>
   );
