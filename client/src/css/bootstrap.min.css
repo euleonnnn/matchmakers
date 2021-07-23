@@ -7812,6 +7812,11 @@ button.bg-dark:hover {
   margin-right: 1rem !important;
 }
 
+.my-right-small {
+  margin-right: 0.5rem !important;
+}
+
+
 .my-left {
   margin-left: 1rem !important;
 }
