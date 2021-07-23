@@ -6,6 +6,10 @@ import { Provider } from 'react-redux'
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import Sinon from 'sinon';
+import { getProfilesById } from '../../actions/profile';
+import { authUser } from '../../actions/auth';
+import { createChat } from '../../actions/chat';
+import PropTypes from 'prop-types';
 
 const mockStore = configureMockStore([thunk]);
 Enzyme.configure({ adapter: new Adapter() });
@@ -37,6 +41,20 @@ describe('UserProfiles', () => {
                     auth={stubObj}
                     chat={stubObj}
                     profile={stubObj}
+                />
+            </Provider>
+        );
+        expect(wrapper).toMatchSnapshot();
+    });
+    it("integration testing", () => {
+        const wrapper = shallow(
+            <Provider store={store}>
+                <UserProfile getProfilesById={getProfilesById} 
+                    authUser={authUser} 
+                    createChat={createChat}
+                    auth={PropTypes.auth}
+                    chat={PropTypes.chat}
+                    profile={PropTypes.profile}
                 />
             </Provider>
         );

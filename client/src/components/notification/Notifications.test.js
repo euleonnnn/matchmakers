@@ -1,27 +1,32 @@
 import React from 'react';
-import Games from './Games';
+import Notifications from './Notifications';
 import Adapter from "enzyme-adapter-react-16";
-import Enzyme, { shallow } from "enzyme";
+import Enzyme, { shallow} from "enzyme";
 import { Provider } from 'react-redux'
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import Sinon from 'sinon';
-import { getCurrentProfile } from '../../actions/profile';
-import { getGames, clearGame, deleteGame } from '../../actions/game';
 import PropTypes from 'prop-types';
-
+import { getGames } from '../../actions/game';
+import { getCurrentProfile } from '../../actions/profile';
 
 const mockStore = configureMockStore([thunk]);
 Enzyme.configure({ adapter: new Adapter() });
 
-describe('Games', () => {
+describe('Follower Item', () => {
     let store;
     beforeEach(() => {
         store = mockStore({
             auth: {
                 sport: 'BASKETBALL',
             },
+            chat: {
+                sport: 'BASKETBALL',
+            },
             game: {
+                sport: 'BASKETBALL',
+            },
+            profile: {
                 sport: 'BASKETBALL',
             },
         });
@@ -32,12 +37,12 @@ describe('Games', () => {
     it("shallow render", () => {
         const wrapper = shallow(
             <Provider store={store}>
-                <Games getCurrentProfile={Sinon.stub()} 
-                    deleteGame={Sinon.stub()}
-                    clearGame={Sinon.stub()}
-                    getGames={Sinon.stub()} 
+                <Notifications getGames={Sinon.spy()}
+                    getCurrentProfile={Sinon.spy()} 
                     auth={stubObj} 
+                    chat={stubObj} 
                     game={stubObj}
+                    profile={stubObj}
                 />
             </Provider>
         );
@@ -46,16 +51,15 @@ describe('Games', () => {
     it("integration testing", () => {
         const wrapper = shallow(
             <Provider store={store}>
-                <Games getCurrentProfile={getCurrentProfile} 
-                    deleteGame={deleteGame}
-                    clearGame={clearGame}
-                    getGames={getGames} 
+                <Notifications getGames={getGames}
+                    getCurrentProfile={getCurrentProfile} 
                     auth={PropTypes.auth} 
+                    chat={PropTypes.chat} 
                     game={PropTypes.game}
+                    profile={PropTypes.profile}
                 />
             </Provider>
         );
         expect(wrapper).toMatchSnapshot();
     });
-    
 })

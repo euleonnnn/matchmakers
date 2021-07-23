@@ -23,5 +23,13 @@ describe('Landing', () => {
         );
         expect(wrapper).toMatchSnapshot();
     });
+    it("integration testing", () => {
+        const wrapper = shallow(
+            <Provider store={store}>
+                <Landing isAuthenticated={false}/>
+            </Provider>
+        );
+        expect(wrapper).toMatchSnapshot();
+    });
     
 })

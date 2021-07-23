@@ -6,6 +6,7 @@ import { Provider } from 'react-redux'
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import Sinon from 'sinon';
+import PropTypes from 'prop-types';
 
 const mockStore = configureMockStore([thunk]);
 Enzyme.configure({ adapter: new Adapter() });
@@ -25,7 +26,15 @@ describe('Game Message', () => {
       it("shallow render", () => {
         const wrapper = shallow(
             <Provider store={store}>
-                <GameMessage auth={stubObj}/>
+                <GameMessage auth={stubObj} message={stubObj}/>
+            </Provider>
+        );
+        expect(wrapper).toMatchSnapshot();
+    });
+    it("integration testing", () => {
+        const wrapper = shallow(
+            <Provider store={store}>
+                <GameMessage auth={PropTypes.auth} message={""}/>
             </Provider>
         );
         expect(wrapper).toMatchSnapshot();

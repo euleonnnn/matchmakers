@@ -6,6 +6,8 @@ import { Provider } from 'react-redux'
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import Sinon from 'sinon';
+import { createChat, getChats } from '../../actions/chat';
+import PropTypes from 'prop-types';
 
 const mockStore = configureMockStore([thunk]);
 Enzyme.configure({ adapter: new Adapter() });
@@ -37,5 +39,16 @@ describe('Profiles', () => {
         );
         expect(wrapper).toMatchSnapshot();
     });
-    
+    it("integration testing", () => {
+        const wrapper = shallow(
+            <Provider store={store}>
+                <FriendItem createChat={createChat} 
+                    getChats={getChats} 
+                    auth={PropTypes.auth}
+                    chat={PropTypes.chat}
+                />
+            </Provider>
+        );
+        expect(wrapper).toMatchSnapshot();
+    });
 })

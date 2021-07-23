@@ -1,20 +1,27 @@
 import React from 'react';
-import OnlineGamesForm from './OnlineGamesForm';
+import SuggestedGames from './SuggestedGames'
 import Adapter from "enzyme-adapter-react-16";
-import Enzyme, { shallow} from "enzyme";
+import Enzyme, { shallow } from "enzyme";
 import { Provider } from 'react-redux'
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import Sinon from 'sinon';
-import { createGame } from '../../actions/game';
+import PropTypes from 'prop-types';
 
 const mockStore = configureMockStore([thunk]);
 Enzyme.configure({ adapter: new Adapter() });
 
-describe('Online Games Form', () => {
+describe('Game Item', () => {
     let store;
     beforeEach(() => {
-        store = mockStore({});
+        store = mockStore({
+            auth: {
+                sport: 'BASKETBALL',
+            },
+            chat: {
+                sport: 'BASKETBALL',
+            },
+        });
     });
     var stubObj = {
         sport: Sinon.stub(),
@@ -22,7 +29,7 @@ describe('Online Games Form', () => {
     it("shallow render", () => {
         const wrapper = shallow(
             <Provider store={store}>
-                <OnlineGamesForm createGame={Sinon.stub()} history={stubObj}/>
+                <SuggestedGames game={stubObj} history={stubObj}/>
             </Provider>
         );
         expect(wrapper).toMatchSnapshot();
@@ -30,7 +37,7 @@ describe('Online Games Form', () => {
     it("integration testing", () => {
         const wrapper = shallow(
             <Provider store={store}>
-                <OnlineGamesForm createGame={createGame} history={""}/>
+                <SuggestedGames game={PropTypes.game} history={""}/>
             </Provider>
         );
         expect(wrapper).toMatchSnapshot();

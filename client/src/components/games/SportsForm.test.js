@@ -15,10 +15,21 @@ describe('Sports Form', () => {
     beforeEach(() => {
         store = mockStore({});
     });
+    var stubObj = {
+        sport: Sinon.stub(),
+    };
     it("shallow render", () => {
         const wrapper = shallow(
             <Provider store={store}>
-                <SportsForm createGame={Sinon.stub()}/>
+                <SportsForm createGame={Sinon.stub()} history={stubObj}/>
+            </Provider>
+        );
+        expect(wrapper).toMatchSnapshot();
+    });
+    it("integration testing", () => {
+        const wrapper = shallow(
+            <Provider store={store}>
+                <SportsForm createGame={Sinon.stub()} history={""}/>
             </Provider>
         );
         expect(wrapper).toMatchSnapshot();

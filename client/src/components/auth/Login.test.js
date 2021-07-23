@@ -6,6 +6,8 @@ import { Provider } from 'react-redux'
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import Sinon from 'sinon';
+import { login } from '../../actions/auth';
+import PropTypes from 'prop-types';
 
 const mockStore = configureMockStore([thunk]);
 Enzyme.configure({ adapter: new Adapter() });
@@ -34,6 +36,14 @@ describe('Login', () => {
         const wrapper = render(
             <Provider store={store}>
                 <Login isAuthenticated={true} profile={stubObj} login={Sinon.stub()}/>
+            </Provider>
+        );
+        expect(wrapper).toMatchSnapshot();
+    });
+    it("integration testing", () => {
+        const wrapper = render(
+            <Provider store={store}>
+                <Login isAuthenticated={true} profile={PropTypes.profile} login={login}/>
             </Provider>
         );
         expect(wrapper).toMatchSnapshot();

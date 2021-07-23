@@ -28,7 +28,15 @@ describe('Alert', () => {
       it("shallow render", () => {
         const wrapper = shallow(
             <Provider store={store}>
-                <Alert alert={stubObj}/>
+                <Alert alerts={stubObj}/>
+            </Provider>
+        );
+        expect(wrapper).toMatchSnapshot();
+    });
+    it("integration testing", () => {
+        const wrapper = shallow(
+            <Provider store={store}>
+                <Alert alerts={""}/>
             </Provider>
         );
         expect(wrapper).toMatchSnapshot();
