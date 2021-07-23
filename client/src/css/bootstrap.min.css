@@ -3951,6 +3951,11 @@ input[type='submit'].btn-block {
 .nametext {
   color: white;
   text-align: center;
+  float:center;
+}
+
+.name {
+  margin-left: 7.5rem;
 }
 
 .namebox {
