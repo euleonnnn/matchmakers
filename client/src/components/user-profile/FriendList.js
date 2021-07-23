@@ -9,21 +9,23 @@ const FriendList = ({auth: { user }, chat:{chats}}) => {
 
     const [friends, setFriends] = useState([]);
 
-
     useEffect(() => {
-        const getFriends = async () => {
-          try {
-            const friendList = await axios.get("/api/users/friends/" + user._id);
-            setFriends(friendList.data);
-            console.log("Getting friends")
-          } catch (err) {
-            console.log(err);
-          }
-        };
-        getFriends()
-      });
-    
-    
+      let cancel = false;
+      const getFriends = async () => {
+        if (cancel) return;
+        try {
+          const friendList = await axios.get("/api/users/friends/" + user._id);
+          setFriends(friendList.data);
+        } catch (err) {
+          console.log(err);
+        }
+      };
+      getFriends()
+      return () => { 
+        cancel = true;
+      }
+    }, []);
+  
 
     return (
       

@@ -33,7 +33,7 @@ const MyProfile = ({ getCurrentProfile, auth: { user }, profile : { profile, loa
           <p> <strong> Your Interests: </strong></p>
             <ul>
               {profile.interests.map(item => {
-                  return <li>{item}</li>;
+                  return <li key = {item._id}>{item}</li>;
                 })}
             </ul>
 

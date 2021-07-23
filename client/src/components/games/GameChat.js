@@ -102,7 +102,7 @@ const GameChat = ({gamechat : {gamechat}, game : {game, loading} }) => {
                 <div className="messagetext flexi"> {game.name} has created the ChatRoom</div>}
                 {messages.length > 0 && messages.map((msg) => (
                     <div ref = {scroll}>
-                    < GameMessage message={msg} key ={msg._id} />
+                    < GameMessage message={msg} key ={msg} />
                     </div>
                   ))}
             <form className ="input-group my-top" onSubmit={e => e.preventDefault()}> 

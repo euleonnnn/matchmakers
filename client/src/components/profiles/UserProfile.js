@@ -89,7 +89,7 @@ const UserProfile = ({ createChat, chat:{chats}, authUser, getProfilesById, prof
             <p> <strong> Your Interests: </strong></p>
                 <ul>
                 {profile.interests.map(item => {
-                    return <li key={item._id}>{item}</li>;
+                    return <li key={item}>{item}</li>;
                     })}
                 </ul>
             
@@ -123,7 +123,7 @@ const UserProfile = ({ createChat, chat:{chats}, authUser, getProfilesById, prof
                 <button onClick= {()=> {
                   followUnfollow();
                 }} type="button" className="btn btn-danger">
-                   <i class="fas fa-user-minus"/>   Unfollow
+                   <i className="fas fa-user-minus"/>   Unfollow
                 </button>
                 ) 
             }

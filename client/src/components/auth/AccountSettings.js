@@ -23,12 +23,6 @@ const AccountSettings= ({ getCurrentProfile, logout}) => {
             <li className="list-group-item"> 
                 <Link to={`/change-password`} className="btn btn-light btn-lg btn-block"> Update Password  </Link> 
             </li> 
-            <li className="list-group-item"> 
-                <Link to={"#!"} className="btn btn-light btn-lg btn-block"> Privacy Settings </Link> 
-            </li> 
-            <li className="list-group-item"> 
-                <Link to={"#!"} className="btn btn-light btn-lg btn-block"> Blocked Users  </Link> 
-            </li> 
             <li className="list-group-item">
             <Link to ="#!" onClick={logout} className="btn btn-danger btn-lg btn-block"> Logout </Link>
             </li>

@@ -3,7 +3,6 @@ import axios from "axios";
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import FollowerItem from "./FollowerItem";
-import Spinner from '../layout/Spinner';
 import { Fragment } from "react";
 
 

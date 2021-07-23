@@ -35,7 +35,8 @@ const Dashboard = ({getGames, getCurrentProfile, auth: { user }, profile: { prof
     "game": <span role ="img">🎮</span>,
     "gaming": <span role ="img">🎮</span>,
     "tennis" : <span role="img">🎾</span>,
-    "boxing" : <span role="img">🥊</span>
+    "boxing" : <span role="img">🥊</span>,
+    "badminton" : <span role="img">🏸</span>
   }
 
   const [friends, setFriends] = useState([]);

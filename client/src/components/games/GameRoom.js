@@ -214,7 +214,6 @@ const GameRoom = ({ getGameChat, createGameChat, clearProfile, getGameById, auth
                                 </div>
                             </div>
                                 {game.user !== auth.user._id &&  <Link to={`/profile/${game.user}`} className="btn btn-dark btn-lg btn-block"> View Host Profile </Link>}
-                                {game.user === auth.user._id &&  <Link to="#!" className="btn btn-dark btn-lg btn-block"> <i className="fas fa-cog"/> Game Settings </Link>}
                             </div>
                         </div>
                     </div>

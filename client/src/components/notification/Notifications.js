@@ -21,11 +21,29 @@ const Notifications = ({getGames, getCurrentProfile, auth: { user }, chat:{chats
     }
 
     useEffect(() => {
-        getGames();
+        let cancel = false;
+        try {
+          if (cancel) return;
+          getGames();
+        } catch (err) {
+          console.log(err)
+        }
+        return () => { 
+          cancel = true;
+        }
     }, [games, getGames]);
     
     useEffect(() => {
-        getCurrentProfile();
+        let cancel = false;
+        try {
+          if (cancel) return;
+          getCurrentProfile();
+        } catch (err) {
+          console.log(err)
+        }
+        return () => { 
+          cancel = true;
+        }
       }, [profile, getCurrentProfile]);
 
     useEffect(() => {
@@ -90,7 +108,7 @@ const Notifications = ({getGames, getCurrentProfile, auth: { user }, chat:{chats
         suggestedGames[0].push(game);
         return;
       }
-    
+
       if (not_joined.length > 0 && profile) {
         not_joined.map(game => suggestGames(game));
       }

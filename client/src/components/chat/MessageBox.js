@@ -108,7 +108,7 @@ const MessageBox = ({getChats, auth: { user }, chat : {chats}}) => {
     return <Fragment>
         <div className ="row">
         <div className="col-sm-4 col-md-4 chatbg-dark">
-        <Link to ='/profiles' className="btn btn-outline-primary my-top"> Find More Friends <i class="fas fa-plus"/> </Link>
+        <Link to ='/profiles' className="btn btn-outline-primary my-top"> Find More Friends <i className="fas fa-plus"/> </Link>
             {chats.map((chat=> (
                 <div onClick ={()=> setChat(chat)}>
                     <Chat key ={chat._id} chat = {chat} /> 

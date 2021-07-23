@@ -28,15 +28,42 @@ const Games = ( {getCurrentProfile, deleteGame, clearGame, getGames, game: {game
 
     // eslint-disable-next-line
     useEffect(() => {
-        getGames();
-    },[getGames]);
+        let cancel = false;
+        try {
+            if (cancel) return;
+            getGames();
+        } catch(err) {
+            console.log(cancel)
+        }
+        return () => { 
+            cancel = true;
+        }
+    }, [getGames]);
 
     useEffect(() => {
-        clearGame();
+        let cancel = false;
+        try {
+            if (cancel) return;
+            clearGame();
+        } catch (err) {
+            console.log(cancel)
+        }
+        return () => { 
+            cancel = true;
+        }
     },[game]);
 
     useEffect(() => {
-        getCurrentProfile();
+        let cancel = false;
+        try {
+            if (cancel) return;
+            getCurrentProfile();
+        }  catch (err) {
+            console.log(cancel)
+        }
+        return () => { 
+            cancel = true;
+        }
       }, [getCurrentProfile]);
 
     useEffect(() => {

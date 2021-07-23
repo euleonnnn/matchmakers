@@ -177,10 +177,10 @@ class Call extends Component {
               <div 
                 key={streamId}
                 id={`agora_remote ${streamId}`}
-                style={{ width: "100%", height: "90%" }} className="my-top-small"
+                style={{ width: "100%", height: "80%" }} className="my-top-small"
               />
               <div class="card-body">
-              <h5 class="card-title whiten">{streamId} </h5>
+              <h5 class="card-title whiten"> {streamId} </h5>
             </div>
             </div>
             </Fragment>
