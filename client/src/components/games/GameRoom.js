@@ -94,7 +94,7 @@ const GameRoom = ({ getGameChat, createGameChat, clearProfile, getGameById, auth
                                 <ul>
                                     <li><strong>Enable Chat:</strong> Chat will not be enabled by default. To allow chat to take place in the room, 
                                     you can enable it by clicking the green button below </li>
-                                    <li><strong>Join Game:</strong> As the host, you still have to press "Join Game" (pink button) to confirm your availability 
+                                    <li><strong>Join Activity:</strong> As the host, you still have to press "Join Activity" (pink button) to confirm your availability 
                                     and be part of the game </li>
                                     <li><strong>Leave Lobby:</strong> Allows you to leave the room and be search for other rooms available. Do not that the room will not be 
                                     cancelled until you press the cancel button in the All Games page</li>
@@ -115,7 +115,7 @@ const GameRoom = ({ getGameChat, createGameChat, clearProfile, getGameById, auth
                                 <h6>As a Participant, you can ... </h6>
                                 <ul>
                                     <li><strong>Chat:</strong> Chat will have to be enabled by the room Host before any chatting can occur between users in the room</li>
-                                    <li><strong>Join Game:</strong> Please remember press "Join Game" (pink button) to confirm your availability 
+                                    <li><strong>Join Activity:</strong> Please remember press "Join Activity" (pink button) to confirm your availability 
                                     and be part of the game </li>
                                     <li><strong>Leave Lobby:</strong> Allows you to leave the room and be search for other rooms available.</li>
                                     <li><strong>Enter Video Call:</strong> This button will only show if the room is created for any online activities, such as study groups and 
@@ -177,7 +177,7 @@ const GameRoom = ({ getGameChat, createGameChat, clearProfile, getGameById, auth
                                     player.user === auth.user._id).length === 0  && 
                                     <button onClick= {()=> {
                                         joinGame();
-                                    }} type="button" className="btn btn-primary join-all"> Join Game </button>}
+                                    }} type="button" className="btn btn-primary join-all"> Join Activity </button>}
                                 </p>
 
                                 <h5> { game.players.length >= game.maxPlayers && <span className="badge badge-light">
