@@ -119,8 +119,15 @@ const MessageBox = ({getChats, auth: { user }, chat : {chats}}) => {
         <Fragment>             
         <div className="col-sm-8 col-md-8 namebox chatbg-dark">
         <h4 className="nametext my-btm my-top"> 
-          {currChat === null ? <></> : currChat.names.find(name => name !== user.name)} 
-        </h4>     
+        <span className='name'>{currChat === null ? <></> : currChat.names.find(name => name !== user.name) } </span>
+          { currChat === null 
+          ? <></> 
+          : <Link to={`/profile/${currChat.users.find((u)=> u !== user._id)}`} className="btn btn-outline-primary join-all">
+            View Profile
+          </Link>  
+          }
+        </h4> 
+  
             <div className="chatbox chatbg">
                 {messages.length>0 && messages.map((msg) => (
                     <div ref = {scroll}>
