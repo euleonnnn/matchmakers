@@ -8,7 +8,7 @@ import { SEND_ALERT, REMOVE_ALERT } from './types';
  * @param alertType Alert Type, either SET_ALERT or REMOVE_ALERT
  * @param timeout Time taken before timeout and alert is removed
  */
-export const setAlert = (msg, alertType, timeout = 3000) => dispatch => {
+export const setAlert = (msg, alertType, timeout = 5000) => dispatch => {
     const id = uuidv4();
     dispatch({
         type: SEND_ALERT, 
