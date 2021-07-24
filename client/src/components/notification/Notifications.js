@@ -14,6 +14,8 @@ const Notifications = ({getGames, getCurrentProfile, auth: { user }, chat:{chats
     
     const [friends, setFriends] = useState([]);
     const [showing, toggleShow] = useState(false)
+    const [fgames, setFGames] = useState([]);
+    const [igames, setIGames] = useState([]);
     
     const convertTime = e => {
         var d1 = new Date(e);
@@ -63,84 +65,93 @@ const Notifications = ({getGames, getCurrentProfile, auth: { user }, chat:{chats
         }
       }, []);
     
+    useEffect(() => {
+      let cancel = false;
+      try {
+      if (cancel) return;  
+      var suggestedGames = new Array(4);
+      var friendGames = new Array(2);
+      const not_joined = games.filter(game => game.user !== user._id && game.players.filter(player => player.user === user._id).length === 0 && convertTime(game.dateTime) > Date.now());
+      for (let i = 0; i < 4; i++) {
+        suggestedGames[i] = [];
+      }
+      for (let i = 0; i < 2; i++) {
+        friendGames[i] = [];
+      }
 
-    var suggestedGames = new Array(4);
-    var friendGames = new Array(2);
-    const not_joined = games.filter(game => game.user !== user._id && game.players.filter(player => player.user === user._id).length === 0 && convertTime(game.dateTime) > Date.now());
-
-    for (let i = 0; i < 4; i++) {
-      suggestedGames[i] = [];
-    }
-    for (let i = 0; i < 2; i++) {
-      friendGames[i] = [];
-    }
-
-  
-    const suggestGames = (game) => { 
-        if (profile.interests.includes(game.sport)) {
-          if (friends.filter(friend => friend._id === game.user).length > 0) {
-            if (friends.filter(friend => game.players.includes(friend._id)).length > 0) {
-              suggestedGames[3].push(game);
+    
+      const suggestGames = (game) => { 
+          if (profile.interests.includes(game.sport)) {
+            if (friends.filter(friend => friend._id === game.user).length > 0) {
+              if (friends.filter(friend => game.players.includes(friend._id)).length > 0) {
+                suggestedGames[3].push(game);
+                return;
+              }
+              suggestedGames[2].push(game);
               return;
             }
-            suggestedGames[2].push(game);
+            if (friends.filter(friend => game.players.includes(friend._id)).length > 0) {
+              suggestedGames[2].push(game);
+              return;
+            }
+            suggestedGames[1].push(game);
+            return;
+          }
+          if (friends.filter(friend => friend._id === game.user).length > 0) {
+            if (friends.filter(friend => game.players.includes(friend._id)).length > 0) {
+              friendGames[1].push(game);
+              return;
+            }
+            friendGames[0].push(game);
             return;
           }
           if (friends.filter(friend => game.players.includes(friend._id)).length > 0) {
-            suggestedGames[2].push(game);
+            friendGames[0].push(game);
             return;
           }
-          suggestedGames[1].push(game);
+          suggestedGames[0].push(game);
           return;
         }
-        if (friends.filter(friend => friend._id === game.user).length > 0) {
-          if (friends.filter(friend => game.players.includes(friend._id)).length > 0) {
-            friendGames[1].push(game);
-            return;
-          }
-          friendGames[0].push(game);
-          return;
-        }
-        if (friends.filter(friend => game.players.includes(friend._id)).length > 0) {
-          friendGames[0].push(game);
-          return;
-        }
-        suggestedGames[0].push(game);
-        return;
-      }
 
-      if (not_joined.length > 0 && profile) {
-        not_joined.map(game => suggestGames(game));
+        if (not_joined.length > 0 && profile) {
+          not_joined.map(game => suggestGames(game));
+        }
+      
+        var suggestions = new Array(2);
+        var withfriends = new Array(2);
+        if (suggestedGames[0].length > 0 || suggestedGames[1].length > 0 || suggestedGames[2].length > 0 || suggestedGames[3].length > 0) {
+          let i = 0;
+          for (i; i <= 1; i++) {
+            if(suggestedGames[3].length > 0) {
+              suggestions.push(suggestedGames[3].pop());
+            } else if(suggestedGames[2].length > 0) {
+              suggestions.push(suggestedGames[2].pop());
+            } else if(suggestedGames[1].length > 0) {
+              suggestions.push(suggestedGames[1].pop());
+            } else {
+              suggestions.push(suggestedGames[0].pop());
+            }
+          }
       }
-    
-      var suggestions = new Array(2);
-      var withfriends = new Array(2);
-      if (suggestedGames[0].length > 0 || suggestedGames[1].length > 0 || suggestedGames[2].length > 0 || suggestedGames[3].length > 0) {
+      
+      if (friendGames[0].length > 0 || friendGames[1].length > 0) {
         let i = 0;
         for (i; i <= 1; i++) {
-          if(suggestedGames[3].length > 0) {
-            suggestions.push(suggestedGames[3].pop());
-          } else if(suggestedGames[2].length > 0) {
-            suggestions.push(suggestedGames[2].pop());
-          } else if(suggestedGames[1].length > 0) {
-            suggestions.push(suggestedGames[1].pop());
+          if(friendGames[1].length > 0) {
+            withfriends.push(friendGames[1].pop());
           } else {
-            suggestions.push(suggestedGames[0].pop());
-          }
+            withfriends.push(friendGames[0].pop());
+          } 
         }
-     }
-    
-     if (friendGames[0].length > 0 || friendGames[1].length > 0) {
-      let i = 0;
-      for (i; i <= 1; i++) {
-        if(friendGames[1].length > 0) {
-          withfriends.push(friendGames[1].pop());
-        } else {
-          withfriends.push(friendGames[0].pop());
-        } 
       }
-      console.log(withfriends);
+      setIGames(suggestions);
+      setFGames(withfriends);
+    } catch (err) {
+      console.log(err);
+    } return () => { 
+      cancel = true;
     }
+    }, [friends, games, user, profile, setIGames, setFGames]);
 
 
 
@@ -159,15 +170,15 @@ const Notifications = ({getGames, getCurrentProfile, auth: { user }, chat:{chats
      
                 <div className="centralize"><strong> Based on your interests </strong> </div>
                 </div>
-                {showing ? (suggestions.length > 0 && 
-                    suggestions.map(game => game ? <SuggestedGames game={game}/> : <></>)) : 
+                {showing ? (igames.length > 0 && 
+                    igames.map(game => game ? <SuggestedGames game={game}/> : <></>)) : 
                     <li className="list-group-item"> <h2 className="centralize"> . . . </h2> </li>}
                 
                 <div className="card-header my-top">
                 <div className="centralize"><strong> Join Your Friends </strong> </div>
                 </div>
-                {showing ? (withfriends.length > 0 && 
-                    withfriends.map(game =>  game ? <SuggestedGames game={game}/> : <></>)) : 
+                {showing ? (fgames.length > 0 && 
+                    fgames.map(game =>  game ? <SuggestedGames game={game}/> : <></>)) : 
                     <li className="list-group-item"> <h2 className="centralize"> . . . </h2> </li>}
                 </div>  
                 
