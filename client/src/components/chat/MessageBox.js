@@ -8,11 +8,14 @@ import { getChats } from '../../actions/chat';
 import axios from 'axios';
 import ChatBG from '../../img/ChatBG.png';
 import {io} from "socket.io-client";
+import { clearProfile } from '../../actions/profile';
+
+
 
 let model;
 
 //main page for display of all conversations and messages 
-const MessageBox = ({getChats, auth: { user }, chat : {chats}}) => {
+const MessageBox = ({clearProfile, getChats, auth: { user }, chat : {chats}}) => {
     const [currChat, setChat] = useState(null);
     const [messages, setMessages] = useState([]);
     const [formData, setFormData] = useState("");
@@ -20,6 +23,20 @@ const MessageBox = ({getChats, auth: { user }, chat : {chats}}) => {
 
     const scroll = useRef();
     const socket = useRef();
+
+    //additional clear profile to clear out dashboard rerendering
+    useEffect(()  => {
+      let cancel = false;
+      try {
+        if (cancel) return;
+        clearProfile();
+      } catch (err) {
+        console.log(err)
+      }
+      return () => { 
+        cancel = true;
+      }
+    }, [clearProfile]);
 
     useEffect(() => {
       socket.current = io();
@@ -44,6 +61,8 @@ const MessageBox = ({getChats, auth: { user }, chat : {chats}}) => {
         console.log(users); 
       });
     }, [user]);
+
+
 
     useEffect(() => {
         getChats();
@@ -161,13 +180,15 @@ const MessageBox = ({getChats, auth: { user }, chat : {chats}}) => {
 MessageBox.propTypes = {
     auth: PropTypes.object.isRequired,
     chat: PropTypes.object.isRequired,
-    getChats: PropTypes.func.isRequired
+    getChats: PropTypes.func.isRequired,
+    clearProfile: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
     auth: state.auth,
-    chat: state.chat
+    chat: state.chat,
+    profile: state.profile
 });
 
   
-export default connect(mapStateToProps, {getChats})(MessageBox);
+export default connect(mapStateToProps, {getChats,clearProfile})(MessageBox);
