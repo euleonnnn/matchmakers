@@ -91,7 +91,7 @@ class Call extends Component {
   joinChannel = () => {
     let me = this;
     client.join(
-      "0061eb6cb9def814e4e96ac6afc003a47b0IAA89W0OOwWku68/dDPFsnQG4VckUHYjhuv2k0MPqNodGw29DrUAAAAAEAD7XOPUmNYAYQEAAQCY1gBh",
+      "0061eb6cb9def814e4e96ac6afc003a47b0IADZVTkzIe936MliVMBFzbfc/kuefOW5JuD5d+YLAbjrQA29DrUAAAAAEAAZP2Q5s38BYQEAAQC0fwFh",
       me.props.channel,
       this.props.auth.user.name,
       function (uid) {
