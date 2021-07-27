@@ -38,12 +38,12 @@ const BookFacility = () => {
                     onClick={() => window.open("https://reboks.nus.edu.sg/nus_public_web/public/facilities?list_by=recommended")}>
                         REBOKS
                     </button> 
-                    <button type="button" className="btn btn-primary my-right btn-full"> Hall Facilities </button> 
+                    <button type="button" className="btn btn-primary my-right btn-full"onClick={() => window.open("https://uci.nus.edu.sg/ohs/future-residents/undergraduates/prince-georges-park-residences/facilities-amenities/")}> Hall Facilities </button> 
                     </div>
                 : formType ==="onlineGame"
                     ? <div className="my-top">
                         <button type="button" className="btn btn-dark my-right btn-full" onClick={() => window.open("https://libportal.nus.edu.sg/frontend/web/bookdiscussionroom")}> NUS Classrooms & Discussion Rooms </button> 
-                        <button type="button" className="btn btn-primary my-right btn-full"> Hall Facilities </button> 
+                        <button type="button" className="btn btn-primary my-right btn-full" onClick={() => window.open("https://uci.nus.edu.sg/ohs/future-residents/undergraduates/prince-georges-park-residences/facilities-amenities/")}> Hall Facilities </button> 
                         </div>
                     : formType === "study" 
                         ? <div className="my-top"> 
