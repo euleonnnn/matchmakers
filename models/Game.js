@@ -55,7 +55,7 @@ const GameSchema = new Schema({
     players: [
         {
             user: {
-                type: Schema.Types.ObjectId,   //one user can only give one like
+                type: Schema.Types.ObjectId,   
                 ref: 'user'
             },
             name : {

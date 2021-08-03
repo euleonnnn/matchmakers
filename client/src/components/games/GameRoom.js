@@ -10,6 +10,7 @@ import axios from 'axios';
 import dateformat from '../../utils/dateformat';
 import GameChat from './GameChat';
 import { getGameChat, createGameChat } from '../../actions/gamechat';
+import FriendList from '../dashboard/FriendList';
 
 const GameRoom = ({ getGameChat, createGameChat, clearProfile, getGameById, authUser, auth, game : {game, loading}, match, gamechat: {gamechat} }) => {
     
@@ -193,6 +194,8 @@ const GameRoom = ({ getGameChat, createGameChat, clearProfile, getGameById, auth
                                     <Link to={`/entercall/${match.params.id}`} className="btn btn-secondary btn-lg btn-block"> 
                                     Enter Video Chat  <i className="fas fa-video"/></Link> 
                             : <></>}
+
+
                             <div>
                             </div>
                         </div>

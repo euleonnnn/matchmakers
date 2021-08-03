@@ -192,3 +192,4 @@ const mapStateToProps = (state) => ({
 
   
 export default connect(mapStateToProps, {getChats,clearProfile})(MessageBox);
+

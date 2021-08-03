@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
 /**
  * The UserSchema will be a schema which maps to 
@@ -41,7 +42,17 @@ const UserSchema = new mongoose.Schema({
     followings: {
         type: Array,
         default: []
-    }
+    },
+    invitations: [{
+        user: {
+            type: Schema.Types.ObjectId,   
+            ref: 'user'
+        },
+        game: {
+            type: Schema.Types.ObjectId,
+            ref: 'game'
+        }
+    }]
 });
 
 const User = mongoose.model('user', UserSchema);

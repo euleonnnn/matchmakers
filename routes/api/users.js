@@ -183,6 +183,78 @@ router.put("/:user_id/unfollow", async (req, res) => {
 
 
 /**
+ * @route PUT api/users/:user_id/follow is an @access 
+ * route that allows a user to add another user in the
+ * given html param as a friend
+ */
+ router.put("/:user_id/follow", async (req, res) => {
+  if (req.body.userId !== req.params.user_id) {
+      try {
+        const user = await User.findById(req.params.user_id);
+        const currentUser = await User.findById(req.body.userId);
+        if (!user.followers.includes(req.body.userId)) {
+          await user.updateOne({ $push: { followers: req.body.userId } });
+          await currentUser.updateOne({ $push: { followings: req.params.user_id } });
+          res.status(200).json("Followed User");
+        } else {
+          res.status(403).json("User has already been followed");
+        }
+      } catch (err) {
+        console.error(err.message);
+        res.status(500).send('Server error');
+      }
+    } else {
+      res.status(403).json("Unable to follow yourself");
+    }
+});
+
+
+router.put("/:user_id/invite", async (req, res) => {
+  if (req.body.userId !== req.params.user_id) {
+      try {
+        const user = await User.findById(req.params.user_id); //invite target
+        const newInvite = {
+            user: req.body.userId, //invite origin
+            game: req.body.gameId
+        }
+        if (user.invitations.filter(invite =>  invite.game.toString() === req.body.gameId).length !== 0) {
+          return res.status(400).json({msg: 'This person is already invited to the activity'});
+        }
+        user.invitations.unshift(newInvite)
+        await user.save()
+        res.status(200).json("Invited User");
+      } catch (err) {
+        console.error(err.message);
+        res.status(500).send('Server error');
+      }
+    } else {
+      res.status(403).json("Unable to invite yourself");
+    }
+});
+
+
+router.put("/:user_id/uninvite", async (req, res) => {
+  if (req.body.userId !== req.params.user_id) {
+      try {
+        const user = await User.findById(req.params.user_id);
+        if (user.invitations.filter(joined => joined.user.toString() === req.body.userId).length === 0) {
+          return res.status(400).json({msg: 'You have not invited this player'});
+        }
+        const removeIndex = user.invitations.map(invited => invited.user.toString()).indexOf(req.body.userId);
+        user.invitations.splice(removeIndex,1);
+        await user.save()
+        res.status(200).json("Uninvited User");
+      } catch (err) {
+        console.error(err.message);
+        res.status(500).send('Server error');
+      }
+    } else {
+      res.status(403).json("Unable to uninvite yourself");
+    }
+});
+
+
+/**
  * @route GET api/users/friends/user_id is an @access 
  * route that allows a user to get the friends of a 
  * particular user_id as in the html param
