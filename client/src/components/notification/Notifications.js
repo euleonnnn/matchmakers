@@ -9,6 +9,7 @@ import { getCurrentProfile } from '../../actions/profile';
 import axios from "axios";
 import Invite from "./Invite";
 
+
 const Notifications = ({getGames, getCurrentProfile, auth: { user }, chat:{chats}, game: {games}, profile: { profile, loading }}) => {
 
     
@@ -157,9 +158,9 @@ const Notifications = ({getGames, getCurrentProfile, auth: { user }, chat:{chats
 
     return <Fragment> 
         <div className="my-top">
-            <Invite/>
+        <Request/> 
 
-            <Request/> 
+        <Invite/>
             <div className="card-header2 my-top">
                 <strong> Recommended for You </strong>  
                 {!showing && <button onClick= {()=>toggleShow(!showing)} type="button" className="btn btn-dark btn-lg btn-round join-all">
@@ -175,18 +176,18 @@ const Notifications = ({getGames, getCurrentProfile, auth: { user }, chat:{chats
                 {showing ? (igames.length > 0 && 
                     igames.map(game => game ? <SuggestedGames game={game}/> : <></>)) : 
                     <li className="list-group-item"> <h2 className="centralize"> . . . </h2> </li>}
-                {showing ? (igames.filter(game => game).length == 0 && <li className="list-group-item"> No Recommendations For Now ... <span role="img"> 😒 </span></li>) 
+                  {showing ? (igames.filter(game => game).length == 0 && <li className="list-group-item"> No Recommendations For Now ... <span role="img"> 😒 </span></li>) 
                   : <></>}
-
                 <div className="card-header my-top">
                 <div className="centralize"><strong> Join Your Friends </strong> </div>
                 </div>
                 {showing ? (fgames.length > 0 && 
                     fgames.map(game =>  game ? <SuggestedGames game={game}/> : <></>)) : 
                     <li className="list-group-item"> <h2 className="centralize"> . . . </h2> </li>}
-                {showing ? (fgames.filter(game => game).length == 0 && <li className="list-group-item"> No Recommendations For Now ... <span role="img"> 😒 </span></li>) 
+                   {showing ? (fgames.filter(game => game).length == 0 && <li className="list-group-item"> No Recommendations For Now ... <span role="img"> 😒 </span></li>) 
                   : <></>}
                 </div>  
+                
         </Fragment>
 }
 

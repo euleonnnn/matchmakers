@@ -8,7 +8,7 @@ const bcrypt = require('bcryptjs');
 const { restart } = require('nodemon');
 const User = require('../../models/User');
 const auth = require('../../middleware/auth');
-
+const Game = require('../../models/Game');
 
 /**
  * @route POST api/users is a public @access route
@@ -213,8 +213,10 @@ router.put("/:user_id/invite", async (req, res) => {
   if (req.body.userId !== req.params.user_id) {
       try {
         const user = await User.findById(req.params.user_id); //invite target
+        const currentUser = await User.findById(req.body.userId).select('-password');
         const newInvite = {
-            user: req.body.userId, //invite origin
+            user: req.body.userId, //invite origin id
+            username: currentUser.name, //invite origin
             game: req.body.gameId
         }
         if (user.invitations.filter(invite =>  invite.game.toString() === req.body.gameId).length !== 0) {
@@ -254,6 +256,41 @@ router.put("/:user_id/uninvite", async (req, res) => {
 });
 
 
+router.get("/invitations/:user_id", async (req, res) => {   
+  try {
+      const currUser = await User.findById(req.params.user_id);
+      const invites = currUser.invitations
+      
+      const allGames = await Promise.all(
+          invites.map(obj => {
+              return Game.findById(obj.game);
+          })
+      )
+
+      const allInvite = await Promise.all(
+        invites.map(obj => {
+            return User.findById(obj.user);
+        })
+      )
+
+      let gameList = [];
+      allGames.map(game => {
+          const {_id, name, sport, location, dateTime, experience} = game;
+          gameList.push({ _id, name, sport, location, dateTime, experience}); 
+      })
+      let count = 0;
+      gameList.map(game =>{
+        game.name = allInvite[count].name;
+        count += 1;
+      })
+      res.status(200).json(gameList);
+  } catch (error) {
+      console.error(error.message);
+      res.status(500).send('Server error');
+  }
+});
+
+
 /**
  * @route GET api/users/friends/user_id is an @access 
  * route that allows a user to get the friends of a 
@@ -279,6 +316,11 @@ router.get("/friends/:user_id", async (req, res) => {
         res.status(500).send('Server error');
     }
 });
+
+
+
+
+
 
 
 /**
