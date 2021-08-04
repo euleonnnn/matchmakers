@@ -256,6 +256,19 @@ router.put("/:user_id/uninvite", async (req, res) => {
 });
 
 
+router.put("/:user_id/deleteinv", async (req, res) => {
+      try {
+        const user = await User.findById(req.params.user_id);
+        const removeIndex = user.invitations.map(invited => invited.game.toString()).indexOf(req.body.gameId);
+        user.invitations.splice(removeIndex,1);
+        await user.save()
+        res.status(200).json("Cancelled Invite");
+      } catch (err) {
+        console.error(err.message);
+        res.status(500).send('Server error');
+      }
+});
+
 router.get("/invitations/:user_id", async (req, res) => {   
   try {
       const currUser = await User.findById(req.params.user_id);

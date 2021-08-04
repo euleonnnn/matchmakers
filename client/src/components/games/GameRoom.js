@@ -11,6 +11,7 @@ import dateformat from '../../utils/dateformat';
 import GameChat from './GameChat';
 import { getGameChat, createGameChat } from '../../actions/gamechat';
 import FriendList from '../dashboard/FriendList';
+import InviteFriend from './InviteFriend';
 
 const GameRoom = ({ getGameChat, createGameChat, clearProfile, getGameById, authUser, auth, game : {game, loading}, match, gamechat: {gamechat} }) => {
     
@@ -186,7 +187,10 @@ const GameRoom = ({ getGameChat, createGameChat, clearProfile, getGameById, auth
                              
                                 </div>
                             </div>
-
+                            
+                            {game.players.filter(player => player.user === auth.user._id).length !== 0 && 
+                            <InviteFriend/>
+                            }
                             
                             {game.players.filter(player => player.user === auth.user._id).length === 0 
                             ? <></> 

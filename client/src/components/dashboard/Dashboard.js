@@ -11,6 +11,7 @@ import '../../css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 import axios from "axios";
 import { logout } from '../../actions/auth';
+import Invite from './Invite';
 
 const Dashboard = ({getGames, getCurrentProfile, auth: { user }, profile: { profile, loading }, game: { games }, logout }) => {
 
@@ -133,7 +134,8 @@ const Dashboard = ({getGames, getCurrentProfile, auth: { user }, profile: { prof
                   <div className="my-btm"> <FriendList /></div>
 
                   <Link to="/my-profile" className="btn btn-secondary btn-lg btn-block my-top"> <i className="fas fa-cog" /> Profile Settings </Link>
-
+                  
+                  <Invite/>
                 </div>
               </div>
             </div>
