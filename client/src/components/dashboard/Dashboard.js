@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { Fragment, useEffect, useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -12,6 +12,8 @@ import 'bootstrap/dist/js/bootstrap.bundle.min';
 import axios from "axios";
 import { logout } from '../../actions/auth';
 import Invite from './Invite';
+import {io} from "socket.io-client";
+import OnlineUserList from './OnlineUserList';
 
 const Dashboard = ({getGames, getCurrentProfile, auth: { user }, profile: { profile, loading }, game: { games }, logout }) => {
 
@@ -41,6 +43,8 @@ const Dashboard = ({getGames, getCurrentProfile, auth: { user }, profile: { prof
   }
 
   const [friends, setFriends] = useState([]);
+  const [onlineUsers, setOnlineUsers] = useState([]);
+  const socket = useRef();
 
   useEffect(() => {
     let cancel = false;
@@ -61,6 +65,16 @@ const Dashboard = ({getGames, getCurrentProfile, auth: { user }, profile: { prof
       console.log(err);
     }
   }, [profile, getCurrentProfile]);
+
+  useEffect(() => {
+    socket.current = io();
+    socket.current.emit("addUser", user._id);
+    socket.current.on("getUsers", (users) =>{
+      setOnlineUsers(
+        friends.length >= 0 && friends?.filter((f) => users.some((u) => u.userId  === f._id))
+      );
+    });
+  }, [friends, setOnlineUsers, user]);
 
 
   useEffect(() => {
@@ -136,6 +150,7 @@ const Dashboard = ({getGames, getCurrentProfile, auth: { user }, profile: { prof
                   <Link to="/my-profile" className="btn btn-secondary btn-lg btn-block my-top"> <i className="fas fa-cog" /> Profile Settings </Link>
                   
                   <Invite/>
+                  { onlineUsers ? <div className="my-btm my-top"> <OnlineUserList onlineUsers={onlineUsers}></OnlineUserList></div> : <></>}
                 </div>
               </div>
             </div>

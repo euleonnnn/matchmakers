@@ -10,8 +10,6 @@ import ChatBG from '../../img/ChatBG.png';
 import {io} from "socket.io-client";
 import { clearProfile } from '../../actions/profile';
 
-
-
 let model;
 
 //main page for display of all conversations and messages 
@@ -20,6 +18,7 @@ const MessageBox = ({clearProfile, getChats, auth: { user }, chat : {chats}}) =>
     const [messages, setMessages] = useState([]);
     const [formData, setFormData] = useState("");
     const [incomingMessage, setIncomingMessage] = useState(null);
+    const [onlineUsers, setOnlineUsers] = useState([]);
 
     const scroll = useRef();
     const socket = useRef();
@@ -58,7 +57,7 @@ const MessageBox = ({clearProfile, getChats, auth: { user }, chat : {chats}}) =>
     useEffect(() => {
       socket.current.emit("addUser", user._id);
       socket.current.on("getUsers", (users) =>{
-        console.log(users); 
+        setOnlineUsers(users);
       });
     }, [user]);
 
@@ -138,7 +137,9 @@ const MessageBox = ({clearProfile, getChats, auth: { user }, chat : {chats}}) =>
         <Fragment>             
         <div className="col-sm-8 col-md-8 namebox chatbg-dark">
         <h4 className="nametext my-btm my-top"> 
-        <span className='name'>{currChat === null ? <></> : currChat.names.find(name => name !== user.name) } </span>
+        <span className='name'>{currChat === null ? <></> : currChat.names.find(name => name !== user.name) }
+          {currChat && onlineUsers && onlineUsers.filter(f => currChat.users.find((u)=> u !== user._id) === f.userId).length > 0 ? " (online)" : ""} 
+          </span>
           { currChat === null 
           ? <></> 
           : <Link to={`/profile/${currChat.users.find((u)=> u !== user._id)}`} className="btn btn-outline-primary join-all">
