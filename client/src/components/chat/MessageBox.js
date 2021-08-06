@@ -127,10 +127,13 @@ const MessageBox = ({clearProfile, getChats, auth: { user }, chat : {chats}}) =>
         <div className ="row">
         <div className="col-sm-4 col-md-4 chatbg-dark">
         <Link to ='/profiles' className="btn btn-outline-primary my-top"> Find More Friends <i className="fas fa-plus"/> </Link>
-            {chats.map((chat=> (
-                <div onClick ={()=> setChat(chat)}>
-                    <Chat key ={chat._id} chat = {chat} /> 
-                </div>
+            {chats.map((chat=> (onlineUsers && onlineUsers.filter(f => chat.users.find((u)=> u !== user._id) === f.userId).length > 0 
+                ? <div onClick ={()=> setChat(chat)}>
+                    <Chat key ={chat._id} chat = {chat} online={true}/> 
+                  </div> 
+                : <div onClick ={()=> setChat(chat)}>
+                    <Chat key ={chat._id} chat = {chat} online={false}/> 
+                  </div>
             )))}
         </div>
         {currChat ? 

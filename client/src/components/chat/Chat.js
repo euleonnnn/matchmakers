@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import axios from 'axios';
 
-const Chat = ({auth : {user} , chat , loading }) => {
+const Chat = ({auth : {user} , chat , loading , online}) => {
   const [otherUser, setUser] = useState(null);
   
   useEffect(() => {
@@ -38,10 +38,16 @@ const Chat = ({auth : {user} , chat , loading }) => {
       return null;
     }
     else {
-      return <Fragment>
-        <div className="conversation my-top-small">
-          <span className="conversationName">{otherUser}</span>
-        </div>
+      return <Fragment> 
+        { online 
+          ? <div className="conversation my-top-small">
+              <span className="conversationName">{otherUser} </span>
+              <div className="chatOnlineBadge"/>
+            </div>
+          : <div className="conversation my-top-small">
+              <span className="conversationName">{otherUser}</span>
+            </div>
+        }
       </Fragment>
     }
 }

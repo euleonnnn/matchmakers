@@ -3906,6 +3906,17 @@ input[type='submit'].btn-block {
   margin-top: 20px;
 }
 
+.chatOnlineBadge {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: limegreen;
+  position:relative;
+  margin-left: 10px;
+  top: 2px;
+  right: 2px;
+}
+
 .emptychat {
   background-color: #fff7f7;
   text-align: center;

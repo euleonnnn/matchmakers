@@ -67,13 +67,15 @@ const Dashboard = ({getGames, getCurrentProfile, auth: { user }, profile: { prof
   }, [profile, getCurrentProfile]);
 
   useEffect(() => {
-    socket.current = io();
-    socket.current.emit("addUser", user._id);
-    socket.current.on("getUsers", (users) =>{
-      setOnlineUsers(
-        friends.length >= 0 && friends?.filter((f) => users.some((u) => u.userId  === f._id))
-      );
-    });
+    if (user) {
+      socket.current = io();
+      socket.current.emit("addUser", user._id);
+      socket.current.on("getUsers", (users) =>{
+        setOnlineUsers(
+          friends.length >= 0 && friends?.filter((f) => users.some((u) => u.userId  === f._id))
+        );
+      });
+    }
   }, [friends, setOnlineUsers, user]);
 
 
