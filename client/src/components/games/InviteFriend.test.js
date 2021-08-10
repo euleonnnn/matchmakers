@@ -1,22 +1,26 @@
 import React from 'react';
-import Login from './Login';
+import InviteFriend from './InviteFriend';
 import Adapter from "enzyme-adapter-react-16";
-import Enzyme, { shallow, render } from "enzyme";
+import Enzyme, { shallow} from "enzyme";
 import { Provider } from 'react-redux'
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import Sinon from 'sinon';
-import { login } from '../../actions/auth';
-import PropTypes from 'prop-types';
 
 const mockStore = configureMockStore([thunk]);
 Enzyme.configure({ adapter: new Adapter() });
 
-describe('Login', () => {
+describe('Invite Friend', () => {
     let store;
     beforeEach(() => {
         store = mockStore({
             auth: {
+                sport: 'BASKETBALL',
+            },
+            chat: {
+                sport: 'BASKETBALL',
+            },
+            game: {
                 sport: 'BASKETBALL',
             },
         });
@@ -24,18 +28,10 @@ describe('Login', () => {
     var stubObj = {
         sport: Sinon.stub(),
       };
-      it("shallow render", () => {
+    it("shallow render", () => {
         const wrapper = shallow(
             <Provider store={store}>
-                <Login isAuthenticated={false} profile={stubObj} login={Sinon.stub()}/>
-            </Provider>
-        );
-        expect(wrapper).toMatchSnapshot();
-    });
-    it("integration testing", () => {
-        const wrapper = shallow(
-            <Provider store={store}>
-                <Login isAuthenticated={false} profile={PropTypes.profile} login={login}/>
+                <InviteFriend auth={stubObj} game={stubObj} chat={stubObj}/>
             </Provider>
         );
         expect(wrapper).toMatchSnapshot();

@@ -1,33 +1,41 @@
 import React from 'react';
-import Login from './Login';
+import FriendItem from './FriendItem';
 import Adapter from "enzyme-adapter-react-16";
-import Enzyme, { shallow, render } from "enzyme";
+import Enzyme, { shallow} from "enzyme";
 import { Provider } from 'react-redux'
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import Sinon from 'sinon';
-import { login } from '../../actions/auth';
+import { createChat, getChats } from '../../actions/chat';
 import PropTypes from 'prop-types';
 
 const mockStore = configureMockStore([thunk]);
 Enzyme.configure({ adapter: new Adapter() });
 
-describe('Login', () => {
+describe('Profiles', () => {
     let store;
     beforeEach(() => {
         store = mockStore({
             auth: {
                 sport: 'BASKETBALL',
             },
+            chat: {
+                sport: 'BASKETBALL',
+            }
         });
     });
     var stubObj = {
         sport: Sinon.stub(),
       };
-      it("shallow render", () => {
+    it("shallow render", () => {
         const wrapper = shallow(
             <Provider store={store}>
-                <Login isAuthenticated={false} profile={stubObj} login={Sinon.stub()}/>
+                <FriendItem createChat={Sinon.stub()} 
+                    getChats={Sinon.stub()} 
+                    auth={stubObj}
+                    chat={stubObj}
+                    friend={stubObj}
+                />
             </Provider>
         );
         expect(wrapper).toMatchSnapshot();
@@ -35,10 +43,14 @@ describe('Login', () => {
     it("integration testing", () => {
         const wrapper = shallow(
             <Provider store={store}>
-                <Login isAuthenticated={false} profile={PropTypes.profile} login={login}/>
+                <FriendItem createChat={createChat} 
+                    getChats={getChats} 
+                    auth={PropTypes.auth}
+                    chat={PropTypes.chat}
+                    friend={stubObj}
+                />
             </Provider>
         );
         expect(wrapper).toMatchSnapshot();
     });
-    
 })
